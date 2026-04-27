@@ -1,0 +1,93 @@
+/* ThoughtMic V2 — design tokens */
+
+@font-face {
+  font-family: "Fraunces";
+  src: url("/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2") format("woff2-variations"),
+       url("/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter[wght].woff2") format("woff2-variations"),
+       url("/fonts/Inter[wght].woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Color */
+  --bg:           #f6f3ec;
+  --bg-elev:      #ffffff;
+  --fg:           #1a1a1a;
+  --fg-muted:     #5a5a5a;
+  --fg-subtle:    #6a6a6a;
+  --border:       #e6e0d4;
+  --accent:       #457261;
+  --accent-soft:  #e8efe9;
+  --warn:         #c47a5a;
+  --code-bg:      #0f0d0a;
+  --code-fg:      #e8e6df;
+
+  /* Type families */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body:    "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono:    "Geist Mono", "SF Mono", ui-monospace, "Menlo", monospace;
+
+  /* Type scale — desktop */
+  --fs-h1:        84px;
+  --fs-h1-mobile: 48px;
+  --fs-h2:        48px;
+  --fs-h3:        22px;
+  --fs-body:      18px;
+  --fs-body-sm:   15px;
+  --fs-caption:   13px;
+  --fs-mono:      14px;
+
+  --lh-h1:       1.02;
+  --lh-h1-mobile:1.05;
+  --lh-h2:       1.08;
+  --lh-h3:       1.3;
+  --lh-body:     1.6;
+  --lh-body-sm:  1.5;
+  --lh-caption:  1.4;
+  --lh-mono:     1.6;
+
+  --tr-h1:      -0.02em;
+  --tr-h1-mobile:-0.015em;
+  --tr-h2:      -0.015em;
+  --tr-h3:      -0.01em;
+  --tr-caption:  0.02em;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 48px;
+  --space-6: 72px;
+  --space-7: 96px;
+  --space-8: 128px;
+  --space-9: 192px;
+
+  --container: 1120px;
+  --gutter-x:  32px;
+  --section-y: var(--space-5);
+
+  /* Motion */
+  --ease:      cubic-bezier(0.2, 0.8, 0.2, 1);
+  --dur-reveal:500ms;
+  --dur-micro: 180ms;
+
+  /* Radii / elevation */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-card:  0 1px 2px rgba(26, 26, 26, 0.04),
+                  0 8px 24px rgba(26, 26, 26, 0.06);
+  --shadow-lift:  0 2px 4px rgba(26, 26, 26, 0.06),
+                  0 16px 40px rgba(26, 26, 26, 0.10);
+}

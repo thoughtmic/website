@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <title>ThoughtMic menu bar template — B</title>
+  <desc>Simplified voice-to-node stroke for menu bar. A small ascending waveform tick on the left resolves into a filled node on the right, connected by a short bar.</desc>
+
+  <!-- Three ascending waveform ticks (voice origin) -->
+  <rect x="1.5" y="7.5" width="1.25" height="3" rx="0.6" ry="0.6" fill="currentColor"/>
+  <rect x="3.5" y="6" width="1.25" height="6" rx="0.6" ry="0.6" fill="currentColor"/>
+  <rect x="5.5" y="7.5" width="1.25" height="3" rx="0.6" ry="0.6" fill="currentColor"/>
+
+  <!-- Connecting bar -->
+  <rect x="7.25" y="8.25" width="5" height="1.5" rx="0.75" ry="0.75" fill="currentColor"/>
+
+  <!-- Terminal node -->
+  <circle cx="13.5" cy="9" r="1.5" fill="currentColor"/>
+</svg>

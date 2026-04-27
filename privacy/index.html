@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThoughtMic — Privacy</title>
+  <meta name="description" content="Your voice and your vault never leave your Mac. Rephrasing uses Groq Zero Data Retention. Here's exactly what stays local, what goes to the cloud, and what never gets sent.">
+  <meta name="theme-color" content="#f6f3ec">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    .doc {
+      padding-block: var(--space-6) var(--space-7);
+    }
+    .doc__container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .doc__hero { margin-bottom: var(--space-5); }
+    .doc__eyebrow {
+      display: inline-block;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .doc__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 56px;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      margin-bottom: var(--space-3);
+      font-variation-settings: "opsz" 48, "SOFT" -5, "wght" 500;
+    }
+    .doc__lede {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      max-width: 60ch;
+    }
+
+    .tldr {
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      margin-bottom: var(--space-6);
+    }
+    .tldr h2 {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: var(--space-3);
+    }
+    .tldr ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+    .tldr li {
+      color: var(--fg);
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+      padding-left: 24px;
+      position: relative;
+    }
+    .tldr li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.55em;
+      width: 14px; height: 8px;
+      border-left: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      border-radius: 1px;
+    }
+
+    .boundaries {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-3);
+      margin: var(--space-3) 0 var(--space-5);
+    }
+    .boundary {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+    }
+    .boundary h3 {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      margin: 0 0 var(--space-2);
+    }
+    .boundary.local h3 { color: var(--accent); }
+    .boundary.cloud h3 { color: var(--fg); }
+    .boundary.never h3 { color: var(--warn); }
+    .boundary ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 6px;
+    }
+    .boundary li {
+      font-size: var(--fs-body-sm);
+      color: var(--fg-muted);
+      line-height: 1.55;
+      padding-left: 16px;
+      position: relative;
+    }
+    .boundary li::before {
+      content: "·";
+      position: absolute;
+      left: 4px;
+      top: 0;
+      color: currentColor;
+      opacity: 0.6;
+    }
+
+    .doc section { margin-bottom: var(--space-6); }
+    .doc section > h2 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin-bottom: var(--space-3);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid var(--border);
+      font-variation-settings: "opsz" 32, "SOFT" -5, "wght" 460;
+    }
+    .doc section p {
+      color: var(--fg-muted);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body);
+      margin-bottom: 12px;
+    }
+    .doc a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(69, 114, 97, 0.3);
+      transition: border-color var(--dur-micro) var(--ease);
+    }
+    .doc a:hover { border-bottom-color: var(--accent); }
+    .doc code {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+    }
+
+    .next-card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-top: var(--space-4);
+      display: grid;
+      gap: 6px;
+    }
+    .next-card h3 {
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0;
+    }
+    .next-card p { margin: 0; }
+
+    @media (max-width: 640px) {
+      .doc__title { font-size: 40px; }
+      .doc section > h2 { font-size: 26px; }
+    }
+  </style>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="150 230 724 600" width="60" height="60" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="/#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="doc">
+    <div class="doc__container">
+
+      <div class="doc__hero">
+        <span class="doc__eyebrow">Privacy · Plain English</span>
+        <h1 class="doc__title">Privacy is not a feature. It's the whole product.</h1>
+        <p class="doc__lede">Your voice and your vault never leave your Mac. When you use Pro rephrasing, only the transcript text is sent to a Zero-Data-Retention provider. Here's exactly what stays local, what goes to the cloud, and what is never sent.</p>
+      </div>
+
+      <div class="tldr">
+        <h2>TL;DR</h2>
+        <ul>
+          <li>Voice audio is transcribed on-device and discarded. It never touches the internet.</li>
+          <li>Your vault — files, folders, tags, links — never leaves your Mac.</li>
+          <li>Rephrasing (Pro, optional) sends only the transcript text to Groq with Zero Data Retention.</li>
+          <li>Both providers are contractually prohibited from training on your data.</li>
+          <li>Telemetry is anonymous, opt-out, and <a href="/privacy/telemetry/">every event is documented in full</a>.</li>
+        </ul>
+      </div>
+
+      <section>
+        <h2>What stays, what's sent, what's never sent</h2>
+
+        <div class="boundaries">
+          <div class="boundary local">
+            <h3>Stays on your Mac</h3>
+            <ul>
+              <li>Your voice recordings (transcribed locally by Whisper, then discarded)</li>
+              <li>Your vault contents, file names, tags, and links</li>
+              <li>Your dictation history</li>
+            </ul>
+          </div>
+
+          <div class="boundary cloud">
+            <h3>Sent to the cloud (only when you use rephrasing)</h3>
+            <ul>
+              <li>The transcript text of your dictation</li>
+              <li>The rephrasing instruction (e.g., "clean up grammar")</li>
+            </ul>
+          </div>
+
+          <div class="boundary never">
+            <h3>Never gets sent</h3>
+            <ul>
+              <li>Your voice recordings</li>
+              <li>Your vault content, files, or folder structure</li>
+              <li>Anything identifying you beyond your license key</li>
+            </ul>
+          </div>
+        </div>
+
+        <p>Rephrasing uses Groq as the primary provider and Fireworks as a fallback if Groq is down. Both run Llama 3.3 70B. Groq has Zero Data Retention enabled on our organization. Fireworks does not log prompts or generations on open-source models by default. Both are contractually prohibited from training on your data. Both process data in memory and discard it after the response is returned.</p>
+      </section>
+
+      <section>
+        <h2>How to verify this yourself</h2>
+        <p>You don't have to take our word for it. ThoughtMic is designed to be inspectable:</p>
+        <p>Run <a href="https://www.obdev.at/products/littlesnitch/index.html">Little Snitch</a>. With rephrasing disabled, the app should make zero outbound network connections during dictation. With rephrasing on, you'll see one call to <code>thoughtmic-worker.thoughtmic.workers.dev</code> per rephrase, carrying transcript text only.</p>
+        <p>The telemetry and crash-reporting SDKs we use are open source: <a href="https://github.com/TelemetryDeck/SwiftSDK">TelemetryDeck SwiftSDK</a> and <a href="https://github.com/getsentry/sentry-cocoa">Sentry Cocoa SDK</a>.</p>
+      </section>
+
+      <section>
+        <h2>Your controls</h2>
+        <p>In <strong>Preferences &rarr; Privacy</strong> you can:</p>
+        <p>· Turn off cloud rephrasing entirely (app works 100% offline)<br>
+        · Turn off anonymous usage metrics<br>
+        · Turn off crash reports (already off by default)<br>
+        · Mark any dictation as Private — it skips telemetry and vault writes</p>
+      </section>
+
+      <section>
+        <h2>Go deeper</h2>
+        <div class="next-card">
+          <h3>Telemetry disclosure</h3>
+          <p>Every event we can send, every field, every example payload, and how to disable them. <a href="/privacy/telemetry/">Read the full telemetry disclosure →</a></p>
+        </div>
+        <div class="next-card">
+          <h3>Open source licenses</h3>
+          <p>Third-party components that ship with ThoughtMic, with full license text. <a href="/licenses/">See the licenses →</a></p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__row">
+      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
+      <ul class="footer__links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/licenses/">Licenses</a></li>
+        <li><a href="/terms/">Terms</a></li>
+        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>ThoughtMic Icon — Variant A v2: Typographic t with directional flow</title>
+  <desc>A lowercase "t" broken out of cross-symmetry: the crossbar extends asymmetrically to the right as a flow line terminating in a graph node, the mic-head dot sits above the stem, and the stem carries a subtle right-hand foot curl. Reads as t, mic, and knowledge-edge in one shape.</desc>
+
+  <!-- Canvas -->
+  <rect x="0" y="0" width="1024" height="1024" rx="185" ry="185" fill="#F6F3EC"/>
+
+  <!-- Mic head — terracotta, positioned to touch/overlap the stem top so the silhouette reads mic-on-stand, not floating dot -->
+  <circle cx="400" cy="290" r="120" fill="#C75B3A"/>
+
+  <!-- Stem with a subtle right-hand foot curl at the bottom (typographic "t" terminal) -->
+  <!-- Built as a path so we can curve the foot -->
+  <path d="M 346 360
+           L 454 360
+           L 454 740
+           Q 454 812 526 812
+           L 576 812
+           Q 600 812 600 788
+           L 600 760
+           Q 600 736 576 736
+           L 546 736
+           Q 530 736 530 720
+           L 530 360
+           Z"
+        fill="#1B1A17"/>
+
+  <!-- Asymmetric crossbar: a short stub on the left, a long flow line on the right that terminates in a node.
+       Breaks the + / cross symmetry. -->
+  <!-- Short left stub -->
+  <rect x="296" y="416" width="58" height="68" rx="28" ry="28" fill="#1B1A17"/>
+  <!-- Long right flow bar -->
+  <rect x="454" y="416" width="308" height="68" rx="28" ry="28" fill="#1B1A17"/>
+  <!-- Terminal node on the flow bar -->
+  <circle cx="788" cy="450" r="40" fill="#C75B3A"/>
+</svg>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Voice-First Obsidian Starter Vault — free</title>
+  <meta name="description" content="A free Obsidian vault built for voice-first note-taking. Daily-note scaffolding, voice-memo template, dictation-friendly tag taxonomy, and the folder structure we actually use. Drop it in and go.">
+  <meta name="theme-color" content="#f6f3ec">
+  <meta property="og:title" content="The Voice-First Obsidian Starter Vault — free">
+  <meta property="og:description" content="A free Obsidian vault built for voice-first note-taking. Daily-note scaffolding, voice-memo template, dictation-friendly tags, and the folder structure we actually use.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    .sv-hero {
+      padding-block: var(--space-6) var(--space-6);
+    }
+    .sv-hero__grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: var(--space-6);
+      align-items: center;
+    }
+    .sv-hero__eyebrow {
+      display: inline-block;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .sv-hero__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 64px;
+      line-height: 1.02;
+      letter-spacing: -0.018em;
+      color: var(--fg);
+      margin-bottom: var(--space-3);
+      font-variation-settings: "opsz" 64, "SOFT" -5, "wght" 500;
+    }
+    .sv-hero__sub {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      margin-bottom: var(--space-4);
+      max-width: 52ch;
+    }
+    .sv-hero__micro {
+      font-size: var(--fs-caption);
+      color: var(--fg-muted);
+      margin-top: var(--space-3);
+    }
+
+    .sv-form {
+      display: flex;
+      gap: 8px;
+      max-width: 480px;
+      margin-top: var(--space-3);
+    }
+    .sv-form__input {
+      flex: 1;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.4;
+      transition: border-color var(--dur-micro) var(--ease), box-shadow var(--dur-micro) var(--ease);
+    }
+    .sv-form__input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(69, 114, 97, 0.18);
+    }
+
+    .sv-hero__preview {
+      background: var(--code-bg);
+      color: var(--code-fg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.7;
+      box-shadow: 0 24px 64px -32px rgba(24, 36, 30, 0.35);
+    }
+    .sv-hero__preview .fm { color: rgba(255, 255, 255, 0.45); }
+    .sv-hero__preview .key { color: #a8d5c3; }
+    .sv-hero__preview .str { color: #f6f3ec; }
+    .sv-hero__preview .tag { color: #ffc78a; }
+    .sv-hero__preview .h2  { color: #ffffff; font-weight: 600; }
+    .sv-hero__preview .link { color: #a8d5c3; text-decoration: underline; text-decoration-style: dotted; }
+
+    .sv-section {
+      padding-block: var(--space-6);
+    }
+    .sv-section--alt {
+      background: var(--accent-soft);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .sv-section__head {
+      max-width: 680px;
+      margin-bottom: var(--space-5);
+    }
+    .sv-section__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      margin-bottom: var(--space-2);
+      font-variation-settings: "opsz" 40, "SOFT" -5, "wght" 480;
+    }
+    .sv-section__dek {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+
+    .sv-bullets {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-4);
+    }
+    .sv-bullet {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+    }
+    .sv-bullet__kicker {
+      font-size: var(--fs-caption);
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .sv-bullet__title {
+      font-family: var(--font-body);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--fg);
+      margin-bottom: 6px;
+    }
+    .sv-bullet__body {
+      font-size: var(--fs-body-sm);
+      line-height: 1.6;
+      color: var(--fg-muted);
+    }
+
+    .sv-who {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-5);
+    }
+    .sv-who__col h3 {
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+    .sv-who__col.fit h3 { color: var(--accent); }
+    .sv-who__col.skip h3 { color: var(--warn); }
+    .sv-who__col ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .sv-who__col li {
+      font-size: var(--fs-body-sm);
+      color: var(--fg-muted);
+      line-height: 1.55;
+      padding-left: 22px;
+      position: relative;
+    }
+    .sv-who__col.fit li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.55em;
+      width: 12px; height: 7px;
+      border-left: 2px solid var(--accent);
+      border-bottom: 2px solid var(--accent);
+      transform: rotate(-45deg);
+      border-radius: 1px;
+    }
+    .sv-who__col.skip li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--warn);
+      font-weight: 600;
+    }
+
+    .sv-finalcta {
+      padding-block: var(--space-7);
+      text-align: center;
+    }
+    .sv-finalcta__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 48px;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      margin-bottom: var(--space-3);
+      font-variation-settings: "opsz" 48, "SOFT" -5, "wght" 500;
+    }
+    .sv-finalcta__sub {
+      font-size: var(--fs-body);
+      color: var(--fg-muted);
+      max-width: 52ch;
+      margin: 0 auto var(--space-4);
+      line-height: var(--lh-body);
+    }
+    .sv-finalcta .sv-form { margin: 0 auto; }
+
+    .sv-mention {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      margin-top: var(--space-5);
+      text-align: left;
+      max-width: 640px;
+      margin-inline: auto;
+    }
+    .sv-mention__kicker {
+      font-size: var(--fs-caption);
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+    .sv-mention__body {
+      font-size: var(--fs-body-sm);
+      line-height: 1.6;
+      color: var(--fg-muted);
+      margin: 0;
+    }
+    .sv-mention__body a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(69, 114, 97, 0.3);
+    }
+
+    @media (max-width: 820px) {
+      .sv-hero__grid { grid-template-columns: 1fr; }
+      .sv-hero__title { font-size: 44px; }
+      .sv-section__title { font-size: 30px; }
+      .sv-finalcta__title { font-size: 34px; }
+      .sv-who { grid-template-columns: 1fr; }
+      .sv-form { flex-direction: column; }
+    }
+  </style>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="150 230 724 600" width="60" height="60" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="#get">Get the vault</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="sv-hero">
+      <div class="container sv-hero__grid">
+        <div>
+          <span class="sv-hero__eyebrow">Free · Obsidian · works with Logseq &amp; any .md folder</span>
+          <h1 class="sv-hero__title">The voice-first Obsidian vault.</h1>
+          <p class="sv-hero__sub">
+            Most starter vaults assume you type. This one assumes you talk. Voice-memo template, daily-note scaffolding, a tag taxonomy that survives the messy way you actually think out loud, and the folder structure we wish someone had handed us two years ago. Drop it in and go.
+          </p>
+
+          <form class="sv-form" action="https://app.kit.com/forms/9363991/subscriptions" method="post" data-starter-vault-form>
+            <label for="sv-email" class="sr-only">Email address</label>
+            <input
+              class="sv-form__input"
+              type="email"
+              id="sv-email"
+              name="email_address"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+              inputmode="email"
+              aria-label="Email address">
+            <button class="btn btn--primary btn--lg" type="submit">
+              <span>Send me the vault</span>
+            </button>
+          </form>
+          <p class="sv-hero__micro">One email with the download link. No newsletter. Unsubscribe any time.</p>
+        </div>
+
+        <div class="sv-hero__preview" aria-hidden="true">
+<span class="fm">---</span>
+<span class="key">title:</span> <span class="str">2026-04-22 Daily Note</span>
+<span class="key">tags:</span> <span class="tag">[daily, voice-captures]</span>
+<span class="fm">---</span>
+
+<span class="h2">## 🎙 Voice captures</span>
+- <span class="link">[[Checkout redesign — move coupon field]]</span>
+- <span class="link">[[Nov planning — hiring priorities]]</span>
+- <span class="link">[[Book note — Thinking in Systems p.42]]</span>
+
+<span class="h2">## 📥 Inbox (unprocessed)</span>
+- Idea: walk-and-talk project retros
+- Follow up with <span class="link">[[Priya]]</span> re: Q3 brief
+
+<span class="h2">## ✅ Actions</span>
+- [ ] Ship A/B test plan
+- [ ] File Q2 taxes
+        </div>
+      </div>
+    </section>
+
+    <section class="sv-section sv-section--alt">
+      <div class="container">
+        <div class="sv-section__head">
+          <h2 class="sv-section__title">What's in the vault.</h2>
+          <p class="sv-section__dek">Five things, no filler. Designed so you can start using it in under 60 seconds without reading a manual.</p>
+        </div>
+
+        <div class="sv-bullets">
+          <article class="sv-bullet">
+            <p class="sv-bullet__kicker">01 · Templates</p>
+            <h3 class="sv-bullet__title">Voice memo + daily note</h3>
+            <p class="sv-bullet__body">A Voice Memo template with frontmatter for date, topic, source app, and auto-linked backlinks. A Daily Note that gives spoken captures a home instead of a graveyard.</p>
+          </article>
+
+          <article class="sv-bullet">
+            <p class="sv-bullet__kicker">02 · Folder structure</p>
+            <h3 class="sv-bullet__title">Four folders, not forty</h3>
+            <p class="sv-bullet__body">Inbox, Notes, Daily, Archive. No PARA, no Zettelkasten purity tests. Voice notes land in Inbox; you promote the ones that earn it. Everything else stays out of your way.</p>
+          </article>
+
+          <article class="sv-bullet">
+            <p class="sv-bullet__kicker">03 · Tag taxonomy</p>
+            <h3 class="sv-bullet__title">Tags that survive dictation</h3>
+            <p class="sv-bullet__body">A flat taxonomy that doesn't collapse the moment you capture a messy thought at 11pm. Includes the tags we actually use — and the ones we deleted so you don't have to learn the hard way.</p>
+          </article>
+
+          <article class="sv-bullet">
+            <p class="sv-bullet__kicker">04 · Processing rituals</p>
+            <h3 class="sv-bullet__title">The 7-minute Friday review</h3>
+            <p class="sv-bullet__body">A template and a queries.md file that turn the week's voice captures into reviewed, tagged, linked notes. Short enough that you'll actually do it.</p>
+          </article>
+
+          <article class="sv-bullet">
+            <p class="sv-bullet__kicker">05 · Dataview queries</p>
+            <h3 class="sv-bullet__title">Views that earn their keep</h3>
+            <p class="sv-bullet__body">Three Dataview queries we rely on daily — voice captures this week, unprocessed inbox, and orphaned notes that never got linked. Nothing clever; everything useful.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sv-section">
+      <div class="container">
+        <div class="sv-section__head">
+          <h2 class="sv-section__title">Who this is for — and who it isn't.</h2>
+          <p class="sv-section__dek">We'd rather you skip the download than fight against a system that's wrong for you.</p>
+        </div>
+
+        <div class="sv-who">
+          <div class="sv-who__col fit">
+            <h3>You'll get value if</h3>
+            <ul>
+              <li>You already use Obsidian, Logseq, or a plain .md folder, and want a cleaner starting point.</li>
+              <li>You've tried dictating into your vault and it came out as a wall of unreadable transcript.</li>
+              <li>You think best out loud — on walks, in the car, between meetings — and your notes don't reflect that.</li>
+              <li>You want structure, but not a system that requires a weekend to learn.</li>
+            </ul>
+          </div>
+          <div class="sv-who__col skip">
+            <h3>Probably skip if</h3>
+            <ul>
+              <li>You're deep in PARA, Zettelkasten, or a custom system that already works. This won't improve on it.</li>
+              <li>You want templates for project management, CRM, or non-note use cases. Wrong tool.</li>
+              <li>You dislike plain Markdown. Everything in the vault is human-readable .md files, on purpose.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sv-finalcta">
+      <div class="container">
+        <h2 class="sv-finalcta__title">Grab the vault.</h2>
+        <p class="sv-finalcta__sub">Free forever. No account, no follow-up sequence — one email with the download link, and we'll leave you alone unless you want to hear from us.</p>
+
+        <form class="sv-form" id="get" action="https://app.kit.com/forms/9363991/subscriptions" method="post" data-starter-vault-form>
+          <label for="sv-email-2" class="sr-only">Email address</label>
+          <input
+            class="sv-form__input"
+            type="email"
+            id="sv-email-2"
+            name="email_address"
+            placeholder="you@example.com"
+            required
+            autocomplete="email"
+            inputmode="email"
+            aria-label="Email address">
+          <button class="btn btn--primary btn--lg" type="submit">
+            <span>Send me the vault</span>
+          </button>
+        </form>
+
+        <div class="sv-mention">
+          <p class="sv-mention__kicker">Who made this</p>
+          <p class="sv-mention__body">We're the team behind <a href="/">ThoughtMic</a>, a local voice layer for your Markdown knowledge graph — press ⌥ Space anywhere on your Mac, speak, and your thoughts land in your vault as titled, tagged, linked notes. Your voice and your vault never leave your Mac. The starter vault is free whether or not you ever look at the app.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__row">
+      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
+      <ul class="footer__links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/privacy">Privacy</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/licenses/">Licenses</a></li>
+        <li><a href="/terms/">Terms</a></li>
+        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

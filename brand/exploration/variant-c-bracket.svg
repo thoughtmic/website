@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>ThoughtMic Icon — Variant C: Wikilink bracket with voice inside</title>
+  <desc>The Markdown wikilink [ ] as a container; a voice waveform lives inside it. One shape that says "your spoken thought becomes a linked note" to anyone who uses Obsidian.</desc>
+
+  <!-- Canvas -->
+  <rect x="0" y="0" width="1024" height="1024" rx="185" ry="185" fill="#F6F3EC"/>
+
+  <!-- Left bracket — vertical bar + top/bottom caps, proper [ shape -->
+  <g fill="#1B1A17">
+    <!-- vertical stem -->
+    <rect x="224" y="296" width="52" height="432" rx="26" ry="26"/>
+    <!-- top cap -->
+    <rect x="224" y="296" width="148" height="52" rx="26" ry="26"/>
+    <!-- bottom cap -->
+    <rect x="224" y="676" width="148" height="52" rx="26" ry="26"/>
+  </g>
+
+  <!-- Right bracket (mirrored) -->
+  <g fill="#1B1A17">
+    <rect x="748" y="296" width="52" height="432" rx="26" ry="26"/>
+    <rect x="652" y="296" width="148" height="52" rx="26" ry="26"/>
+    <rect x="652" y="676" width="148" height="52" rx="26" ry="26"/>
+  </g>
+
+  <!-- Voice waveform inside the brackets — five bars, center tallest, center bar is accent -->
+  <g>
+    <rect x="398" y="460" width="40" height="104" rx="20" ry="20" fill="#1B1A17"/>
+    <rect x="458" y="420" width="40" height="184" rx="20" ry="20" fill="#1B1A17"/>
+    <rect x="518" y="372" width="40" height="280" rx="20" ry="20" fill="#C75B3A"/>
+    <rect x="578" y="420" width="40" height="184" rx="20" ry="20" fill="#1B1A17"/>
+    <rect x="638" y="460" width="40" height="104" rx="20" ry="20" fill="#1B1A17"/>
+  </g>
+</svg>

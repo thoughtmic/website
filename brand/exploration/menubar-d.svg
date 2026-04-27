@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <title>ThoughtMic menu bar template — D v2</title>
+  <desc>Brain silhouette simplified for 16px rendering: two clear hemisphere bumps at the top with a deep V-dip, a single waveform bar inside so the silhouette survives aggressive downscaling.</desc>
+
+  <!-- Brain outline: the V-dip is strong enough to read even at 16px.
+       Filled rather than stroked for small-size resilience — thin strokes blur away. -->
+  <path d="M 2 9
+           C 1.9 6.3, 3 4, 4.8 3.5
+           C 5.4 3.3, 6 3.4, 6.5 3.8
+           C 6.9 4.1, 7.5 4.4, 8 4.8
+           C 8.5 4.4, 9.1 4.1, 9.5 3.8
+           C 10 3.4, 10.6 3.3, 11.2 3.5
+           C 13 4, 14.1 6.3, 14 9
+           C 14 11.5, 12 13, 8 13
+           C 4 13, 2 11.5, 2 9 Z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.2"
+        stroke-linejoin="round"
+        stroke-linecap="round"/>
+
+  <!-- Single vertical voice bar inside — center; 3 bars mush at this size, 1 reads -->
+  <rect x="7.4" y="7" width="1.2" height="4" rx="0.6" ry="0.6" fill="currentColor"/>
+</svg>

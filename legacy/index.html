@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ThoughtMic — Speak your second brain</title>
+    <meta name="description" content="The local voice layer for your Markdown knowledge graph. Press a key anywhere on your Mac, speak, and your thoughts land in your vault as tagged Markdown. Your voice and your vault never leave your Mac. Works with Obsidian, Logseq, Foam, and any .md folder.">
+    <meta property="og:title" content="ThoughtMic — Speak your second brain">
+    <meta property="og:description" content="The local voice layer for your Markdown knowledge graph. Your voice and your vault never leave your Mac.">
+    <meta property="og:type" content="website">
+    <style>
+        :root {
+            --bg: #0f1115;
+            --fg: #f3f4f6;
+            --muted: #9ca3af;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --accent-soft: rgba(99, 102, 241, 0.12);
+            --panel: #1a1d24;
+            --panel-hover: #22262f;
+            --border: #2a2f3a;
+            --success: #10b981;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+            background: var(--bg);
+            color: var(--fg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.02em;
+        }
+        nav a {
+            color: var(--muted);
+            text-decoration: none;
+            margin-left: 24px;
+            font-size: 14px;
+            transition: color 0.15s;
+        }
+        nav a:hover { color: var(--fg); }
+        .hero {
+            padding: 80px 0 40px;
+            text-align: center;
+        }
+        .hero .eyebrow {
+            display: inline-block;
+            font-size: 13px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            padding: 6px 14px;
+            border-radius: 999px;
+            margin-bottom: 24px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+        }
+        .hero h1 {
+            font-size: 68px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #fff 0%, #9ca3af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.05;
+        }
+        .hero .tagline {
+            font-size: 22px;
+            color: var(--muted);
+            margin-bottom: 40px;
+            max-width: 720px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+        .hero .tagline strong {
+            color: var(--fg);
+            font-weight: 500;
+        }
+        .cta-group {
+            display: inline-flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .cta {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background 0.2s;
+        }
+        .cta:hover { background: var(--accent-hover); }
+        .cta.secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+        }
+        .cta.secondary:hover { background: var(--panel); }
+        .cta-microcopy {
+            display: block;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .section {
+            padding: 48px 0;
+        }
+        .section-heading {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .section-heading h2 {
+            font-size: 36px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+        }
+        .section-heading p {
+            color: var(--muted);
+            font-size: 17px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .feature {
+            background: var(--panel);
+            padding: 32px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+        }
+        .feature .icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-soft);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .feature h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .feature p {
+            color: var(--muted);
+            font-size: 15px;
+        }
+        .works-with {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px 40px;
+            text-align: center;
+        }
+        .works-with h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        .works-with .subtitle {
+            color: var(--muted);
+            font-size: 16px;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .tools-grid {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .tool-badge {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--fg);
+        }
+        .works-with .technical-note {
+            color: var(--muted);
+            font-size: 14px;
+            font-style: italic;
+        }
+        .pricing {
+            text-align: center;
+        }
+        .trial-banner {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 20px 32px;
+            margin-bottom: 32px;
+            display: inline-flex;
+            gap: 12px;
+            align-items: center;
+            font-size: 15px;
+        }
+        .trial-banner strong {
+            color: var(--fg);
+        }
+        .trial-banner .check {
+            color: var(--success);
+            font-weight: 700;
+        }
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+        .plan {
+            background: var(--panel);
+            padding: 40px 28px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            text-align: left;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .plan.featured {
+            border-color: var(--accent);
+            background: linear-gradient(180deg, var(--accent-soft) 0%, var(--panel) 100%);
+        }
+        .plan .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .plan-name {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+        .plan-price {
+            font-size: 44px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -0.02em;
+        }
+        .plan-price small {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--muted);
+        }
+        .plan-savings {
+            font-size: 13px;
+            color: var(--success);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+        .plan-savings.muted {
+            color: var(--muted);
+            visibility: hidden;
+        }
+        .launch-tag {
+            display: inline-block;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-right: 6px;
+        }
+        .strikethrough {
+            text-decoration: line-through;
+            color: var(--muted);
+            font-weight: 400;
+        }
+        .plan ul {
+            list-style: none;
+            margin-bottom: 24px;
+            flex-grow: 1;
+        }
+        .plan li {
+            padding: 8px 0;
+            color: var(--muted);
+            font-size: 14px;
+            display: flex;
+            align-items: start;
+        }
+        .plan li::before {
+            content: "✓";
+            color: var(--accent);
+            margin-right: 10px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .plan .cta {
+            display: block;
+            text-align: center;
+            width: 100%;
+            padding: 14px 24px;
+        }
+        .lifetime-counter {
+            margin-bottom: 14px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--muted);
+            padding: 10px 16px;
+            background: var(--accent-soft);
+            border-radius: 8px;
+        }
+        .lifetime-counter strong {
+            color: var(--accent);
+        }
+        .free-tier-callout {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px 36px;
+            max-width: 920px;
+            margin: 0 auto 32px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            align-items: center;
+            gap: 32px;
+            text-align: left;
+        }
+        .free-tier-callout .free-info h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .free-tier-callout .free-info .free-price {
+            font-size: 13px;
+            color: var(--success);
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+        .free-tier-callout .free-info ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 20px;
+        }
+        .free-tier-callout .free-info li {
+            color: var(--muted);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        .free-tier-callout .free-info li::before {
+            content: "\2713";
+            color: var(--accent);
+            margin-right: 8px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        .free-tier-callout .cta {
+            white-space: nowrap;
+        }
+        @media (max-width: 800px) {
+            .free-tier-callout {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .free-tier-callout .free-info ul {
+                justify-content: center;
+            }
+        }
+        .guarantee {
+            margin-top: 40px;
+            font-size: 14px;
+            color: var(--muted);
+        }
+        .guarantee strong {
+            color: var(--fg);
+        }
+        .privacy {
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+        .privacy h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        .privacy p {
+            color: var(--muted);
+            font-size: 17px;
+            margin-bottom: 16px;
+        }
+        .privacy-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            margin: 32px 0 24px;
+            text-align: left;
+        }
+        .privacy-col {
+            background: var(--panel);
+            padding: 28px 28px;
+        }
+        .privacy-col h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: var(--fg);
+            letter-spacing: -0.01em;
+        }
+        .privacy-col.local h3::before {
+            content: "\1F512 ";
+        }
+        .privacy-col.cloud h3::before {
+            content: "\2601 ";
+        }
+        .privacy-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .privacy-col li {
+            color: var(--muted);
+            font-size: 14px;
+            padding: 6px 0;
+            line-height: 1.5;
+            padding-left: 18px;
+            position: relative;
+        }
+        .privacy-col.local li::before {
+            content: "\2713";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 600;
+        }
+        .privacy-col.cloud li::before {
+            content: "\2192";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        .privacy-col li strong {
+            color: var(--fg);
+            font-weight: 600;
+        }
+        .privacy-col li em {
+            font-style: normal;
+            color: var(--accent);
+        }
+        .privacy-col a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .privacy .boundary a:hover {
+            text-decoration: underline;
+        }
+        .privacy .privacy-footer {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 24px;
+        }
+        .privacy .privacy-footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .privacy .privacy-footer a:hover {
+            text-decoration: underline;
+        }
+        .roadmap-callout {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 32px;
+            max-width: 720px;
+            margin: 40px auto 0;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .roadmap-callout .icon {
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .roadmap-callout h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .roadmap-callout p {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0;
+        }
+        footer {
+            padding: 48px 0 32px;
+            border-top: 1px solid var(--border);
+            margin-top: 48px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        footer nav {
+            margin-bottom: 16px;
+        }
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+            margin: 0 14px;
+        }
+        footer a:hover { color: var(--fg); }
+        /* Before/after comparison */
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        .comparison-left {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .compare-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .compare-card-header {
+            padding: 10px 16px;
+            background: #13161d;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .compare-card-header .dots {
+            display: flex;
+            gap: 5px;
+        }
+        .compare-card-header .dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            display: block;
+        }
+        .compare-card-header .file-label {
+            font-size: 12px;
+            color: var(--muted);
+            font-family: "SF Mono", ui-monospace, monospace;
+            margin-left: auto;
+        }
+        .compare-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0;
+        }
+        .compare-label.before { color: var(--muted); }
+        .compare-label.after { color: var(--accent); }
+        .compare-card-body {
+            padding: 16px;
+            font-family: "SF Mono", ui-monospace, "Cascadia Code", monospace;
+            font-size: 12.5px;
+            line-height: 1.7;
+        }
+        .compare-card-body.raw {
+            color: #c8c9cc;
+            font-style: italic;
+        }
+        .compare-card-body.raw .raw-quote {
+            color: #8b8e96;
+        }
+        /* Enriched card syntax coloring */
+        .compare-card-body .yaml-key { color: #7dd3fc; }
+        .compare-card-body .yaml-val { color: #a5f3fc; }
+        .compare-card-body .yaml-str { color: #86efac; }
+        .compare-card-body .yaml-tag { color: #c4b5fd; }
+        .compare-card-body .frontmatter-fence { color: #4b5563; }
+        .compare-card-body .wikilink { color: #818cf8; }
+        .compare-card-body .heading { color: #f9a8d4; font-weight: 600; }
+        .compare-card-body .body-text { color: #d1d5db; }
+        /* Arrow between cards */
+        .comparison-arrow {
+            display: none;
+        }
+        /* Pillar features */
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-top: 32px;
+        }
+        .pillar {
+            background: var(--panel);
+            padding: 28px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .pillar .pillar-icon {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        .pillar h3 {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--fg);
+        }
+        .pillar p {
+            font-size: 13.5px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+        @media (max-width: 800px) {
+            .hero { padding: 80px 0 40px; }
+            .hero h1 { font-size: 42px; }
+            .hero .tagline { font-size: 18px; }
+            .comparison { grid-template-columns: 1fr; }
+            .pillars { grid-template-columns: 1fr; }
+            .features, .plans { grid-template-columns: 1fr; }
+            .privacy-columns { grid-template-columns: 1fr; }
+            .section { padding: 60px 0; }
+            .section-heading h2 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+<div style="background:#1a1d24;border-bottom:1px solid #2a2f3a;color:#f3f4f6;font:14px/1.5 -apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',sans-serif;padding:12px 24px;text-align:center">
+  You're viewing an older design of the ThoughtMic site. <a href="/" style="color:#a8d5c3;text-decoration:underline">Go to the current site →</a>
+</div>
+    <header>
+        <div class="container">
+            <div class="logo">ThoughtMic</div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#works-with">Works with</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#privacy">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <span class="eyebrow">Local by default · macOS</span>
+            <h1>Speak your second brain</h1>
+            <p class="tagline">
+                Press a key anywhere on your Mac, speak, and your thoughts land in your vault as <strong>titled, tagged, linked Markdown</strong> — your voice never leaves your Mac.
+            </p>
+            <div class="cta-group">
+                <a href="#pricing" class="cta">Start 14-day free trial</a>
+                <a href="#features" class="cta secondary">See how it works</a>
+            </div>
+            <span class="cta-microcopy">No credit card required. 14-day Pro trial included with every download.</span>
+
+            <!-- Three-step pipeline: raw → refined → enriched -->
+            <div class="comparison">
+                <div class="comparison-left">
+                    <!-- 1. Raw transcript -->
+                    <div class="compare-card">
+                        <div class="compare-card-header">
+                            <div class="dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="compare-label before">1. You spoke</span>
+                            <span class="file-label">raw audio → Whisper</span>
+                        </div>
+                        <div class="compare-card-body raw">
+                            <span class="raw-quote">"Okay so the redesign idea for the checkout flow — we should move the coupon field below the shipping step, um, A/B test it against the current layout, and uh track whether shipping-field abandonment changes..."</span>
+                        </div>
+                    </div>
+
+                    <!-- 2. Refined text at cursor -->
+                    <div class="compare-card">
+                        <div class="compare-card-header">
+                            <div class="dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                            <span class="compare-label after">2. At your cursor</span>
+                            <span class="file-label">clean text → any app</span>
+                        </div>
+                        <div class="compare-card-body">
+                            <div class="body-text">The redesign strategy for the checkout flow involves moving the coupon field below the shipping step, A/B testing against the current layout, and tracking whether shipping-field abandonment rates change.</div>
+                            <br>
+                            <div style="font-size: 11px; color: var(--muted); font-style: italic;">Filler words removed. Grammar fixed. Appears instantly at your cursor in Slack, VS Code, Mail — wherever you're typing.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Enriched vault note -->
+                <div class="compare-card">
+                    <div class="compare-card-header">
+                        <div class="dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="compare-label after">3. In your vault</span>
+                        <span class="file-label">checkout-flow-redesign.md</span>
+                    </div>
+                    <div class="compare-card-body">
+                        <div><span class="frontmatter-fence">---</span></div>
+                        <div><span class="yaml-key">title:</span> <span class="yaml-str">Checkout Flow Redesign Strategy</span></div>
+                        <div><span class="yaml-key">tags:</span> <span class="yaml-tag">[dictation, idea, checkout-flow]</span></div>
+                        <div><span class="frontmatter-fence">---</span></div>
+                        <br>
+                        <div class="body-text">The redesign strategy for the checkout flow...</div>
+                        <br>
+                        <div>Mentioned: <span class="wikilink">[[Checkout Flow Ideas]]</span>, <span class="wikilink">[[A/B Testing Framework]]</span></div>
+                        <div class="heading">## Related</div>
+                        <div>- <span class="wikilink">[[UX Improvement Backlog]]</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Three pillars -->
+            <div class="pillars">
+                <div class="pillar">
+                    <div class="pillar-icon">⌨</div>
+                    <h3>System-wide capture</h3>
+                    <p>Dictate in any app — Slack, VS Code, Mail, your browser. Text appears at your cursor; the note lands in your vault.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon">🔒</div>
+                    <h3>100% on-device transcription</h3>
+                    <p>Whisper Large V3 Turbo runs locally with Metal acceleration. Your voice never touches the internet.</p>
+                </div>
+                <div class="pillar">
+                    <div class="pillar-icon">🧠</div>
+                    <h3>Smart vault integration</h3>
+                    <p>Every note gets an auto-generated title, auto-suggested tags, and auto-linked backlinks — all on-device.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="features">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Capture at the speed of thought</h2>
+                <p>Three things no other voice tool ships together: system-wide capture, on-device intelligence, and vault-native writes.</p>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <div class="icon">⌨</div>
+                    <h3>Works in every app</h3>
+                    <p>Press <code>⌥ Space</code> in Slack, VS Code, Mail, your browser — anywhere on macOS. The text appears at your cursor and the Markdown note lands in your vault. No switching apps. No keyboard extensions.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🔒</div>
+                    <h3>100% on device</h3>
+                    <p>Whisper Large V3 Turbo Q5 runs locally with Metal acceleration — cloud-quality accuracy at 2.5% WER. Your voice never touches the internet.</p>
+                </div>
+                <div class="feature">
+                    <div class="icon">🧠</div>
+                    <h3>Smart vault writes</h3>
+                    <p>Every note gets an auto-generated title, auto-suggested tags, and auto-linked backlinks to related notes. Your knowledge graph grows itself while you talk. All of it runs on-device.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="works-with">
+        <div class="container">
+            <div class="works-with">
+                <h3>Works with the knowledge graph you already use</h3>
+                <p class="subtitle">ThoughtMic writes standard Markdown files with YAML frontmatter and <code>[[wikilinks]]</code>. If your tool reads Markdown, it reads what ThoughtMic writes.</p>
+                <div class="tools-grid">
+                    <span class="tool-badge">Obsidian</span>
+                    <span class="tool-badge">Logseq</span>
+                    <span class="tool-badge">Foam</span>
+                    <span class="tool-badge">Dendron</span>
+                    <span class="tool-badge">Silverbullet</span>
+                    <span class="tool-badge">Any <code>.md</code> folder</span>
+                </div>
+                <p class="technical-note">Point ThoughtMic at any folder on your Mac. That's the whole setup.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section pricing" id="pricing">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Simple pricing</h2>
+                <p>Start with a 14-day Pro trial — no credit card required. Then keep dictating free (2,000 words/week) or upgrade to Pro.</p>
+            </div>
+
+            <div class="free-tier-callout">
+                <div class="free-info">
+                    <h3>Free — $0 forever</h3>
+                    <div class="free-price">2,000 words/week</div>
+                    <ul>
+                        <li>Local dictation (2,000 words/week)</li>
+                        <li>Whisper transcription (all models)</li>
+                        <li>Text injection into any app</li>
+                        <li>Basic vault writing</li>
+                    </ul>
+                </div>
+                <a href="#download" class="cta secondary">Download free</a>
+            </div>
+
+            <div class="plans">
+                <div class="plan">
+                    <div class="plan-name">Monthly</div>
+                    <div class="plan-price">$5 <small>/mo</small></div>
+                    <div class="plan-savings"><span class="launch-tag">Launch pricing</span> <span class="strikethrough">$7/mo</span> &mdash; save 29%</div>
+                    <ul>
+                        <li>Everything in Free</li>
+                        <li>Unlimited dictation</li>
+                        <li>9 writing modes</li>
+                        <li>Cloud rephrasing (Llama 3.3 70B)</li>
+                        <li>Smart titles, tags &amp; backlinks</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#download" class="cta">Start 14-day free trial</a>
+                </div>
+
+                <div class="plan featured">
+                    <div class="badge">Best value</div>
+                    <div class="plan-name">Annual</div>
+                    <div class="plan-price">$48 <small>/yr</small></div>
+                    <div class="plan-savings"><span class="launch-tag">Launch pricing</span> <span class="strikethrough">$60/yr</span> &mdash; save 43%</div>
+                    <ul>
+                        <li>Everything in Free</li>
+                        <li>Unlimited dictation</li>
+                        <li>9 writing modes</li>
+                        <li>Cloud rephrasing (Llama 3.3 70B)</li>
+                        <li>Smart titles, tags &amp; backlinks</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <a href="#download" class="cta">Start 14-day free trial</a>
+                </div>
+
+                <div class="plan">
+                    <div class="plan-name">Lifetime</div>
+                    <div class="plan-price">$99</div>
+                    <div class="plan-savings">One-time · launch exclusive</div>
+                    <ul>
+                        <li>Everything, forever</li>
+                        <li>All future updates included</li>
+                        <li>Priority support</li>
+                        <li>No recurring charge, ever</li>
+                    </ul>
+                    <div class="lifetime-counter"><strong>200 licenses remaining</strong></div>
+                    <a href="#download" class="cta">Get lifetime access</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section privacy" id="privacy">
+        <div class="container">
+            <h2>Privacy is not a feature. It's the whole product.</h2>
+            <p>
+                Your voice and your vault never leave your Mac. Everything else is opt-in and independently verifiable.
+            </p>
+
+            <div class="privacy-columns">
+                <div class="privacy-col local">
+                    <h3>On your Mac (always)</h3>
+                    <ul>
+                        <li>Voice recordings and audio</li>
+                        <li>Vault contents, files, tags, links</li>
+                        <li>Dictation history</li>
+                        <li>Whisper model and settings</li>
+                        <li>Generated titles, tags, backlinks</li>
+                        <li>App names you dictate into</li>
+                    </ul>
+                </div>
+                <div class="privacy-col cloud">
+                    <h3>Cloud (opt-in only)</h3>
+                    <ul>
+                        <li><strong>Rephrasing text</strong> (Pro) &mdash; transcript only, never audio or vault. <em>Groq ZDR enabled.</em></li>
+                        <li><strong>License check</strong> &mdash; key sent once/day</li>
+                        <li><strong>Telemetry</strong> &mdash; aggregate counts, no content. <em>One-click off.</em></li>
+                        <li><strong>Crash reports</strong> &mdash; opt-in, no PII</li>
+                        <li><strong>Model downloads</strong> &mdash; one-time from Hugging Face</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="privacy-footer">
+                Full disclosure: <a href="/privacy">every event we send, documented</a>. Run Little Snitch and verify it yourself.
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#works-with">Works with</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#privacy">Privacy</a>
+                <a href="/licenses/">Open source licenses</a>
+                <a href="/terms">Terms</a>
+                <a href="mailto:hello@thoughtmic.com">Contact</a>
+            </nav>
+            <p>© 2026 ThoughtMic. Built for people who think out loud.</p>
+        </div>
+    </footer>
+</body>
+</html>

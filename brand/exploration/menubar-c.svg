@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16">
+  <title>ThoughtMic menu bar template — C</title>
+  <desc>Simplified wikilink bracket + waveform. Brackets are beefed up to survive small rendering; center bar is the tallest so the waveform silhouette is unmistakable.</desc>
+
+  <!-- Left bracket: vertical + top cap + bottom cap -->
+  <rect x="1" y="3"    width="1.5" height="10" rx="0.6" ry="0.6" fill="currentColor"/>
+  <rect x="1" y="3"    width="3.5" height="1.5" rx="0.6" ry="0.6" fill="currentColor"/>
+  <rect x="1" y="11.5" width="3.5" height="1.5" rx="0.6" ry="0.6" fill="currentColor"/>
+
+  <!-- Right bracket (mirrored) -->
+  <rect x="13.5" y="3"    width="1.5" height="10" rx="0.6" ry="0.6" fill="currentColor"/>
+  <rect x="11.5" y="3"    width="3.5" height="1.5" rx="0.6" ry="0.6" fill="currentColor"/>
+  <rect x="11.5" y="11.5" width="3.5" height="1.5" rx="0.6" ry="0.6" fill="currentColor"/>
+
+  <!-- Waveform: 3 bars (simplified from 5 to survive small rendering) -->
+  <rect x="5.5"  y="6" width="1.25" height="4" rx="0.6" ry="0.6" fill="currentColor"/>
+  <rect x="7.375" y="4.5" width="1.25" height="7" rx="0.6" ry="0.6" fill="currentColor"/>
+  <rect x="9.25" y="6" width="1.25" height="4" rx="0.6" ry="0.6" fill="currentColor"/>
+</svg>

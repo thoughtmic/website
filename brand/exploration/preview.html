@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ThoughtMic — Icon Exploration</title>
+<style>
+  :root {
+    --paper: #F6F3EC;
+    --ink: #1B1A17;
+    --terracotta: #C75B3A;
+    --mid: #8F8A80;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 64px 32px;
+    background: #EFEAE1;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    color: var(--ink);
+  }
+  h1 { font-size: 32px; font-weight: 700; margin: 0 0 8px; letter-spacing: -0.02em; }
+  h2 { font-size: 20px; font-weight: 600; margin: 48px 0 16px; letter-spacing: -0.01em; }
+  p.lede { margin: 0 0 48px; color: var(--mid); max-width: 640px; line-height: 1.5; }
+  .container { max-width: 1120px; margin: 0 auto; }
+
+  /* Variant row */
+  .variants {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 24px;
+  }
+  @media (min-width: 1200px) {
+    .variants { grid-template-columns: repeat(4, 1fr); }
+  }
+  .variant {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.04);
+  }
+  .variant__name { font-size: 13px; font-weight: 600; color: var(--mid); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 4px; }
+  .variant__title { font-size: 18px; font-weight: 600; margin: 0 0 4px; }
+  .variant__desc { font-size: 13px; color: var(--mid); margin: 0 0 20px; line-height: 1.5; min-height: 56px; }
+  .variant__big {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: block;
+  }
+
+  /* Size ladder */
+  .sizes {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    margin: 20px 0 0;
+    padding: 16px;
+    background: #F4F1EA;
+    border-radius: 12px;
+  }
+  .sizes__item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .sizes__label { font-size: 11px; color: var(--mid); font-variant-numeric: tabular-nums; }
+  .sizes__img--128 { width: 128px; height: 128px; }
+  .sizes__img--64 { width: 64px; height: 64px; }
+  .sizes__img--32 { width: 32px; height: 32px; }
+  .sizes__img--16 { width: 16px; height: 16px; image-rendering: -webkit-optimize-contrast; }
+
+  /* Dock simulation */
+  .dock-wrap { margin-top: 24px; }
+  .dock-wrap__label { font-size: 12px; color: var(--mid); margin: 0 0 8px; }
+  .dock {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-radius: 20px;
+    padding: 8px 12px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12), inset 0 0 0 0.5px rgba(255,255,255,0.3);
+    width: fit-content;
+  }
+  .dock__app {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: -0.04em;
+  }
+  .dock__app--finder { background: linear-gradient(135deg, #6ec6ff, #1976d2); }
+  .dock__app--safari { background: radial-gradient(circle at 50% 40%, #fff 0%, #5ac8fa 30%, #007aff 70%, #004c99 100%); }
+  .dock__app--mail { background: linear-gradient(180deg, #6ec6ff 0%, #007aff 100%); }
+  .dock__app--notes { background: linear-gradient(180deg, #fff7c2 0%, #f5d76e 100%); color: #3d2f00; }
+  .dock__app--things { background: #3B5FEE; }
+  .dock__app--iawriter { background: #1A1A1A; color: #00A3E0; font-family: monospace; }
+  .dock__app--linear { background: linear-gradient(135deg, #5E6AD2, #2A2F66); }
+  .dock__app--raycast { background: #FF6363; }
+  .dock__app img { width: 56px; height: 56px; border-radius: 12px; }
+
+  .section { background: #fff; border-radius: 16px; padding: 32px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); margin-bottom: 24px; }
+
+  .toggle { margin-top: 12px; display: inline-flex; gap: 4px; background: #EEE9DE; padding: 4px; border-radius: 10px; }
+  .toggle button { border: 0; background: transparent; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--ink); cursor: pointer; }
+  .toggle button[aria-pressed="true"] { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+
+  body.dark-mode { background: #0E0D0B; color: var(--paper); }
+  body.dark-mode .section, body.dark-mode .variant { background: #1B1A17; }
+  body.dark-mode .sizes { background: #252320; }
+  body.dark-mode .dock { background: rgba(0,0,0,0.35); }
+  body.dark-mode h2, body.dark-mode .variant__title { color: var(--paper); }
+  body.dark-mode .toggle { background: #252320; }
+  body.dark-mode .toggle button { color: var(--paper); }
+  body.dark-mode .toggle button[aria-pressed="true"] { background: #3A3833; }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>ThoughtMic — Icon Exploration</h1>
+    <p class="lede">Three directions. Pick one, I'll refine it. Judge by the 16 px column and the dock row — that's how users actually see the icon.</p>
+
+    <div class="toggle" role="group" aria-label="Wallpaper">
+      <button type="button" data-mode="light" aria-pressed="true">Light wallpaper</button>
+      <button type="button" data-mode="dark" aria-pressed="false">Dark wallpaper</button>
+    </div>
+
+    <section class="section">
+      <div class="variants">
+
+        <article class="variant">
+          <p class="variant__name">Variant A</p>
+          <h2 class="variant__title" style="margin-top:0">Typographic t + mic-node</h2>
+          <p class="variant__desc">A lowercase t where the dot reads as a mic head, the stem as a stand, and the crossbar carries a small graph node. Fast to produce, survives small sizes.</p>
+          <img class="variant__big" src="variant-a-typographic.svg" alt="Variant A">
+          <div class="sizes">
+            <div class="sizes__item"><img class="sizes__img--128" src="variant-a-typographic.svg" alt=""><span class="sizes__label">128</span></div>
+            <div class="sizes__item"><img class="sizes__img--64" src="variant-a-typographic.svg" alt=""><span class="sizes__label">64</span></div>
+            <div class="sizes__item"><img class="sizes__img--32" src="variant-a-typographic.svg" alt=""><span class="sizes__label">32</span></div>
+            <div class="sizes__item"><img class="sizes__img--16" src="variant-a-typographic.svg" alt=""><span class="sizes__label">16</span></div>
+          </div>
+        </article>
+
+        <article class="variant">
+          <p class="variant__name">Variant B</p>
+          <h2 class="variant__title" style="margin-top:0">Voice-to-node stroke</h2>
+          <p class="variant__desc">One continuous S-curve: a spoken breath on the lower-left flows up and terminates as a knowledge node. Dark canvas — stands out in a dock full of light apps.</p>
+          <img class="variant__big" src="variant-b-stroke.svg" alt="Variant B">
+          <div class="sizes">
+            <div class="sizes__item"><img class="sizes__img--128" src="variant-b-stroke.svg" alt=""><span class="sizes__label">128</span></div>
+            <div class="sizes__item"><img class="sizes__img--64" src="variant-b-stroke.svg" alt=""><span class="sizes__label">64</span></div>
+            <div class="sizes__item"><img class="sizes__img--32" src="variant-b-stroke.svg" alt=""><span class="sizes__label">32</span></div>
+            <div class="sizes__item"><img class="sizes__img--16" src="variant-b-stroke.svg" alt=""><span class="sizes__label">16</span></div>
+          </div>
+        </article>
+
+        <article class="variant">
+          <p class="variant__name">Variant C</p>
+          <h2 class="variant__title" style="margin-top:0">Wikilink bracket + waveform</h2>
+          <p class="variant__desc">The Obsidian <code>[ ]</code> as container; a voice waveform lives inside it. The most "insider" read — PKM users decode it instantly.</p>
+          <img class="variant__big" src="variant-c-bracket.svg" alt="Variant C">
+          <div class="sizes">
+            <div class="sizes__item"><img class="sizes__img--128" src="variant-c-bracket.svg" alt=""><span class="sizes__label">128</span></div>
+            <div class="sizes__item"><img class="sizes__img--64" src="variant-c-bracket.svg" alt=""><span class="sizes__label">64</span></div>
+            <div class="sizes__item"><img class="sizes__img--32" src="variant-c-bracket.svg" alt=""><span class="sizes__label">32</span></div>
+            <div class="sizes__item"><img class="sizes__img--16" src="variant-c-bracket.svg" alt=""><span class="sizes__label">16</span></div>
+          </div>
+        </article>
+
+        <article class="variant">
+          <p class="variant__name">Variant D</p>
+          <h2 class="variant__title" style="margin-top:0">Second brain + waveform</h2>
+          <p class="variant__desc">Brain outline with a larger, bolder voice waveform inside. The prominent interior activity pulls attention from the silhouette and reinforces the "brain" read.</p>
+          <img class="variant__big" src="variant-d-brain.svg" alt="Variant D">
+          <div class="sizes">
+            <div class="sizes__item"><img class="sizes__img--128" src="variant-d-brain.svg" alt=""><span class="sizes__label">128</span></div>
+            <div class="sizes__item"><img class="sizes__img--64" src="variant-d-brain.svg" alt=""><span class="sizes__label">64</span></div>
+            <div class="sizes__item"><img class="sizes__img--32" src="variant-d-brain.svg" alt=""><span class="sizes__label">32</span></div>
+            <div class="sizes__item"><img class="sizes__img--16" src="variant-d-brain.svg" alt=""><span class="sizes__label">16</span></div>
+          </div>
+        </article>
+
+        <article class="variant">
+          <p class="variant__name">Variant E</p>
+          <h2 class="variant__title" style="margin-top:0">Voice into knowledge graph</h2>
+          <p class="variant__desc">A microphone splits into two connected note-nodes. Renders the "second brain" concept as what it literally is in your product — a knowledge graph of linked notes, created by voice.</p>
+          <img class="variant__big" src="variant-e-graph.svg" alt="Variant E">
+          <div class="sizes">
+            <div class="sizes__item"><img class="sizes__img--128" src="variant-e-graph.svg" alt=""><span class="sizes__label">128</span></div>
+            <div class="sizes__item"><img class="sizes__img--64" src="variant-e-graph.svg" alt=""><span class="sizes__label">64</span></div>
+            <div class="sizes__item"><img class="sizes__img--32" src="variant-e-graph.svg" alt=""><span class="sizes__label">32</span></div>
+            <div class="sizes__item"><img class="sizes__img--16" src="variant-e-graph.svg" alt=""><span class="sizes__label">16</span></div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <h2>Dock test — would ThoughtMic belong here?</h2>
+    <p class="lede" style="margin-bottom:0">Each row inserts one variant between reference Mac apps. The goal: your icon reads as confidently as the others, not louder or more literal.</p>
+
+    <section class="section">
+      <div class="dock-wrap">
+        <p class="dock-wrap__label">Variant A in context</p>
+        <div class="dock">
+          <div class="dock__app dock__app--finder">F</div>
+          <div class="dock__app dock__app--safari"></div>
+          <div class="dock__app dock__app--mail">✉</div>
+          <div class="dock__app dock__app--notes">N</div>
+          <div class="dock__app dock__app--things">✓</div>
+          <div class="dock__app"><img src="variant-a-typographic.svg" alt="ThoughtMic A"></div>
+          <div class="dock__app dock__app--iawriter">iA</div>
+          <div class="dock__app dock__app--linear">L</div>
+          <div class="dock__app dock__app--raycast">R</div>
+        </div>
+      </div>
+
+      <div class="dock-wrap">
+        <p class="dock-wrap__label">Variant B in context</p>
+        <div class="dock">
+          <div class="dock__app dock__app--finder">F</div>
+          <div class="dock__app dock__app--safari"></div>
+          <div class="dock__app dock__app--mail">✉</div>
+          <div class="dock__app dock__app--notes">N</div>
+          <div class="dock__app dock__app--things">✓</div>
+          <div class="dock__app"><img src="variant-b-stroke.svg" alt="ThoughtMic B"></div>
+          <div class="dock__app dock__app--iawriter">iA</div>
+          <div class="dock__app dock__app--linear">L</div>
+          <div class="dock__app dock__app--raycast">R</div>
+        </div>
+      </div>
+
+      <div class="dock-wrap">
+        <p class="dock-wrap__label">Variant C in context</p>
+        <div class="dock">
+          <div class="dock__app dock__app--finder">F</div>
+          <div class="dock__app dock__app--safari"></div>
+          <div class="dock__app dock__app--mail">✉</div>
+          <div class="dock__app dock__app--notes">N</div>
+          <div class="dock__app dock__app--things">✓</div>
+          <div class="dock__app"><img src="variant-c-bracket.svg" alt="ThoughtMic C"></div>
+          <div class="dock__app dock__app--iawriter">iA</div>
+          <div class="dock__app dock__app--linear">L</div>
+          <div class="dock__app dock__app--raycast">R</div>
+        </div>
+      </div>
+
+      <div class="dock-wrap">
+        <p class="dock-wrap__label">Variant D in context</p>
+        <div class="dock">
+          <div class="dock__app dock__app--finder">F</div>
+          <div class="dock__app dock__app--safari"></div>
+          <div class="dock__app dock__app--mail">✉</div>
+          <div class="dock__app dock__app--notes">N</div>
+          <div class="dock__app dock__app--things">✓</div>
+          <div class="dock__app"><img src="variant-d-brain.svg" alt="ThoughtMic D"></div>
+          <div class="dock__app dock__app--iawriter">iA</div>
+          <div class="dock__app dock__app--linear">L</div>
+          <div class="dock__app dock__app--raycast">R</div>
+        </div>
+      </div>
+
+      <div class="dock-wrap">
+        <p class="dock-wrap__label">Variant E in context</p>
+        <div class="dock">
+          <div class="dock__app dock__app--finder">F</div>
+          <div class="dock__app dock__app--safari"></div>
+          <div class="dock__app dock__app--mail">✉</div>
+          <div class="dock__app dock__app--notes">N</div>
+          <div class="dock__app dock__app--things">✓</div>
+          <div class="dock__app"><img src="variant-e-graph.svg" alt="ThoughtMic E"></div>
+          <div class="dock__app dock__app--iawriter">iA</div>
+          <div class="dock__app dock__app--linear">L</div>
+          <div class="dock__app dock__app--raycast">R</div>
+        </div>
+      </div>
+    </section>
+
+    <h2>Menu bar test — dedicated templates</h2>
+    <p class="lede">The Dock icon and menu-bar glyph don't need to be the same mark. Each variant below has a purpose-built 16×16 monochrome template (rendered via <code>currentColor</code>, just like Apple requires). These survive rendering on real menu bars; the scaled-down Dock icons above often don't.</p>
+    <section class="section">
+      <div style="display:flex; gap:24px; flex-wrap:wrap; align-items:center;">
+        <!-- Light menu bar -->
+        <div style="display:flex; align-items:center; gap:16px; padding:6px 16px; background:#F4F1EA; border-radius:6px; box-shadow: inset 0 -0.5px 0 rgba(0,0,0,0.12); color:#1B1A17;">
+          <span style="font-size:13px; font-weight:600;">Light menu bar</span>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-a.svg" width="18" height="18" style="color:#1B1A17;" alt=""><span style="font-size:12px;">A</span></div>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-b.svg" width="18" height="18" style="color:#1B1A17;" alt=""><span style="font-size:12px;">B</span></div>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-c.svg" width="18" height="18" style="color:#1B1A17;" alt=""><span style="font-size:12px;">C</span></div>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-d.svg" width="18" height="18" style="color:#1B1A17;" alt=""><span style="font-size:12px;">D</span></div>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-e.svg" width="18" height="18" style="color:#1B1A17;" alt=""><span style="font-size:12px;">E</span></div>
+        </div>
+
+        <!-- Dark menu bar -->
+        <div style="display:flex; align-items:center; gap:16px; padding:6px 16px; background:#1E1E1F; border-radius:6px; color:#F6F3EC;">
+          <span style="font-size:13px; font-weight:600;">Dark menu bar</span>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-a.svg" width="18" height="18" alt=""><span style="font-size:12px;">A</span></div>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-b.svg" width="18" height="18" alt=""><span style="font-size:12px;">B</span></div>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-c.svg" width="18" height="18" alt=""><span style="font-size:12px;">C</span></div>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-d.svg" width="18" height="18" alt=""><span style="font-size:12px;">D</span></div>
+          <div style="display:flex; align-items:center; gap:4px;"><img src="menubar-e.svg" width="18" height="18" alt=""><span style="font-size:12px;">E</span></div>
+        </div>
+      </div>
+      <p style="font-size:12px; color:#8F8A80; margin-top:16px; margin-bottom:0;">Note: these use <code>currentColor</code> inside the SVGs. In the real app the menu-bar manager will auto-adapt to dark/light.</p>
+    </section>
+  </div>
+
+<script>
+  const toggle = document.querySelector('.toggle');
+  toggle.addEventListener('click', (e) => {
+    const btn = e.target.closest('button'); if (!btn) return;
+    const mode = btn.dataset.mode;
+    document.body.classList.toggle('dark-mode', mode === 'dark');
+    toggle.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'));
+  });
+</script>
+</body>
+</html>

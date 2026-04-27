@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>ThoughtMic Icon — Variant E: Voice into knowledge graph</title>
+  <desc>A microphone at the top (terracotta head, dark stem) branches into two connected note-nodes below. Renders "Speak your second brain" as: your voice becomes linked notes. No anatomical brain drawing required.</desc>
+
+  <!-- Canvas -->
+  <rect x="0" y="0" width="1024" height="1024" rx="185" ry="185" fill="#F6F3EC"/>
+
+  <!-- Edges: drawn first so nodes sit on top. Two diagonal edges from mic base to the two bottom nodes, plus a horizontal edge between the bottom nodes so the triangle closes. -->
+  <g stroke="#1B1A17" stroke-width="40" stroke-linecap="round" fill="none">
+    <line x1="512" y1="464" x2="264" y2="744"/>
+    <line x1="512" y1="464" x2="760" y2="744"/>
+    <line x1="264" y1="744" x2="760" y2="744"/>
+  </g>
+
+  <!-- Microphone at top: terracotta head + dark stem. The head doubles as the top node in the graph. -->
+  <!-- Dark stem first so the head overlaps it cleanly -->
+  <rect x="490" y="356" width="44" height="116" rx="22" ry="22" fill="#1B1A17"/>
+  <!-- Terracotta mic head -->
+  <circle cx="512" cy="292" r="104" fill="#C75B3A"/>
+  <!-- Three small cream bars inside the head — reads as mic-grille AND as a voice waveform -->
+  <g fill="#F6F3EC">
+    <rect x="480" y="272" width="10" height="40" rx="5" ry="5"/>
+    <rect x="500" y="262" width="10" height="60" rx="5" ry="5"/>
+    <rect x="520" y="272" width="10" height="40" rx="5" ry="5"/>
+    <rect x="540" y="282" width="10" height="20" rx="5" ry="5"/>
+  </g>
+
+  <!-- Bottom two note-nodes — dark, slightly smaller than the mic head -->
+  <circle cx="264" cy="744" r="88" fill="#1B1A17"/>
+  <circle cx="760" cy="744" r="88" fill="#1B1A17"/>
+</svg>

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThoughtMic — Speak your second brain.</title>
+  <meta name="description" content="The local voice layer for your Markdown knowledge graph. Press ⌥ Space anywhere on your Mac, speak, and your thoughts land in your vault as titled, tagged, linked Markdown. Your voice and your vault never leave your Mac.">
+  <meta name="theme-color" content="#f6f3ec">
+  <meta property="og:title" content="ThoughtMic — Speak your second brain.">
+  <meta property="og:description" content="The local voice layer for your Markdown knowledge graph. Your voice and your vault never leave your Mac.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ============================= NAV ============================= -->
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="150 230 724 600" width="60" height="60" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="#features">Features</a></li>
+          <li><a class="nav__link" href="#privacy">Privacy</a></li>
+          <li><a class="nav__link" href="#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================= HERO ============================= -->
+    <section class="hero">
+      <div class="container hero__grid">
+        <div class="hero__copy" data-reveal>
+          <span class="hero__eyebrow">Launching summer 2026 · macOS</span>
+          <h1 class="hero__title">Speak your second brain.</h1>
+          <p class="hero__sub">
+            The local voice layer for your Markdown knowledge graph.
+            Press <kbd>⌥ Space</kbd> anywhere on your Mac, speak, and your thoughts
+            land in your vault as titled, tagged, linked notes.
+          </p>
+          <div class="hero__ctas">
+            <a class="btn btn--primary btn--lg" href="#waitlist">Join the waitlist</a>
+            <a class="btn btn--ghost" href="#demo">
+              Watch 30-sec demo <span class="btn__chev" aria-hidden="true">→</span>
+            </a>
+          </div>
+          <p class="hero__compat">
+            Lands in <strong>Obsidian</strong> · <strong>Logseq</strong> · any Markdown folder. Queryable from <strong>Claude Desktop</strong> &amp; <strong>Cursor</strong> via local MCP.
+          </p>
+          <p class="hero__microcopy">
+            We'll email you at launch. No newsletter. · macOS 14+ · Apple Silicon or Intel
+          </p>
+        </div>
+
+        <div class="hero__visual">
+          <div class="deck" data-reveal data-front="1">
+
+            <article class="deck__card deck__card--1 card-rec">
+              <header class="card-rec__header">
+                <span class="card-step">01 · You spoke</span>
+                <span class="card-rec__reclabel">
+                  <span class="card-rec__recdot" aria-hidden="true"></span>
+                  REC
+                </span>
+                <span class="card-rec__meta">
+                  <span class="card-rec__timestamp">0:03 / 0:15</span>
+                  <svg class="card-rec__mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="9" y="3" width="6" height="11" rx="3"/>
+                    <path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>
+                  </svg>
+                </span>
+              </header>
+              <div class="card-rec__waveform" aria-hidden="true">
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+                <span class="card-rec__bar"></span>
+              </div>
+              <p class="card-rec__transcript" data-stream-text="&ldquo;Okay so the redesign idea for the checkout flow — um, we should move the coupon field below the shipping step, A/B test it against the current layout…&rdquo;">
+                <span class="card-rec__visible">&ldquo;Okay so the redesign idea for the checkout flow — um, we should move the coupon field below the shipping step, A/B test it against the current layout…&rdquo;</span><span class="card-rec__caret" aria-hidden="true">▊</span>
+              </p>
+            </article>
+
+            <article class="deck__card deck__card--2 card-msg">
+              <header class="card-msg__header">
+                <span class="card-step">02 · At your cursor</span>
+                <span class="card-msg__dots" aria-hidden="true">
+                  <i></i><i></i><i></i>
+                </span>
+                <span class="card-msg__channel">#checkout-redesign</span>
+                <span class="card-msg__more" aria-hidden="true">⋯</span>
+              </header>
+              <div class="card-msg__body">
+                <span class="card-msg__avatar" aria-hidden="true">YO</span>
+                <div class="card-msg__content">
+                  <span class="card-msg__meta">you · just now</span>
+                  <p class="card-msg__text">
+                    The redesign strategy for the checkout flow involves moving the coupon field below the shipping step, A/B testing against the current layout, and tracking shipping-field abandonment<span class="card-msg__caret" aria-hidden="true">▊</span>
+                  </p>
+                </div>
+              </div>
+            </article>
+
+            <article class="deck__card deck__card--3 card-vault">
+              <header class="card-vault__header">
+                <span class="card-step card-step--invert">03 · In your vault</span>
+                <span class="card-vault__path">
+                  <svg class="card-vault__folder" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M1.8 4.2h5l1.4 1.6h6a.8.8 0 0 1 .8.8v6a.8.8 0 0 1-.8.8H1.8a.8.8 0 0 1-.8-.8V5a.8.8 0 0 1 .8-.8z"/>
+                  </svg>
+                  vault/
+                </span>
+                <span class="card-vault__icons" aria-hidden="true">⌕  ⋮</span>
+              </header>
+              <pre class="card-vault__body"><span class="fm">---</span>
+<span class="key">title:</span> <span class="str">Checkout Flow Redesign</span>
+<span class="key">tags:</span> <span class="tag">[dictation, checkout]</span>
+<span class="fm">---</span>
+
+The redesign strategy for the
+checkout flow involves moving…
+
+<span class="h2">## Related</span>
+- <span class="link">[[A/B Testing Framework]]</span>
+- <span class="link">[[UX Improvement Backlog]]</span></pre>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= HOW IT FEELS ============================= -->
+    <section class="section how" id="demo">
+      <div class="container">
+        <h2 class="how__title" data-reveal>30 seconds from thought to linked vault note.</h2>
+        <p class="how__dek" data-reveal>Speak once. Use it twice — polished text at your cursor, and a connected note in your vault.</p>
+        <div class="how__stage" data-autoplay-in-view>
+          <video
+            class="how__video"
+            poster="/assets/demo-poster.jpg"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            aria-label="Screen recording: ThoughtMic dictation from press → text at cursor → vault note">
+            <source src="/assets/demo-full.webm" type="video/webm">
+            <source src="/assets/demo-full.mp4" type="video/mp4">
+          </video>
+        </div>
+        <p class="how__legend">0:02 speak · 0:07 text appears · 0:12 vault writes · 0:15 links resolve</p>
+      </div>
+    </section>
+
+    <!-- ============================= PILLARS ============================= -->
+    <section class="section" id="features">
+      <div class="container">
+        <div class="pillars__head">
+          <h2 class="pillars__title" data-reveal>Three things no one else does together.</h2>
+        </div>
+
+        <div class="pillars__grid">
+          <article class="pillar" data-reveal>
+            <svg class="pillar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2.5" y="6" width="19" height="12" rx="2"/>
+              <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h12"/>
+            </svg>
+            <h3 class="pillar__title">System-wide capture</h3>
+            <p class="pillar__body">
+              Dictate in Slack, VS Code, Mail, your browser. Text at your cursor,
+              note in your vault, no app switching.
+            </p>
+          </article>
+
+          <article class="pillar" data-reveal>
+            <svg class="pillar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="5" y="11" width="14" height="10" rx="2"/>
+              <path d="M8 11V7a4 4 0 1 1 8 0v4"/>
+            </svg>
+            <h3 class="pillar__title">100% on-device</h3>
+            <p class="pillar__body">
+              Whisper Large V3 Turbo runs locally with Metal acceleration. Your
+              voice never touches the internet.
+            </p>
+          </article>
+
+          <article class="pillar" data-reveal>
+            <svg class="pillar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="6" cy="7" r="2.2"/>
+              <circle cx="18" cy="7" r="2.2"/>
+              <circle cx="12" cy="17" r="2.2"/>
+              <path d="M7.5 8.5l3 7M16.5 8.5l-3 7M8 7h8"/>
+            </svg>
+            <h3 class="pillar__title">Vault-native writes</h3>
+            <p class="pillar__body">
+              Auto-generated titles. Auto-suggested tags. Auto-linked backlinks.
+              Your knowledge graph grows itself.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= REVIEW (the hero feature) ============================= -->
+    <section class="section" id="review" style="padding-block: var(--section-y); background: var(--accent-soft);">
+      <div class="container" style="max-width: 880px; margin: 0 auto; text-align: center;">
+        <span class="hero__eyebrow" data-reveal style="display: inline-block; margin-bottom: 16px;">The part nobody else built</span>
+        <h2 data-reveal style="font-family: var(--font-display); font-weight: 400; font-size: 48px; line-height: 1.08; letter-spacing: -0.025em; color: var(--fg); margin-bottom: 20px; font-variation-settings: 'opsz' 48, 'SOFT' -5, 'wght' 400;">
+          A weekly review window that actually clears your inbox.
+        </h2>
+        <p data-reveal style="font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); max-width: 64ch; margin: 0 auto 28px;">
+          Voice captures pile up. Most apps stop there. ThoughtMic ships a dedicated review surface — keyboard-driven, two-pane — where every <code style="font-family: var(--font-mono); font-size: 0.92em; padding: 2px 6px; background: var(--bg-elev); border-radius: 4px;">#inbox</code> note gets one of four actions: <strong>Discard</strong>, <strong>Keep</strong>, <strong>Promote</strong> to a structured template, or <strong>Archive</strong>. Five minutes, vault clean, ideas wired in.
+        </p>
+        <p data-reveal style="font-size: var(--fs-body-sm); color: var(--fg-subtle); max-width: 56ch; margin: 0 auto;">
+          Hit <code style="font-family: var(--font-mono); font-size: 0.95em; padding: 2px 6px; background: var(--bg-elev); border-radius: 4px;">⌥⇧ R</code> any time. The Collector's Fallacy doesn't get to win.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= PRIVACY ============================= -->
+    <section class="section privacy" id="privacy">
+      <div class="container">
+        <h2 class="privacy__title" data-reveal>Privacy is not a feature. It's the whole product.</h2>
+        <p class="privacy__sub">
+          Your voice and your vault never leave your Mac. Everything else is
+          opt-in and independently verifiable.
+        </p>
+
+        <div class="privacy__grid">
+          <div class="privacy__panel privacy__panel--local">
+            <p class="privacy__label">On your Mac · always</p>
+            <ul class="privacy__list">
+              <li>Voice recordings and audio</li>
+              <li>Vault contents, files, tags, links</li>
+              <li>Dictation history</li>
+              <li>Whisper model and settings</li>
+              <li>Generated titles, tags, backlinks</li>
+              <li>App names you dictate into</li>
+            </ul>
+          </div>
+
+          <div class="privacy__panel privacy__panel--cloud">
+            <p class="privacy__label">Opt-in only</p>
+            <ul class="privacy__list">
+              <li><strong>Rephrasing text</strong> (Pro) — transcript only, never audio or vault. <em>ZDR enabled.</em></li>
+              <li><strong>Template extraction</strong> (Pro) — transcript only. Independent toggle.</li>
+              <li><strong>License check</strong> — key sent once/day</li>
+              <li><strong>Telemetry</strong> — aggregate counts, no content. <em>One-click off.</em></li>
+              <li><strong>Crash reports</strong> — opt-in, no PII</li>
+              <li><strong>Model downloads</strong> — one-time from Hugging Face</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="privacy__disclosure">
+          Full disclosure: <a href="/privacy">every event we send, documented</a>.
+          Run Little Snitch and verify it yourself.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= STARTER VAULT (while you wait) ============================= -->
+    <section class="section" id="starter-vault" style="padding-block: 72px;">
+      <div class="container" style="max-width: 760px; margin: 0 auto; text-align: center;">
+        <span class="hero__eyebrow" data-reveal style="display: inline-block; margin-bottom: 16px;">While you wait</span>
+        <h2 data-reveal style="font-family: var(--font-display); font-weight: 400; font-size: 44px; line-height: 1.08; letter-spacing: -0.015em; color: var(--fg); margin-bottom: 16px; font-variation-settings: 'opsz' 44, 'SOFT' -5, 'wght' 480;">
+          Grab the free Obsidian starter vault.
+        </h2>
+        <p data-reveal style="font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); max-width: 58ch; margin: 0 auto 28px;">
+          A vault built for voice-first note-taking — voice-memo template, daily-note scaffolding, a tag taxonomy that survives the way you actually think out loud, and the folder structure we use ourselves. Works whether or not you ever install ThoughtMic.
+        </p>
+        <a class="btn btn--ghost" href="/starter-vault/">
+          Get the vault <span class="btn__chev" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============================= PRICING ============================= -->
+    <section class="section pricing" id="pricing">
+      <div class="container">
+        <div class="pricing__head">
+          <h2 class="pricing__title" data-reveal>Simple pricing.</h2>
+          <p class="pricing__sub">
+            Free forever up to 2,000 words a week. Or unlock everything with Pro.
+          </p>
+          <p class="pricing__sub" style="margin-top: 12px; color: var(--accent); font-weight: 500;">
+            Pre-launch ladder: <strong>first 50 waitlist signups get $49 lifetime</strong> · next 150 get $99 lifetime · after slot 200, lifetime closes.
+          </p>
+        </div>
+
+        <div class="pricing__toggle-wrap">
+          <div
+            class="pricing__toggle"
+            role="radiogroup"
+            aria-label="Billing period"
+            data-pricing-toggle
+            data-active="annual"
+            data-lifetime-remaining="200">
+            <button type="button" role="radio" data-period="monthly" aria-checked="false" tabindex="-1">
+              Monthly
+            </button>
+            <button type="button" role="radio" data-period="annual" aria-checked="true" tabindex="0">
+              Annual <span class="save">save 25%</span>
+            </button>
+            <button type="button" role="radio" data-period="lifetime" aria-checked="false" tabindex="-1">
+              Lifetime <span class="save" data-lifetime-remaining-label>200 left</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="pricing__grid">
+          <article class="plan" data-reveal>
+            <div class="plan__name">Free</div>
+            <div class="plan__price">$0<span class="plan__price-unit">/forever</span></div>
+            <p class="plan__tagline">2,000 words / week</p>
+            <ul class="plan__list">
+              <li>Local dictation</li>
+              <li>Whisper transcription (all models)</li>
+              <li>Text injection into any app</li>
+              <li>Basic vault writing</li>
+            </ul>
+            <a class="btn btn--ghost" href="#waitlist" style="justify-content: flex-start; padding-inline: 0;">
+              Join the waitlist <span aria-hidden="true">→</span>
+            </a>
+          </article>
+
+          <article class="plan plan--featured" data-reveal>
+            <span class="plan__badge" data-period-text data-annual="Annual · save 25%" data-monthly="Monthly" data-lifetime="Founder's Deal · 50 left">Annual · save 25%</span>
+            <div class="plan__name">Pro</div>
+            <div class="plan__price">
+              <span data-period-text data-annual="$72" data-monthly="$8" data-lifetime="$99">$72</span><span class="plan__price-unit" data-period-text data-annual="/year" data-monthly="/month" data-lifetime="one-time">/year</span>
+            </div>
+            <p class="plan__tagline">
+              <span data-period-text data-annual="$6/mo · billed annually" data-monthly="billed monthly" data-lifetime="$49 for first 50 · $99 for slots 51–200">$6/mo · billed annually</span>
+            </p>
+            <ul class="plan__list">
+              <li>Everything in Free, unlimited</li>
+              <li>9 writing modes</li>
+              <li>Cloud rephrasing (Llama 3.3 70B)</li>
+              <li>Smart titles, tags &amp; backlinks</li>
+              <li>Priority support</li>
+            </ul>
+            <a class="btn btn--primary" href="#waitlist" data-period-text data-annual="Join the waitlist" data-monthly="Join the waitlist" data-lifetime="Get Founder's Deal · $49 lifetime (first 50)">Join the waitlist</a>
+          </article>
+        </div>
+
+        <p class="hero__microcopy" style="text-align: center; margin-top: 24px;">
+          Launch prices above. Join the waitlist to be first in line — no credit card, unsubscribe any time.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= WAITLIST (final CTA) ============================= -->
+    <section class="finalcta" id="waitlist">
+      <div class="container">
+        <svg class="finalcta__mark" viewBox="0 0 1024 1024" width="72" height="72" aria-hidden="true" data-reveal>
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="56" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <h2 class="finalcta__title" data-reveal>Be first in line when ThoughtMic ships.</h2>
+        <p class="finalcta__sub">
+          We'll email you the day the app is ready — with your download link and, for the first 50 signups, your Founder's Deal code.
+        </p>
+
+        <form class="waitlist-form" action="https://app.kit.com/forms/9359921/subscriptions" method="post">
+          <ul class="formkit-alert formkit-alert-error" data-element="errors" role="alert"></ul>
+          <div data-element="fields" class="waitlist-form__fields">
+            <label for="waitlist-email" class="sr-only">Email address</label>
+            <div class="waitlist-form__field">
+              <input class="waitlist-form__input" type="email" name="email_address" id="waitlist-email" placeholder="you@example.com" required autocomplete="email" inputmode="email" aria-label="Email address">
+            </div>
+            <button class="btn btn--primary btn--lg waitlist-form__submit" type="submit">
+              <span>Join the waitlist</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="finalcta__micro">
+          We'll email you at launch. No newsletter. Unsubscribe any time.
+        </p>
+        <p class="finalcta__compat">
+          Works with <strong>Obsidian</strong> · <strong>Logseq</strong> · <strong>Foam</strong> · <strong>VS&nbsp;Code</strong> · any&nbsp;.md&nbsp;folder
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================= VIDEO MODAL ============================= -->
+  <div class="modal" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" hidden>
+    <h2 id="demo-modal-title" class="sr-only">30-second demo</h2>
+    <div class="modal__dialog" tabindex="-1">
+      <button class="modal__close" type="button" aria-label="Close demo">
+        <span aria-hidden="true">×</span>
+      </button>
+      <video
+        poster="/assets/demo-poster.jpg"
+        controls
+        playsinline
+        preload="metadata">
+        <source src="/assets/demo-full.webm" type="video/webm">
+        <source src="/assets/demo-full.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="footer">
+    <div class="container footer__row">
+      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
+      <ul class="footer__links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="/licenses/">Licenses</a></li>
+        <li><a href="/terms/">Terms</a></li>
+        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script defer src="/js/reveal.js"></script>
+  <script defer src="/js/modal.js"></script>
+  <script defer src="/js/pricing-toggle.js"></script>
+  <script defer src="/js/how-video.js"></script>
+  <script defer src="/js/deck-stream.js"></script>
+  <script defer src="/js/deck-cycle.js"></script>
+  <script defer src="/js/waitlist-form.js"></script>
+</body>
+</html>

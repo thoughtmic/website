@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>ThoughtMic Icon — Variant B: Voice-to-node stroke</title>
+  <desc>One continuous gesture: a soft S-curve that begins as a spoken breath on the lower-left and terminates as a knowledge-graph node on the upper-right. Voice becomes linked note in a single stroke.</desc>
+
+  <!-- Canvas: dark ink background for variety — works well in a dock full of light apps -->
+  <rect x="0" y="0" width="1024" height="1024" rx="185" ry="185" fill="#1B1A17"/>
+
+  <!-- Main path: S-curve from lower-left (voice origin) to upper-right (node) -->
+  <!-- Stroke is warm paper color, round caps/joins for a handmade feel -->
+  <path d="M 232 760 C 392 700 440 640 480 560 C 528 464 600 392 740 300"
+        fill="none"
+        stroke="#F6F3EC"
+        stroke-width="68"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+
+  <!-- Terminal node: the destination, ochre filled circle -->
+  <circle cx="760" cy="284" r="76" fill="#C89B3C"/>
+
+  <!-- Mid-path whisper node: implies a graph edge -->
+  <circle cx="492" cy="532" r="32" fill="#F6F3EC"/>
+
+  <!-- Origin marker: tiny soundwave tick to anchor the "voice" reading -->
+  <rect x="180" y="716" width="28" height="88" rx="14" ry="14" fill="#C75B3A"/>
+</svg>
