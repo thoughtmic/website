@@ -6,22 +6,33 @@
   <rect x="0" y="0" width="1200" height="4" fill="#1B1A17" opacity="0.08"/>
   <rect x="0" y="626" width="1200" height="4" fill="#1B1A17" opacity="0.08"/>
 
-  <!-- Icon area: brain outline with waveform, positioned left -->
+  <!-- Icon area: variant C2 (ink brackets + 7-bar waveform with forest center), positioned left -->
   <g transform="translate(80, 115) scale(0.39)">
+    <!-- White card backing for the mark -->
     <rect x="0" y="0" width="1024" height="1024" rx="185" ry="185" fill="#FFFFFF"/>
-    <path d="M 180 540
-             C 180 360, 300 220, 420 260
-             C 460 280, 490 320, 512 360
-             C 534 320, 564 280, 604 260
-             C 724 220, 844 360, 844 540
-             C 844 720, 724 800, 512 800
-             C 300 800, 180 720, 180 540 Z"
-          fill="none" stroke="#1B1A17" stroke-width="56" stroke-linejoin="round" stroke-linecap="round"/>
-    <rect x="368" y="500" width="48" height="160" rx="24" fill="#1B1A17"/>
-    <rect x="432" y="440" width="48" height="280" rx="24" fill="#1B1A17"/>
-    <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
-    <rect x="560" y="440" width="48" height="280" rx="24" fill="#1B1A17"/>
-    <rect x="624" y="500" width="48" height="160" rx="24" fill="#1B1A17"/>
+
+    <!-- Left bracket -->
+    <g fill="#1B1A17">
+      <rect x="224" y="296" width="52" height="432" rx="26" ry="26"/>
+      <rect x="224" y="296" width="148" height="52" rx="26" ry="26"/>
+      <rect x="224" y="676" width="148" height="52" rx="26" ry="26"/>
+    </g>
+
+    <!-- Right bracket (mirrored) -->
+    <g fill="#1B1A17">
+      <rect x="748" y="296" width="52" height="432" rx="26" ry="26"/>
+      <rect x="652" y="296" width="148" height="52" rx="26" ry="26"/>
+      <rect x="652" y="676" width="148" height="52" rx="26" ry="26"/>
+    </g>
+
+    <!-- 7-bar waveform — ink with forest center bar -->
+    <rect x="312" y="482" width="40" height="60"  rx="20" ry="20" fill="#1B1A17"/>
+    <rect x="372" y="457" width="40" height="110" rx="20" ry="20" fill="#1B1A17"/>
+    <rect x="432" y="422" width="40" height="180" rx="20" ry="20" fill="#1B1A17"/>
+    <rect x="492" y="372" width="40" height="280" rx="20" ry="20" fill="#457261"/>
+    <rect x="552" y="422" width="40" height="180" rx="20" ry="20" fill="#1B1A17"/>
+    <rect x="612" y="457" width="40" height="110" rx="20" ry="20" fill="#1B1A17"/>
+    <rect x="672" y="482" width="40" height="60"  rx="20" ry="20" fill="#1B1A17"/>
   </g>
 
   <!-- Right-side text — wordmark + tagline + proof strip -->

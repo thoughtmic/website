@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <title>ThoughtMic Icon — Variant C1-deep-accent: Forest-deep brackets + ink waveform with forest-deep center bar</title>
+  <desc>C1-deep geometry with the center waveform bar also in forest-deep #2F5044 (rest of waveform stays ink). Forest appears in two places: structural (brackets) + accent (center bar peak). Tests whether two forest moments read as cohesive or as fighting visual centers.</desc>
+
+  <!-- Canvas -->
+  <rect x="0" y="0" width="1024" height="1024" rx="185" ry="185" fill="#F6F3EC"/>
+
+  <!-- Left bracket -->
+  <g fill="#2F5044">
+    <rect x="224" y="296" width="52" height="432" rx="26" ry="26"/>
+    <rect x="224" y="296" width="148" height="52" rx="26" ry="26"/>
+    <rect x="224" y="676" width="148" height="52" rx="26" ry="26"/>
+  </g>
+
+  <!-- Right bracket (mirrored) -->
+  <g fill="#2F5044">
+    <rect x="748" y="296" width="52" height="432" rx="26" ry="26"/>
+    <rect x="652" y="296" width="148" height="52" rx="26" ry="26"/>
+    <rect x="652" y="676" width="148" height="52" rx="26" ry="26"/>
+  </g>
+
+  <!-- Voice waveform — 7 bars, all ink except center bar in forest-deep -->
+  <g fill="#1B1A17">
+    <rect x="312" y="482" width="40" height="60"  rx="20" ry="20"/>
+    <rect x="372" y="457" width="40" height="110" rx="20" ry="20"/>
+    <rect x="432" y="422" width="40" height="180" rx="20" ry="20"/>
+    <rect x="552" y="422" width="40" height="180" rx="20" ry="20"/>
+    <rect x="612" y="457" width="40" height="110" rx="20" ry="20"/>
+    <rect x="672" y="482" width="40" height="60"  rx="20" ry="20"/>
+  </g>
+  <rect x="492" y="372" width="40" height="280" rx="20" ry="20" fill="#2F5044"/>
+</svg>
