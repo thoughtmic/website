@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThoughtMic vs Onit — When paying for a vault-native pipeline beats free dictation</title>
+  <meta name="description" content="Onit is a free, 100% local Mac dictation app. ThoughtMic costs $8/mo (or $99 once) because it writes titled, tagged, linked Markdown into your Obsidian or Logseq vault. Honest comparison of when free is enough and when it isn't.">
+  <meta name="theme-color" content="#f6f3ec">
+  <link rel="canonical" href="https://thoughtmic.com/vs/onit/">
+
+  <meta property="og:title" content="ThoughtMic vs Onit — When paying for a vault-native pipeline beats free dictation">
+  <meta property="og:description" content="Onit is free and local. ThoughtMic costs $8/mo because it writes structured Markdown into your Obsidian or Logseq vault. Here's when each one is the right pick.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thoughtmic.com/vs/onit/">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    /* ---- Comparison page styles ---- */
+    .vs-hero {
+      padding-block: var(--space-7) var(--space-5);
+    }
+    .vs-hero__container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+      text-align: center;
+    }
+    .vs-hero__eyebrow {
+      display: inline-block;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .vs-hero__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 64px;
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin: 0 0 var(--space-3);
+      font-variation-settings: "opsz" 56, "SOFT" -5, "wght" 460;
+    }
+    .vs-hero__title em {
+      font-style: italic;
+      color: var(--accent);
+      font-variation-settings: "opsz" 56, "SOFT" -5, "wght" 420, "WONK" 1;
+    }
+    .vs-hero__lede {
+      font-size: 20px;
+      line-height: 1.55;
+      color: var(--fg-muted);
+      max-width: 60ch;
+      margin: 0 auto var(--space-4);
+    }
+    .vs-hero__updated {
+      font-size: var(--fs-caption);
+      color: var(--fg-subtle);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 720px) {
+      .vs-hero { padding-block: var(--space-6) var(--space-4); }
+      .vs-hero__title { font-size: 40px; }
+      .vs-hero__lede { font-size: 17px; }
+    }
+
+    /* ---- Verdict TL;DR ---- */
+    .verdict {
+      padding-block: var(--space-4) var(--space-6);
+    }
+    .verdict__container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .verdict__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+    .verdict__card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+    }
+    .verdict__card--ours {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+    .verdict__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-2);
+    }
+    .verdict__card--theirs .verdict__label {
+      color: var(--fg-muted);
+    }
+    .verdict__head {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 1.25;
+      color: var(--fg);
+      margin: 0 0 var(--space-2);
+      font-variation-settings: "opsz" 22, "SOFT" 0, "wght" 500;
+    }
+    .verdict__body {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      color: var(--fg-muted);
+      margin: 0;
+    }
+
+    @media (max-width: 720px) {
+      .verdict__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ---- Glance table ---- */
+    .glance {
+      padding-block: var(--space-5);
+      background: var(--bg-elev);
+      border-block: 1px solid var(--border);
+    }
+    .glance__container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .glance__title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0 0 var(--space-4);
+      text-align: center;
+      font-variation-settings: "opsz" 32, "SOFT" -3, "wght" 500;
+    }
+    .glance__table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+    .glance__table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--bg-elev);
+    }
+    .glance__table th,
+    .glance__table td {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: var(--fs-body-sm);
+      line-height: 1.5;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+    .glance__table thead th {
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: var(--fg);
+      background: var(--bg);
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: var(--fs-body-sm);
+    }
+    .glance__table thead th:nth-child(3) {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .glance__table tbody td:nth-child(3) {
+      background: rgba(232, 239, 233, 0.4);
+      color: var(--fg);
+    }
+    .glance__table th[scope="row"] {
+      font-weight: 500;
+      color: var(--fg);
+    }
+    .glance__table tr:last-child td,
+    .glance__table tr:last-child th {
+      border-bottom: none;
+    }
+    .glance__yes { color: var(--accent); font-weight: 600; }
+    .glance__no { color: var(--fg-subtle); }
+
+    /* ---- Honest section ---- */
+    .honest {
+      padding-block: var(--space-6);
+    }
+    .honest__container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .honest__intro {
+      max-width: 60ch;
+      margin: 0 auto var(--space-5);
+      text-align: center;
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .honest__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      align-items: start;
+    }
+    @media (max-width: 720px) {
+      .honest__grid { grid-template-columns: 1fr; }
+    }
+    .honest__col {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-4);
+    }
+    .honest__col--ours {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+    .honest__col h3 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--fg);
+      margin: 0 0 var(--space-3);
+      font-variation-settings: "opsz" 26, "SOFT" -3, "wght" 500;
+    }
+    .honest__col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: var(--space-3);
+    }
+    .honest__col li {
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+      color: var(--fg);
+      padding-left: 26px;
+      position: relative;
+    }
+    .honest__col li strong { color: var(--fg); font-weight: 600; }
+    .honest__col li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .honest__col--theirs li::before {
+      color: var(--fg-muted);
+    }
+
+    /* ---- Deep dive ---- */
+    .deep {
+      padding-block: var(--space-6);
+      background: var(--bg-elev);
+      border-block: 1px solid var(--border);
+    }
+    .deep__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .deep__title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0 0 var(--space-4);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+    }
+    .deep__h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--fg);
+      margin: var(--space-5) 0 var(--space-2);
+      font-variation-settings: "opsz" 22, "SOFT" -2, "wght" 540;
+    }
+    .deep__h3:first-of-type { margin-top: 0; }
+    .deep p {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-3);
+    }
+    .deep p strong { color: var(--fg); font-weight: 600; }
+    .deep code {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      padding: 2px 6px;
+      background: var(--bg);
+      border-radius: 4px;
+    }
+    .deep blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 16px;
+      margin: var(--space-3) 0;
+      font-style: italic;
+      color: var(--fg);
+      font-size: var(--fs-body);
+      line-height: 1.55;
+    }
+
+    /* ---- Migration FAQ ---- */
+    .faq {
+      padding-block: var(--space-6);
+    }
+    .faq__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .faq__title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0 0 var(--space-4);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+    }
+    .faq details {
+      border-bottom: 1px solid var(--border);
+      padding-block: var(--space-3);
+    }
+    .faq details:first-of-type { border-top: 1px solid var(--border); }
+    .faq summary {
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--fg);
+      list-style: none;
+      position: relative;
+      padding-right: 32px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      position: absolute;
+      right: 4px;
+      top: 0;
+      font-size: 22px;
+      color: var(--accent);
+      transition: transform var(--dur-micro) var(--ease);
+    }
+    .faq details[open] summary::after {
+      content: "−";
+    }
+    .faq__answer {
+      margin-top: var(--space-3);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .faq__answer p { margin: 0 0 var(--space-3); }
+    .faq__answer p:last-child { margin-bottom: 0; }
+
+    /* ---- Cross-link other comparisons ---- */
+    .more-vs {
+      padding-block: var(--space-5);
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .more-vs__container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+      text-align: center;
+    }
+    .more-vs__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .more-vs__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+    .more-vs__list a {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+      color: var(--fg);
+      text-decoration: none;
+      font-size: var(--fs-body-sm);
+      font-weight: 500;
+      transition: border-color var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease);
+    }
+    .more-vs__list a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "ThoughtMic vs Onit — When paying for a vault-native pipeline beats free dictation",
+    "description": "Onit is a free, 100% local Mac dictation app. ThoughtMic costs $8/mo (or $99 once) because it writes titled, tagged, linked Markdown into your Obsidian or Logseq vault. Honest comparison of when free is enough and when it isn't.",
+    "datePublished": "2026-05-06",
+    "dateModified": "2026-05-06",
+    "author": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "url": "https://thoughtmic.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thoughtmic.com/assets/apple-touch-icon.png"
+      }
+    },
+    "mainEntityOfPage": "https://thoughtmic.com/vs/onit/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "If Onit is free, why pay for ThoughtMic?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You're not paying for dictation — you're paying for what happens after. ThoughtMic writes spoken thoughts as titled, auto-tagged, backlinked Markdown notes into your Obsidian or Logseq vault, plus a Friday review surface and a local MCP server that makes your vault queryable from Claude Desktop or Cursor. If you don't keep a vault, none of that is worth $8/mo. If you do, it's the difference between a transcript and a note that fits your knowledge graph."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Onit really free forever?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Onit advertises free forever for the first 5,000 signups. We take that at face value — it's a legitimate launch strategy and a meaningful gift to early users. We won't speculate on what happens after that cohort fills or whether they introduce paid tiers later. If free-forever access matters to you and you can grab one of those slots, that's a real win regardless of which app you ultimately use."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's missing from Onit if I want to use Obsidian?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Onit writes text at your cursor — including into Obsidian's editor, like any other dictation app. What it doesn't do: create a properly named note file, suggest tags from your existing tag taxonomy, resolve [[wikilinks]] against notes you already have, or give you a review surface to triage your #inbox later. Those are the jobs ThoughtMic exists to do. If you mostly dictate into one daily note and never look back, Onit covers it. If your vault has structure you want voice input to respect, it doesn't."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use both Onit and ThoughtMic?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — they use different hotkeys and don't conflict. A common setup is Onit for free-form dictation into Slack, Mail, your IDE, and any other app outside your vault, and ThoughtMic specifically when you want a captured thought to land as a structured note in Obsidian. Different jobs, no overlap."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is ThoughtMic's free tier enough for me?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ThoughtMic is free forever up to 2,000 words/week — roughly 15–25 minutes of speech, which covers light-to-moderate voice journaling, capturing meeting notes, or daily-note dictation. If you're dictating long-form drafts, transcribing meetings, or capturing many hours per week, you'll hit the cap and want the $8/mo plan or the $99 lifetime tier (200 slots, first 50 at $49)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if Onit changes its pricing later?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We won't speculate. Pricing changes happen across the industry, but Onit is shipping today and that's what matters for your decision today. If you grab a free-forever slot and it's honored, that's pure upside. The right way to think about ThoughtMic isn't 'what if Onit charges' — it's 'is the vault-native output, review, and MCP worth $8/mo (or $99 once) to me right now.' If yes, pay. If no, take Onit's free tier with our blessing."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ============================= NAV ============================= -->
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="150 230 724 600" width="60" height="60" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/#privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="/#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================= HERO ============================= -->
+    <section class="vs-hero">
+      <div class="vs-hero__container">
+        <span class="vs-hero__eyebrow">Honest comparison · updated May 2026</span>
+        <h1 class="vs-hero__title">ThoughtMic <em>vs</em> Onit</h1>
+        <p class="vs-hero__lede">
+          Onit is free, local, and good at what it does — pure Mac dictation with no subscription. ThoughtMic costs $8/mo (or $99 once) because it writes titled, tagged, linked Markdown into your Obsidian or Logseq vault. Different products. The honest question is whether vault depth is worth paying for.
+        </p>
+        <p class="vs-hero__updated">No FUD. No "free won't last" speculation. We respect Onit's play.</p>
+      </div>
+    </section>
+
+    <!-- ============================= TL;DR VERDICT ============================= -->
+    <section class="verdict">
+      <div class="verdict__container">
+        <div class="verdict__grid">
+          <article class="verdict__card verdict__card--theirs">
+            <p class="verdict__label">Pick Onit if…</p>
+            <h2 class="verdict__head">You want free, local Mac dictation and you don't keep a Markdown vault.</h2>
+            <p class="verdict__body">
+              You dictate into Slack, Mail, Notion, your IDE, and you want a no-subscription, 100%-local Whisper experience. You're not running an Obsidian or Logseq vault — or you are, but you're happy treating dictation as plain text input. <strong>If that's you, Onit is the right pick.</strong> Genuinely. Skip ThoughtMic.
+            </p>
+          </article>
+          <article class="verdict__card verdict__card--ours">
+            <p class="verdict__label">Pick ThoughtMic if…</p>
+            <h2 class="verdict__head">Your voice notes belong in your vault, with structure.</h2>
+            <p class="verdict__body">
+              You live in Obsidian, Logseq, Foam, or a plain Markdown folder, and you want spoken thoughts to land as titled, auto-tagged, backlinked notes — plus a Friday review surface that actually clears your <code>#inbox</code> and a local MCP server your AI tools can query. You're paying for vault depth, not for dictation.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= GLANCE TABLE ============================= -->
+    <section class="glance">
+      <div class="glance__container">
+        <h2 class="glance__title">At a glance</h2>
+        <div class="glance__table-wrap">
+          <table class="glance__table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">Onit</th>
+                <th scope="col">ThoughtMic</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Platform</th>
+                <td>macOS</td>
+                <td>macOS (iOS 6–8 weeks after launch)</td>
+              </tr>
+              <tr>
+                <th scope="row">Pricing</th>
+                <td>Free forever (first 5,000 signups)</td>
+                <td>$8/mo · $72/yr · $99 lifetime (200-slot cap)</td>
+              </tr>
+              <tr>
+                <th scope="row">Free tier</th>
+                <td>Full app, no usage cap</td>
+                <td>Free forever up to 2,000 words/week</td>
+              </tr>
+              <tr>
+                <th scope="row">Transcription engine</th>
+                <td>Whisper (local)</td>
+                <td>Whisper Large V3 Turbo (local, Metal-accelerated)</td>
+              </tr>
+              <tr>
+                <th scope="row">Privacy</th>
+                <td>100% local · no cloud calls</td>
+                <td>Local-only voice + vault · ZDR cloud rephrase opt-in (text-only)</td>
+              </tr>
+              <tr>
+                <th scope="row">System-wide capture</th>
+                <td><span class="glance__yes">✓</span> Text at cursor anywhere</td>
+                <td><span class="glance__yes">✓</span> Text at cursor anywhere</td>
+              </tr>
+              <tr>
+                <th scope="row">Smart formatting</th>
+                <td><span class="glance__yes">✓</span> Local rewrite of dictated text</td>
+                <td><span class="glance__yes">✓</span> 9 writing modes</td>
+              </tr>
+              <tr>
+                <th scope="row">Vault writing</th>
+                <td><span class="glance__no">— None</span></td>
+                <td><span class="glance__yes">✓</span> Native, vault-agnostic Markdown</td>
+              </tr>
+              <tr>
+                <th scope="row">Auto-titles</th>
+                <td><span class="glance__no">— None</span></td>
+                <td><span class="glance__yes">✓</span> Generated from content</td>
+              </tr>
+              <tr>
+                <th scope="row">Auto-tags &amp; backlinks</th>
+                <td><span class="glance__no">— None</span></td>
+                <td><span class="glance__yes">✓</span> Suggested from your existing vault</td>
+              </tr>
+              <tr>
+                <th scope="row">Friday review surface</th>
+                <td><span class="glance__no">— None</span></td>
+                <td><span class="glance__yes">✓</span> Keyboard-driven two-pane review for <code>#inbox</code> notes</td>
+              </tr>
+              <tr>
+                <th scope="row">MCP / queryable from AI tools</th>
+                <td><span class="glance__no">— None</span></td>
+                <td><span class="glance__yes">✓</span> Local MCP — query your vault from Claude Desktop or Cursor</td>
+              </tr>
+              <tr>
+                <th scope="row">Best for</th>
+                <td>Anyone who wants free, local dictation without committing to a vault workflow</td>
+                <td>Obsidian / Logseq / Markdown-vault users who want voice as input</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= HONEST TRADEOFFS ============================= -->
+    <section class="honest">
+      <div class="honest__container">
+        <p class="honest__intro">
+          Onit gave away a great product for free, and that's a meaningful gift to anyone who needs Mac dictation. Here's an honest take on what each tool does well — so you pick the one that fits your workflow, not the one with the louder marketing.
+        </p>
+        <div class="honest__grid">
+          <article class="honest__col honest__col--theirs">
+            <h3>Where Onit wins</h3>
+            <ul>
+              <li><strong>Free forever.</strong> If you're in the first 5,000 signups, you get the full app at no cost. That's a real, durable answer to "is this worth paying for" — for many users, the answer is "I don't have to."</li>
+              <li><strong>100% local, no cloud calls at all.</strong> If your privacy bar is "nothing leaves my Mac, ever, including text-rephrase calls," Onit is unambiguously cleaner than tools (including ours) that offer optional cloud rephrasing.</li>
+              <li><strong>No subscription friction.</strong> Nothing to renew, nothing to cancel, nothing to think about. For an app you might use a few times a week, that's a meaningful cognitive saving.</li>
+              <li><strong>Solid pure-dictation experience.</strong> Local Whisper, system-wide capture, text-anywhere — the core dictation loop works.</li>
+              <li><strong>No vault commitment required.</strong> If you don't keep a Markdown vault and don't plan to, you don't need what ThoughtMic adds. Onit is the right tool for that user, and we'll say so plainly.</li>
+            </ul>
+          </article>
+          <article class="honest__col honest__col--ours">
+            <h3>Where ThoughtMic wins</h3>
+            <ul>
+              <li><strong>Vault-native output.</strong> Spoken thoughts land as Markdown notes in your Obsidian / Logseq / Foam / plain-folder vault — properly titled, in the right folder, with frontmatter. Not just text dropped at the cursor.</li>
+              <li><strong>Auto-titles, auto-tags, auto-backlinks.</strong> Tags pulled from your existing tag taxonomy. <code>[[wikilinks]]</code> resolved against notes you already have. Your knowledge graph grows itself from voice input — no post-processing.</li>
+              <li><strong>Friday review surface.</strong> A dedicated keyboard-driven review for your <code>#inbox</code> notes. Hit <code>⌥⇧ R</code>, walk through everything captured, hit one of four keys. Five minutes clears the inbox.</li>
+              <li><strong>Local MCP.</strong> Query your vault from Claude Desktop or Cursor — your voice notes become AI-accessible context, never leaving your machine. No comparable feature in any free dictation tool we know of.</li>
+              <li><strong>Lifetime tier.</strong> $99 one-time (first 50 at $49) gets you everything forever. If "subscription forever" is the objection, that pays back in a year.</li>
+              <li><strong>Free starter vault.</strong> Voice-first Obsidian vault with templates and tag taxonomy, free whether or not you ever install ThoughtMic.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= DEEP DIVE ============================= -->
+    <section class="deep">
+      <div class="deep__container">
+        <h2 class="deep__title">The real question isn't price. It's vault depth.</h2>
+
+        <p>
+          <strong>Onit is free. ThoughtMic isn't. That's the right comparison only if you're comparing two dictation apps.</strong>
+        </p>
+
+        <p>
+          But they're not the same product. Onit's job ends when text appears at your cursor. ThoughtMic adds a second job: that same voice capture also writes a structured note into your knowledge vault — with a generated title, suggested tags pulled from your existing tag taxonomy, and backlinks resolved against notes you already have. If you don't have a vault, ThoughtMic's second job is invisible — and the fair conclusion is "Onit is enough."
+        </p>
+
+        <h3 class="deep__h3">The price-anchor objection, addressed directly</h3>
+        <p>
+          If you've read this far, you've already noticed: <strong>Onit is free, ThoughtMic is $8/mo (or $99 once for the lifetime tier).</strong> That gap is real. We're not going to argue around it. The right way to evaluate is: what would the $8/mo (or one-time $99) buy you that "free local Whisper" doesn't? Read the table, read the "where ThoughtMic wins" column, and ask honestly whether those features change your workflow. If the answer is no, take Onit's free tier — it's a good deal.
+        </p>
+
+        <h3 class="deep__h3">Why "vault-native" matters (when it does)</h3>
+        <p>
+          If you live in Obsidian or Logseq, you've already invested in a tag system, folder hierarchy, and a personal lexicon of <code>[[wikilinks]]</code>. A pure dictation app — even a free, polished one — treats every dictation as a fresh string of text dropped at the cursor. ThoughtMic treats every dictation as a candidate note in <em>your</em> vault, structured the way you've already structured the rest of it. That's not a small detail; that's the entire pitch. If you don't have a vault, it doesn't apply to you.
+        </p>
+
+        <h3 class="deep__h3">Why review matters more than capture</h3>
+        <p>
+          Capturing thoughts is the easy part. The reason most voice-note workflows fall apart is the <strong>Collector's Fallacy</strong> — you accumulate hundreds of <code>#inbox</code> entries you never re-read. ThoughtMic ships a dedicated weekly review surface: hit <code>⌥⇧ R</code>, walk through every captured note, hit one of four keys (Discard / Keep / Promote / Archive). Most weeks, five minutes clears the inbox. Onit doesn't have a review surface because Onit's job ends at the cursor — once your text is dropped, it's the destination app's problem.
+        </p>
+
+        <h3 class="deep__h3">Why MCP matters</h3>
+        <p>
+          ThoughtMic ships a local Model Context Protocol server. Your vault becomes queryable from Claude Desktop, Cursor, and any other MCP-compatible AI tool — without leaving your machine, without uploading anything. Your voice notes from last Tuesday become context for an AI conversation today. No free dictation app we know of offers this, because it requires the second job (writing structured notes into a vault) to even make sense.
+        </p>
+
+        <h3 class="deep__h3">A note on transcription speed and quality</h3>
+        <p>
+          Both apps run Whisper locally. Transcription quality is essentially identical — they share the same underlying model architecture. Latency varies by model size and hardware; ThoughtMic ships Whisper Large V3 Turbo with Metal acceleration, end-to-end in the 700–1500ms range on M-series Macs. If you want sub-300ms streaming, the only path right now is cloud-based dictation — and you'd be giving up the local-first guarantee both ThoughtMic and Onit hold to.
+        </p>
+
+        <blockquote>
+          "Onit is great if pure dictation is what you want, and you want it free. ThoughtMic is a narrower, deeper tool: you pay because it writes directly into your Obsidian or Logseq vault. If you don't use a Markdown vault, Onit is probably the right pick."
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ============================= MIGRATION FAQ ============================= -->
+    <section class="faq">
+      <div class="faq__container">
+        <h2 class="faq__title">Common questions when comparing</h2>
+
+        <details>
+          <summary>If Onit is free, why pay for ThoughtMic?</summary>
+          <div class="faq__answer">
+            <p>You're not paying for dictation — you're paying for what happens after. ThoughtMic writes spoken thoughts as titled, auto-tagged, backlinked Markdown notes into your Obsidian or Logseq vault, plus a Friday review surface and a local MCP server that makes your vault queryable from Claude Desktop or Cursor.</p>
+            <p>If you don't keep a vault, none of that is worth $8/mo. If you do, it's the difference between a transcript and a note that fits your knowledge graph. We'd rather lose you to Onit than oversell.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Is Onit really free forever?</summary>
+          <div class="faq__answer">
+            <p>Onit advertises free forever for the first 5,000 signups. We take that at face value — it's a legitimate launch strategy and a meaningful gift to early users.</p>
+            <p>We won't speculate on what happens after that cohort fills, or whether they introduce paid tiers later. Plenty of well-run companies offer permanent free tiers. If free-forever access matters to you and you can grab one of those slots, that's a real win regardless of which app you ultimately use.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What's missing from Onit if I want to use Obsidian?</summary>
+          <div class="faq__answer">
+            <p>Onit writes text at your cursor — including into Obsidian's editor, like any other dictation app. What it doesn't do: create a properly named note file, suggest tags from your existing tag taxonomy, resolve <code>[[wikilinks]]</code> against notes you already have, or give you a review surface to triage your <code>#inbox</code> later.</p>
+            <p>Those are the jobs ThoughtMic exists to do. If you mostly dictate into one daily note and never look back, Onit covers it. If your vault has structure you want voice input to respect, it doesn't.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Can I use both Onit and ThoughtMic?</summary>
+          <div class="faq__answer">
+            <p>Yes. They use different keyboard shortcuts and don't conflict. A common setup is Onit for free-form dictation into Slack, Mail, your IDE, and any other app outside your vault — and ThoughtMic specifically when you want a captured thought to land as a structured note in Obsidian. Different jobs, no overlap.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Is ThoughtMic's free tier enough for me?</summary>
+          <div class="faq__answer">
+            <p>ThoughtMic is free forever up to 2,000 words/week — roughly 15–25 minutes of speech, which covers light-to-moderate voice journaling, capturing meeting notes, or daily-note dictation. You get the full vault-native pipeline, auto-tags, auto-titles, and the Friday review surface inside that cap.</p>
+            <p>If you're dictating long-form drafts, transcribing meetings, or capturing many hours per week, you'll hit the cap and want the $8/mo plan or the $99 lifetime tier (200 slots, first 50 at $49).</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What happens if Onit changes its pricing later?</summary>
+          <div class="faq__answer">
+            <p>We won't speculate on Onit's roadmap. Pricing changes happen across the industry, but Onit is shipping today and that's what matters for your decision today. If you grab a free-forever slot and it's honored, that's pure upside.</p>
+            <p>The right way to think about ThoughtMic isn't "what if Onit eventually charges" — it's "is the vault-native output, review, and MCP worth $8/mo (or $99 once) to me right now." If yes, pay. If no, take Onit's free tier with our blessing.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============================= FINAL CTA ============================= -->
+    <section class="finalcta" id="waitlist">
+      <div class="container">
+        <svg class="finalcta__mark" viewBox="0 0 1024 1024" width="72" height="72" aria-hidden="true" data-reveal>
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="56" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <h2 class="finalcta__title" data-reveal>Try the voice-to-vault tool when it ships.</h2>
+        <p class="finalcta__sub">
+          We'll email you the day ThoughtMic is ready — with your download link and, for the first 50 signups, a $49 lifetime Founder's Deal code.
+        </p>
+
+        <form class="waitlist-form" action="https://app.kit.com/forms/9359921/subscriptions" method="post">
+          <ul class="formkit-alert formkit-alert-error" data-element="errors" role="alert"></ul>
+          <div data-element="fields" class="waitlist-form__fields">
+            <label for="waitlist-email" class="sr-only">Email address</label>
+            <div class="waitlist-form__field">
+              <input class="waitlist-form__input" type="email" name="email_address" id="waitlist-email" placeholder="you@example.com" required autocomplete="email" inputmode="email" aria-label="Email address">
+            </div>
+            <button class="btn btn--primary btn--lg waitlist-form__submit" type="submit">
+              <span>Join the waitlist</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="finalcta__micro">
+          We'll email you at launch. No newsletter. Unsubscribe any time.
+        </p>
+        <p class="finalcta__compat">
+          Works with <strong>Obsidian</strong> · <strong>Logseq</strong> · <strong>Foam</strong> · <strong>VS&nbsp;Code</strong> · any&nbsp;.md&nbsp;folder
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= MORE COMPARISONS ============================= -->
+    <section class="more-vs">
+      <div class="more-vs__container">
+        <p class="more-vs__label">More honest comparisons</p>
+        <ul class="more-vs__list">
+          <li><a href="/vs/superwhisper/">vs SuperWhisper</a></li>
+          <li><a href="/vs/wispr-flow/">vs Wispr Flow</a></li>
+          <li><a href="/vs/voiceink/">vs VoiceInk</a></li>
+          <li><a href="/vs/whisper-plugin/">vs Obsidian Whisper plugin</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="footer">
+    <div class="container footer__row">
+      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
+      <ul class="footer__links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#privacy">Privacy</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/licenses/">Licenses</a></li>
+        <li><a href="/terms/">Terms</a></li>
+        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script defer src="/js/reveal.js"></script>
+  <script defer src="/js/waitlist-form.js"></script>
+</body>
+</html>
