@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThoughtMic vs SuperWhisper — Voice into your vault, not just at your cursor</title>
+  <meta name="description" content="SuperWhisper is the best pure dictation app on Mac. ThoughtMic is a voice-to-vault pipeline — same Whisper core, but writes titled, tagged, linked Markdown into your Obsidian or Logseq vault. Honest comparison, no FUD.">
+  <meta name="theme-color" content="#f6f3ec">
+  <link rel="canonical" href="https://thoughtmic.com/vs/superwhisper/">
+
+  <meta property="og:title" content="ThoughtMic vs SuperWhisper — Voice into your vault, not just at your cursor">
+  <meta property="og:description" content="SuperWhisper is the best pure dictation app on Mac. ThoughtMic writes titled, tagged, linked Markdown into your Obsidian or Logseq vault.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thoughtmic.com/vs/superwhisper/">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    /* ---- Comparison page styles ---- */
+    .vs-hero {
+      padding-block: var(--space-7) var(--space-5);
+    }
+    .vs-hero__container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+      text-align: center;
+    }
+    .vs-hero__eyebrow {
+      display: inline-block;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .vs-hero__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 64px;
+      line-height: 1.04;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin: 0 0 var(--space-3);
+      font-variation-settings: "opsz" 56, "SOFT" -5, "wght" 460;
+    }
+    .vs-hero__title em {
+      font-style: italic;
+      color: var(--accent);
+      font-variation-settings: "opsz" 56, "SOFT" -5, "wght" 420, "WONK" 1;
+    }
+    .vs-hero__lede {
+      font-size: 20px;
+      line-height: 1.55;
+      color: var(--fg-muted);
+      max-width: 60ch;
+      margin: 0 auto var(--space-4);
+    }
+    .vs-hero__updated {
+      font-size: var(--fs-caption);
+      color: var(--fg-subtle);
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 720px) {
+      .vs-hero { padding-block: var(--space-6) var(--space-4); }
+      .vs-hero__title { font-size: 40px; }
+      .vs-hero__lede { font-size: 17px; }
+    }
+
+    /* ---- Verdict TL;DR ---- */
+    .verdict {
+      padding-block: var(--space-4) var(--space-6);
+    }
+    .verdict__container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .verdict__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+    .verdict__card {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+    }
+    .verdict__card--ours {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+    .verdict__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-2);
+    }
+    .verdict__card--theirs .verdict__label {
+      color: var(--fg-muted);
+    }
+    .verdict__head {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 22px;
+      line-height: 1.25;
+      color: var(--fg);
+      margin: 0 0 var(--space-2);
+      font-variation-settings: "opsz" 22, "SOFT" 0, "wght" 500;
+    }
+    .verdict__body {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body-sm);
+      color: var(--fg-muted);
+      margin: 0;
+    }
+
+    @media (max-width: 720px) {
+      .verdict__grid { grid-template-columns: 1fr; }
+    }
+
+    /* ---- Glance table ---- */
+    .glance {
+      padding-block: var(--space-5);
+      background: var(--bg-elev);
+      border-block: 1px solid var(--border);
+    }
+    .glance__container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .glance__title {
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0 0 var(--space-4);
+      text-align: center;
+      font-variation-settings: "opsz" 32, "SOFT" -3, "wght" 500;
+    }
+    .glance__table-wrap {
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+    .glance__table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+      background: var(--bg-elev);
+    }
+    .glance__table th,
+    .glance__table td {
+      padding: 14px 16px;
+      text-align: left;
+      font-size: var(--fs-body-sm);
+      line-height: 1.5;
+      vertical-align: top;
+      border-bottom: 1px solid var(--border);
+    }
+    .glance__table thead th {
+      font-family: var(--font-body);
+      font-weight: 600;
+      color: var(--fg);
+      background: var(--bg);
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: var(--fs-body-sm);
+    }
+    .glance__table thead th:nth-child(3) {
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+    .glance__table tbody td:nth-child(3) {
+      background: rgba(232, 239, 233, 0.4);
+      color: var(--fg);
+    }
+    .glance__table th[scope="row"] {
+      font-weight: 500;
+      color: var(--fg);
+    }
+    .glance__table tr:last-child td,
+    .glance__table tr:last-child th {
+      border-bottom: none;
+    }
+    .glance__yes { color: var(--accent); font-weight: 600; }
+    .glance__no { color: var(--fg-subtle); }
+
+    /* ---- Honest section ---- */
+    .honest {
+      padding-block: var(--space-6);
+    }
+    .honest__container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .honest__intro {
+      max-width: 60ch;
+      margin: 0 auto var(--space-5);
+      text-align: center;
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .honest__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+      align-items: start;
+    }
+    @media (max-width: 720px) {
+      .honest__grid { grid-template-columns: 1fr; }
+    }
+    .honest__col {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5) var(--space-4);
+    }
+    .honest__col--ours {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+    .honest__col h3 {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--fg);
+      margin: 0 0 var(--space-3);
+      font-variation-settings: "opsz" 26, "SOFT" -3, "wght" 500;
+    }
+    .honest__col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: var(--space-3);
+    }
+    .honest__col li {
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+      color: var(--fg);
+      padding-left: 26px;
+      position: relative;
+    }
+    .honest__col li strong { color: var(--fg); font-weight: 600; }
+    .honest__col li::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .honest__col--theirs li::before {
+      color: var(--fg-muted);
+    }
+
+    /* ---- Deep dive ---- */
+    .deep {
+      padding-block: var(--space-6);
+      background: var(--bg-elev);
+      border-block: 1px solid var(--border);
+    }
+    .deep__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .deep__title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0 0 var(--space-4);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+    }
+    .deep__h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--fg);
+      margin: var(--space-5) 0 var(--space-2);
+      font-variation-settings: "opsz" 22, "SOFT" -2, "wght" 540;
+    }
+    .deep__h3:first-of-type { margin-top: 0; }
+    .deep p {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-3);
+    }
+    .deep p strong { color: var(--fg); font-weight: 600; }
+    .deep code {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      padding: 2px 6px;
+      background: var(--bg);
+      border-radius: 4px;
+    }
+    .deep blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 16px;
+      margin: var(--space-3) 0;
+      font-style: italic;
+      color: var(--fg);
+      font-size: var(--fs-body);
+      line-height: 1.55;
+    }
+
+    /* ---- Migration FAQ ---- */
+    .faq {
+      padding-block: var(--space-6);
+    }
+    .faq__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .faq__title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0 0 var(--space-4);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+    }
+    .faq details {
+      border-bottom: 1px solid var(--border);
+      padding-block: var(--space-3);
+    }
+    .faq details:first-of-type { border-top: 1px solid var(--border); }
+    .faq summary {
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--fg);
+      list-style: none;
+      position: relative;
+      padding-right: 32px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      position: absolute;
+      right: 4px;
+      top: 0;
+      font-size: 22px;
+      color: var(--accent);
+      transition: transform var(--dur-micro) var(--ease);
+    }
+    .faq details[open] summary::after {
+      content: "−";
+    }
+    .faq__answer {
+      margin-top: var(--space-3);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .faq__answer p { margin: 0 0 var(--space-3); }
+    .faq__answer p:last-child { margin-bottom: 0; }
+
+    /* ---- Cross-link other comparisons ---- */
+    .more-vs {
+      padding-block: var(--space-5);
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .more-vs__container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+      text-align: center;
+    }
+    .more-vs__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .more-vs__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+    .more-vs__list a {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+      color: var(--fg);
+      text-decoration: none;
+      font-size: var(--fs-body-sm);
+      font-weight: 500;
+      transition: border-color var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease);
+    }
+    .more-vs__list a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "ThoughtMic vs SuperWhisper — Voice into your vault, not just at your cursor",
+    "description": "SuperWhisper is the best pure dictation app on Mac. ThoughtMic is a voice-to-vault pipeline — same Whisper core, but writes titled, tagged, linked Markdown into your Obsidian or Logseq vault.",
+    "datePublished": "2026-05-06",
+    "dateModified": "2026-05-06",
+    "author": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "url": "https://thoughtmic.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thoughtmic.com/assets/apple-touch-icon.png"
+      }
+    },
+    "mainEntityOfPage": "https://thoughtmic.com/vs/superwhisper/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I use both ThoughtMic and SuperWhisper at the same time?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. They use different keyboard shortcuts and don't conflict. Many early users keep SuperWhisper for free-form text-anywhere dictation and use ThoughtMic specifically for capturing into their Obsidian or Logseq vault."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does ThoughtMic transcribe as well as SuperWhisper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Both run Whisper locally on Apple Silicon. Transcription quality is essentially identical — they share the same underlying model architecture. ThoughtMic ships Whisper Large V3 Turbo with Metal acceleration."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is ThoughtMic faster than SuperWhisper?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Comparable. Both are batch-style (record-then-transcribe), with end-to-end latency in the 700–1500ms range on M-series Macs. Neither is the streaming-fast experience Wispr Flow offers — that requires sending audio to the cloud."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can ThoughtMic write into a vault that doesn't exist yet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Point it at any folder of Markdown files. Works with Obsidian, Logseq, Foam, VS Code, plain folders. We also provide a free starter vault if you want a ready-made structure."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about privacy — is one more private than the other?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Both are local-first by default. SuperWhisper offers cloud transcription as an opt-in for some use cases. ThoughtMic keeps voice and vault entirely on-device; the only optional cloud call is text-only rephrasing through Groq Zero Data Retention, never audio."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ============================= NAV ============================= -->
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="150 230 724 600" width="60" height="60" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/#privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="/#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================= HERO ============================= -->
+    <section class="vs-hero">
+      <div class="vs-hero__container">
+        <span class="vs-hero__eyebrow">Honest comparison · updated May 2026</span>
+        <h1 class="vs-hero__title">ThoughtMic <em>vs</em> SuperWhisper</h1>
+        <p class="vs-hero__lede">
+          SuperWhisper is the best pure dictation app on Mac. ThoughtMic is a different tool — a voice-to-vault pipeline that writes titled, tagged, linked Markdown into your Obsidian or Logseq vault. Same Whisper core. Different job.
+        </p>
+        <p class="vs-hero__updated">No FUD. No marketing cherry-picks. We respect SuperWhisper.</p>
+      </div>
+    </section>
+
+    <!-- ============================= TL;DR VERDICT ============================= -->
+    <section class="verdict">
+      <div class="verdict__container">
+        <div class="verdict__grid">
+          <article class="verdict__card verdict__card--theirs">
+            <p class="verdict__label">Pick SuperWhisper if…</p>
+            <h2 class="verdict__head">You want fast, polished dictation everywhere on your Mac.</h2>
+            <p class="verdict__body">
+              You write into Slack, Mail, Notion, your IDE, and you want the cleanest local Whisper experience with smart formatting and a beloved indie-app polish. You're not using a Markdown vault, or you're happy keeping your notes flow separate.
+            </p>
+          </article>
+          <article class="verdict__card verdict__card--ours">
+            <p class="verdict__label">Pick ThoughtMic if…</p>
+            <h2 class="verdict__head">Your voice notes belong in your vault, with structure.</h2>
+            <p class="verdict__body">
+              You live in Obsidian, Logseq, Foam, or a plain Markdown folder, and you want spoken thoughts to land as titled, auto-tagged, backlinked notes — plus a Friday review surface that actually clears your <code>#inbox</code>. Pay for vault depth, not for dictation.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= GLANCE TABLE ============================= -->
+    <section class="glance">
+      <div class="glance__container">
+        <h2 class="glance__title">At a glance</h2>
+        <div class="glance__table-wrap">
+          <table class="glance__table">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">SuperWhisper</th>
+                <th scope="col">ThoughtMic</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Platform</th>
+                <td>macOS</td>
+                <td>macOS (iOS 6–8 weeks after launch)</td>
+              </tr>
+              <tr>
+                <th scope="row">Pricing</th>
+                <td>~$8.50/mo or ~$89/year</td>
+                <td>$8/mo · $72/yr · $99 lifetime (200-slot cap)</td>
+              </tr>
+              <tr>
+                <th scope="row">Free tier</th>
+                <td>Limited free trial</td>
+                <td>Free forever up to 2,000 words/week</td>
+              </tr>
+              <tr>
+                <th scope="row">Transcription engine</th>
+                <td>Whisper (local)</td>
+                <td>Whisper Large V3 Turbo (local, Metal-accelerated)</td>
+              </tr>
+              <tr>
+                <th scope="row">Privacy</th>
+                <td>Local default · cloud opt-in for some modes</td>
+                <td>Local-only voice + vault · ZDR cloud rephrase opt-in (text-only)</td>
+              </tr>
+              <tr>
+                <th scope="row">System-wide capture</th>
+                <td><span class="glance__yes">✓</span> Text at cursor anywhere</td>
+                <td><span class="glance__yes">✓</span> Text at cursor anywhere</td>
+              </tr>
+              <tr>
+                <th scope="row">Smart formatting</th>
+                <td><span class="glance__yes">✓</span> Modes for prompts, code, tone</td>
+                <td><span class="glance__yes">✓</span> 9 writing modes</td>
+              </tr>
+              <tr>
+                <th scope="row">Vault writing</th>
+                <td><span class="glance__no">— None</span></td>
+                <td><span class="glance__yes">✓</span> Native, vault-agnostic Markdown</td>
+              </tr>
+              <tr>
+                <th scope="row">Auto-titles</th>
+                <td><span class="glance__no">— Manual</span></td>
+                <td><span class="glance__yes">✓</span> Generated from content</td>
+              </tr>
+              <tr>
+                <th scope="row">Auto-tags &amp; backlinks</th>
+                <td><span class="glance__no">— None</span></td>
+                <td><span class="glance__yes">✓</span> Suggested from your existing vault</td>
+              </tr>
+              <tr>
+                <th scope="row">Friday review surface</th>
+                <td><span class="glance__no">— None</span></td>
+                <td><span class="glance__yes">✓</span> Keyboard-driven two-pane review for <code>#inbox</code> notes</td>
+              </tr>
+              <tr>
+                <th scope="row">MCP / queryable from AI tools</th>
+                <td><span class="glance__no">— None</span></td>
+                <td><span class="glance__yes">✓</span> Local MCP — query your vault from Claude Desktop or Cursor</td>
+              </tr>
+              <tr>
+                <th scope="row">Best for</th>
+                <td>Anyone who wants the cleanest pure-dictation experience on Mac</td>
+                <td>Obsidian / Logseq / Markdown-vault users who want voice as input</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= HONEST TRADEOFFS ============================= -->
+    <section class="honest">
+      <div class="honest__container">
+        <p class="honest__intro">
+          We use SuperWhisper. It's the best in its category. Here's an honest take on what each tool does well — so you pick the one that fits your workflow, not the one with the louder marketing.
+        </p>
+        <div class="honest__grid">
+          <article class="honest__col honest__col--theirs">
+            <h3>Where SuperWhisper wins</h3>
+            <ul>
+              <li><strong>Indie-app polish.</strong> The UI, mode-switching, and onboarding are the most refined in this space. Years of iteration shows.</li>
+              <li><strong>Mode flexibility.</strong> Custom prompts per mode let power users dial in formatting for very specific contexts — code, email tone, transcription cleanup.</li>
+              <li><strong>Established workflow.</strong> If you already have hotkeys, modes, and muscle memory wired in, switching costs are real.</li>
+              <li><strong>Track record.</strong> Mature product. Loyal user base. Active development. No "will this still exist in a year" risk.</li>
+              <li><strong>No vault commitment required.</strong> If you don't keep a Markdown vault and don't plan to, you don't need what ThoughtMic adds.</li>
+            </ul>
+          </article>
+          <article class="honest__col honest__col--ours">
+            <h3>Where ThoughtMic wins</h3>
+            <ul>
+              <li><strong>Vault-native output.</strong> Spoken thoughts land as Markdown notes in your Obsidian / Logseq / Foam / plain-folder vault. Not just text at the cursor.</li>
+              <li><strong>Auto-titles, auto-tags, auto-backlinks.</strong> Your knowledge graph grows itself from voice input — no post-processing.</li>
+              <li><strong>Friday review surface.</strong> A dedicated keyboard-driven review for your <code>#inbox</code> notes. Discard, keep, promote, archive in five minutes.</li>
+              <li><strong>Local MCP.</strong> Query your vault from Claude Desktop or Cursor — your voice notes become AI-accessible context, never leaving your machine.</li>
+              <li><strong>Lifetime tier.</strong> $99 one-time (first 50 at $49) gets you everything forever. Not a model SuperWhisper offers.</li>
+              <li><strong>Free starter vault.</strong> Voice-first Obsidian vault with templates and tag taxonomy, free whether or not you ever install ThoughtMic.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= DEEP DIVE ============================= -->
+    <section class="deep">
+      <div class="deep__container">
+        <h2 class="deep__title">The real difference, in one sentence.</h2>
+
+        <p>
+          <strong>SuperWhisper stops at text. ThoughtMic doesn't.</strong>
+        </p>
+
+        <p>
+          Both apps press a hotkey, run Whisper locally, and put text where you want it. That's where SuperWhisper's job ends. ThoughtMic adds a second job: the same voice capture also writes a structured note into your knowledge vault — with a generated title, suggested tags pulled from your existing tag taxonomy, and backlinks resolved against notes you already have.
+        </p>
+
+        <h3 class="deep__h3">Why "vault-native" matters</h3>
+        <p>
+          If you live in Obsidian or Logseq, you've already invested in a tag system, folder hierarchy, and a personal lexicon of <code>[[wikilinks]]</code>. A pure dictation app — even a brilliant one — treats every dictation as a fresh string of text. ThoughtMic treats every dictation as a candidate note in <em>your</em> vault, structured the way you've already structured the rest of it.
+        </p>
+
+        <h3 class="deep__h3">Why review matters more than capture</h3>
+        <p>
+          Capturing thoughts is the easy part. The reason most voice-note workflows fall apart is the <strong>Collector's Fallacy</strong> — you accumulate hundreds of <code>#inbox</code> entries you never re-read. ThoughtMic ships a dedicated weekly review surface: hit <code>⌥⇧ R</code>, walk through every captured note, hit one of four keys (Discard / Keep / Promote / Archive). Most weeks, five minutes clears the inbox. SuperWhisper has no opinion on what happens to your text after it lands; ThoughtMic does.
+        </p>
+
+        <h3 class="deep__h3">Why MCP matters</h3>
+        <p>
+          ThoughtMic ships a local Model Context Protocol server. Your vault becomes queryable from Claude Desktop, Cursor, and any other MCP-compatible AI tool — without leaving your machine, without uploading anything. SuperWhisper's text never persists into a queryable structure; once it's in the cursor, it's the cursor's problem.
+        </p>
+
+        <h3 class="deep__h3">A note on transcription speed and quality</h3>
+        <p>
+          Both apps run Whisper locally. Transcription quality is essentially identical — they share the same underlying model. End-to-end latency is comparable (700–1500ms range on M-series Macs). If you want sub-300ms streaming, the only path right now is cloud-based dictation (Wispr Flow) — and you'd be giving up the local-first guarantee both ThoughtMic and SuperWhisper hold to.
+        </p>
+
+        <blockquote>
+          "SuperWhisper is the best pure dictation app out there — if that's what you want. ThoughtMic is a voice-to-vault pipeline. Different tools for different jobs."
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ============================= MIGRATION FAQ ============================= -->
+    <section class="faq">
+      <div class="faq__container">
+        <h2 class="faq__title">Common questions when comparing</h2>
+
+        <details>
+          <summary>Can I use both ThoughtMic and SuperWhisper at the same time?</summary>
+          <div class="faq__answer">
+            <p>Yes. They use different keyboard shortcuts and don't conflict. Many early users keep SuperWhisper for free-form text-anywhere dictation and use ThoughtMic specifically for capturing into their Obsidian or Logseq vault. Different hotkeys, different output destinations, no overlap.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Does ThoughtMic transcribe as well as SuperWhisper?</summary>
+          <div class="faq__answer">
+            <p>Both run Whisper locally on Apple Silicon. Transcription quality is essentially identical — they share the same underlying model architecture. ThoughtMic ships Whisper Large V3 Turbo with Metal acceleration. If you can dictate cleanly into one, you can dictate cleanly into the other.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Is ThoughtMic faster than SuperWhisper?</summary>
+          <div class="faq__answer">
+            <p>Comparable. Both are batch-style (record-then-transcribe), with end-to-end latency in the 700–1500ms range on M-series Macs. Neither is the streaming-fast experience Wispr Flow offers — that requires sending audio to the cloud, which both apps avoid by design.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Can ThoughtMic write into a vault that doesn't exist yet?</summary>
+          <div class="faq__answer">
+            <p>Yes. Point it at any folder of Markdown files. Works with Obsidian, Logseq, Foam, VS Code, plain folders. We also provide a <a href="/starter-vault/">free starter vault</a> with templates and a tag taxonomy if you want a ready-made structure.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What about privacy — is one more private than the other?</summary>
+          <div class="faq__answer">
+            <p>Both are local-first by default. SuperWhisper offers cloud transcription as an opt-in for some use cases. ThoughtMic keeps voice and vault entirely on-device; the only optional cloud call is text-only rephrasing through Groq Zero Data Retention, never audio. <a href="/privacy/">Full privacy disclosure here.</a></p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What if I'm already paying for SuperWhisper?</summary>
+          <div class="faq__answer">
+            <p>Keep using it. SuperWhisper is excellent — and they earned that subscription. If you also want vault-native voice capture, ThoughtMic is additive: free up to 2,000 words/week, $8/mo for unlimited, or $99 lifetime (first 50 at $49) so you never pay again. Most users who run both eventually pick one based on which workflow they reach for more.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============================= FINAL CTA ============================= -->
+    <section class="finalcta" id="waitlist">
+      <div class="container">
+        <svg class="finalcta__mark" viewBox="0 0 1024 1024" width="72" height="72" aria-hidden="true" data-reveal>
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="56" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <h2 class="finalcta__title" data-reveal>Try the voice-to-vault tool when it ships.</h2>
+        <p class="finalcta__sub">
+          We'll email you the day ThoughtMic is ready — with your download link and, for the first 50 signups, a $49 lifetime Founder's Deal code.
+        </p>
+
+        <form class="waitlist-form" action="https://app.kit.com/forms/9359921/subscriptions" method="post">
+          <ul class="formkit-alert formkit-alert-error" data-element="errors" role="alert"></ul>
+          <div data-element="fields" class="waitlist-form__fields">
+            <label for="waitlist-email" class="sr-only">Email address</label>
+            <div class="waitlist-form__field">
+              <input class="waitlist-form__input" type="email" name="email_address" id="waitlist-email" placeholder="you@example.com" required autocomplete="email" inputmode="email" aria-label="Email address">
+            </div>
+            <button class="btn btn--primary btn--lg waitlist-form__submit" type="submit">
+              <span>Join the waitlist</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="finalcta__micro">
+          We'll email you at launch. No newsletter. Unsubscribe any time.
+        </p>
+        <p class="finalcta__compat">
+          Works with <strong>Obsidian</strong> · <strong>Logseq</strong> · <strong>Foam</strong> · <strong>VS&nbsp;Code</strong> · any&nbsp;.md&nbsp;folder
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= MORE COMPARISONS ============================= -->
+    <section class="more-vs">
+      <div class="more-vs__container">
+        <p class="more-vs__label">More honest comparisons</p>
+        <ul class="more-vs__list">
+          <li><a href="/vs/wispr-flow/">vs Wispr Flow</a></li>
+          <li><a href="/vs/onit/">vs Onit</a></li>
+          <li><a href="/vs/voiceink/">vs VoiceInk</a></li>
+          <li><a href="/vs/whisper-plugin/">vs Obsidian Whisper plugin</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="footer">
+    <div class="container footer__row">
+      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
+      <ul class="footer__links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#privacy">Privacy</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/licenses/">Licenses</a></li>
+        <li><a href="/terms/">Terms</a></li>
+        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script defer src="/js/reveal.js"></script>
+  <script defer src="/js/waitlist-form.js"></script>
+</body>
+</html>
