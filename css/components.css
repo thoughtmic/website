@@ -938,7 +938,7 @@
 }
 
 .privacy__panel--local .privacy__label { color: var(--accent); }
-.privacy__panel--cloud .privacy__label { color: var(--warn); }
+.privacy__panel--cloud .privacy__label { color: #9a4827; } /* darker terracotta for WCAG AA on white at 11px (was var(--warn) #c47a5a, contrast 3.34) */
 
 .privacy__list {
   list-style: none;
@@ -1418,9 +1418,9 @@
 
 .pricing__toggle .save {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600; /* up from 500 for AA contrast at 11px */
   letter-spacing: 0.02em;
-  opacity: 0.8;
+  opacity: 1; /* was 0.8 — pushed inherited fg-muted to ~#7b7b7b on white = 4.23 contrast, fails AA */
   text-transform: uppercase;
 }
 
@@ -1436,7 +1436,7 @@
 }
 
 .pricing__toggle button.is-active .save {
-  opacity: 0.9;
+  opacity: 1; /* was 0.9 — pushed bg-on-accent to 4.35 contrast, fails AA */
 }
 
 /* =========================================================

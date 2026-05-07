@@ -7,7 +7,13 @@
   let current = parseInt(deck.dataset.front || "1", 10);
   if (!ORDER.includes(current)) current = 1;
 
-  const labelFor = (n) => `Pipeline step ${n} of ${TOTAL} — press Enter or click to see next step`;
+  // WCAG label-content-name-mismatch: visible text inside the deck card MUST appear at the start of
+  // the accessible name. Pull the active card's `.card-step` text (e.g. "01 · You spoke") and prepend it.
+  const stepText = (n) => {
+    const card = deck.querySelector(`.deck__card--${n} .card-step`);
+    return card ? card.textContent.trim() : `Step ${n}`;
+  };
+  const labelFor = (n) => `${stepText(n)}. Pipeline step ${n} of ${TOTAL}, press Enter or click to advance.`;
 
   const setFront = (n) => {
     current = n;
