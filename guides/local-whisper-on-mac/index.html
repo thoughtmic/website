@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local Whisper on Mac — the privacy-first dictation guide (2026)</title>
+  <meta name="description" content="An honest, no-marketing guide to running Whisper locally on Apple Silicon. The four serious options, real performance numbers, and when local actually beats cloud streaming.">
+  <meta name="theme-color" content="#f6f3ec">
+  <link rel="canonical" href="https://thoughtmic.com/guides/local-whisper-on-mac">
+
+  <meta property="og:title" content="Local Whisper on Mac — the privacy-first dictation guide">
+  <meta property="og:description" content="An honest, no-marketing guide to running Whisper locally on Apple Silicon. The four serious options, real performance numbers, and when local actually beats cloud streaming.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thoughtmic.com/guides/local-whisper-on-mac">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    /* ---- Guide page styles ---- */
+    .guide-hero {
+      padding-block: var(--space-7) var(--space-5);
+    }
+    .guide-hero__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .guide-hero__meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .guide-hero__meta-sep {
+      color: var(--fg-subtle);
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .guide-hero__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 56px;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin: 0 0 var(--space-3);
+      font-variation-settings: "opsz" 56, "SOFT" -5, "wght" 460;
+    }
+    .guide-hero__lede {
+      font-size: 20px;
+      line-height: 1.55;
+      color: var(--fg-muted);
+      max-width: 60ch;
+      margin: 0;
+    }
+    @media (max-width: 720px) {
+      .guide-hero { padding-block: var(--space-6) var(--space-4); }
+      .guide-hero__title { font-size: 36px; }
+      .guide-hero__lede { font-size: 17px; }
+    }
+
+    /* ---- TL;DR box ---- */
+    .tldr {
+      max-width: 760px;
+      margin: 0 auto var(--space-6);
+      padding: var(--space-4);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-lg);
+    }
+    .tldr__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .tldr__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 var(--space-2);
+    }
+    .tldr p {
+      margin: 0 0 var(--space-2);
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+      color: var(--fg);
+    }
+    .tldr p:last-child { margin-bottom: 0; }
+    .tldr strong { font-weight: 600; }
+
+    /* ---- TOC ---- */
+    .toc {
+      max-width: 760px;
+      margin: 0 auto var(--space-6);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+    }
+    .toc__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-2);
+    }
+    .toc ol {
+      margin: 0;
+      padding-left: 24px;
+      display: grid;
+      gap: 4px;
+    }
+    .toc li {
+      font-size: var(--fs-body-sm);
+      line-height: 1.5;
+    }
+    .toc a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .toc a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* ---- Body content ---- */
+    .body {
+      padding-block: var(--space-3) var(--space-7);
+    }
+    .body__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .body h2 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: var(--space-7) 0 var(--space-3);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+      scroll-margin-top: 96px;
+    }
+    .body h2:first-child { margin-top: 0; }
+    .body h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--fg);
+      margin: var(--space-5) 0 var(--space-2);
+      font-variation-settings: "opsz" 22, "SOFT" -2, "wght" 540;
+    }
+    .body p {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-3);
+    }
+    .body p strong { color: var(--fg); font-weight: 600; }
+    .body ul, .body ol {
+      margin: 0 0 var(--space-3);
+      padding-left: 24px;
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .body li { margin-bottom: 8px; }
+    .body li strong { color: var(--fg); font-weight: 600; }
+    .body code {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      padding: 2px 6px;
+      background: var(--bg);
+      border-radius: 4px;
+    }
+    .body blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 20px;
+      margin: var(--space-3) 0;
+      font-style: italic;
+      color: var(--fg);
+      font-size: var(--fs-body);
+      line-height: 1.55;
+    }
+    .body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .body a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    /* ---- Option cards ---- */
+    .option {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      margin: var(--space-3) 0;
+      background: var(--bg-elev);
+    }
+    .option__head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-2);
+    }
+    .option__name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--fg);
+      margin: 0;
+      font-variation-settings: "opsz" 22, "SOFT" -2, "wght" 540;
+    }
+    .option__pill {
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--fg-muted);
+      padding: 2px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+    .option__verdict {
+      font-size: var(--fs-body-sm);
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0 0 var(--space-3);
+    }
+    .option__row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 8px 16px;
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+    }
+    .option__row dt {
+      font-weight: 600;
+      color: var(--fg);
+    }
+    .option__row dd {
+      margin: 0;
+      color: var(--fg-muted);
+    }
+    @media (max-width: 540px) {
+      .option__row { grid-template-columns: 1fr; gap: 4px 0; }
+      .option__row dd { margin-bottom: 8px; }
+    }
+
+    /* ---- FAQ ---- */
+    .faq {
+      padding-block: var(--space-6);
+      background: var(--bg-elev);
+      border-block: 1px solid var(--border);
+    }
+    .faq__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .faq__title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0 0 var(--space-4);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+    }
+    .faq details {
+      border-bottom: 1px solid var(--border);
+      padding-block: var(--space-3);
+    }
+    .faq details:first-of-type { border-top: 1px solid var(--border); }
+    .faq summary {
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--fg);
+      list-style: none;
+      position: relative;
+      padding-right: 32px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      position: absolute;
+      right: 4px;
+      top: 0;
+      font-size: 22px;
+      color: var(--accent);
+      transition: transform var(--dur-micro) var(--ease);
+    }
+    .faq details[open] summary::after { content: "−"; }
+    .faq__answer {
+      margin-top: var(--space-3);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .faq__answer p { margin: 0 0 var(--space-3); }
+    .faq__answer p:last-child { margin-bottom: 0; }
+    .faq__answer a { color: var(--accent); }
+
+    /* ---- Related guides ---- */
+    .related {
+      padding-block: var(--space-5);
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .related__container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+      text-align: center;
+    }
+    .related__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .related__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+    .related__list a {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+      color: var(--fg);
+      text-decoration: none;
+      font-size: var(--fs-body-sm);
+      font-weight: 500;
+      transition: border-color var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease);
+    }
+    .related__list a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Local Whisper on Mac — the privacy-first dictation guide",
+    "description": "An honest, no-marketing guide to running Whisper locally on Apple Silicon. The four serious options, real performance numbers, and when local actually beats cloud streaming.",
+    "datePublished": "2026-05-07",
+    "dateModified": "2026-05-07",
+    "author": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "url": "https://thoughtmic.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thoughtmic.com/assets/apple-touch-icon.png"
+      }
+    },
+    "mainEntityOfPage": "https://thoughtmic.com/guides/local-whisper-on-mac",
+    "image": "https://thoughtmic.com/assets/og-image.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How fast is local Whisper on Apple Silicon, really?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On an M1/M2/M3, Whisper Large V3 Turbo at Q5 quantization measures roughly 1.5 seconds of fixed overhead plus about 80ms per second of audio. So a 6-second utterance takes around 2 seconds total to transcribe after you stop talking. The Small model is roughly 3x faster but loses noticeable accuracy on proper nouns, brand names, and technical vocabulary. Neither is the streaming-fast experience you get from cloud apps like Wispr Flow — that requires architectural differences (rolling chunk Whisper, or a non-Whisper architecture like Parakeet RNN-T)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will running Whisper locally drain my battery?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For typical PKM-style use (a handful of short utterances per hour), no — the model only runs during a transcription pass, which is a few hundred milliseconds to a few seconds at a time. For sustained heavy use (hour-long meeting transcription on Large), expect noticeable battery hit, similar to running a video call. The Apple Silicon GPU is far more efficient than a discrete card for this workload, but it's still real work."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I run Whisper Large on an M1 Mac?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Whisper Large V3 Turbo at Q5 quantization needs roughly 1.5–2 GB of memory and runs comfortably on every M-series Mac including the base 8 GB M1. Unified memory is what makes this practical — there's no separate VRAM bottleneck. The 8 GB M1 will feel some pressure if you're running Whisper, Chrome with 30 tabs, and Xcode at once, but the model itself fits."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a Linux version of any of these tools?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Whisper.cpp builds and runs on Linux out of the box and is the foundation most local Whisper tools sit on. MacWhisper and ThoughtMic are macOS-only. VoiceInk is Mac-only. For Linux specifically, you're looking at Whisper.cpp directly, plus open-source frontends like nerd-dictation or whisper-writer if you want hotkey-driven dictation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Parakeet vs Whisper — which is better for local dictation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They optimize for different things. Whisper is an encoder-decoder transformer built for batch transcription — high accuracy, runs after you stop talking. Parakeet (NVIDIA's RNN-T model) is built for streaming — emits tokens during speech, lower latency, but historically worse on long-form audio and proper nouns. For PKM-style capture where you record 10–60 seconds and want clean output, Whisper Large V3 Turbo is the better tradeoff today. For real-time messaging-style dictation where you want words appearing as you talk, Parakeet V3 is competitive and getting closer every release."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is local Whisper sometimes slower than cloud transcription?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Two reasons. First, Whisper is architecturally a batch model — it can't emit text until you stop talking, regardless of where it runs. Cloud apps that feel instant (like Wispr Flow) typically use streaming architectures like Conformer or RNN-T, which emit tokens during the recording. Second, big cloud providers run inference on H100/H200 GPUs that are dramatically faster than even an M3 Max for this workload — Groq's Whisper Large V3 endpoint can transcribe 10 seconds of audio in under 200ms. Local trades that raw throughput for zero data egress, zero per-call cost, and full offline capability."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which model size should I actually pick?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For most people, Large V3 Turbo at Q5. Best accuracy-to-speed tradeoff currently shipping, fits in memory on every M-series Mac, handles technical vocabulary well. Drop to Small only if you're on a very memory-constrained machine, content is purely conversational with no proper nouns or jargon, or you're transcribing extremely long files where the speed delta matters. Skip Tiny and Base unless you're on an Intel Mac (in which case you have bigger problems than model choice)."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ============================= NAV ============================= -->
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="150 230 724 600" width="60" height="60" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/#privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="/#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================= HERO ============================= -->
+    <section class="guide-hero">
+      <div class="guide-hero__container">
+        <p class="guide-hero__meta">
+          Guide
+          <span class="guide-hero__meta-sep">·</span>
+          14 min read
+          <span class="guide-hero__meta-sep">·</span>
+          Updated May 2026
+        </p>
+        <h1 class="guide-hero__title">Local Whisper on Mac — the privacy-first dictation guide</h1>
+        <p class="guide-hero__lede">
+          Audio is the most privacy-sensitive content surface most of us produce. If you're going to dictate at volume, you probably want the model running on your machine, not on someone else's. Here's the honest map of running Whisper locally on Apple Silicon in 2026 — what works, what it costs in latency, and which tool fits which workflow.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= TL;DR ============================= -->
+    <div class="tldr__container">
+      <aside class="tldr">
+        <p class="tldr__label">TL;DR</p>
+        <p>
+          <strong>Engineer who likes a terminal?</strong> Whisper.cpp directly — it's the engine everything else wraps. <strong>Want to batch-transcribe podcasts and meetings?</strong> MacWhisper, $5–$20 one-time. <strong>Want a system-wide dictation hotkey with an open-source backbone?</strong> VoiceInk. <strong>Want voice that lands as a titled, tagged, linked note in your vault — and a review surface so it doesn't pile up?</strong> ThoughtMic.
+        </p>
+        <p>
+          The real questions are simpler than the model menu suggests: <strong>do you want batch transcription (record then process) or live capture?</strong> And <strong>do you want raw text, or text that organizes itself into your existing note system?</strong> Pick those first; the tool falls out.
+        </p>
+      </aside>
+    </div>
+
+    <!-- ============================= TOC ============================= -->
+    <div class="tldr__container">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc__label">On this page</p>
+        <ol>
+          <li><a href="#why-local">Why local Whisper actually matters in 2026</a></li>
+          <li><a href="#how-whisper-works">How Whisper works (just enough to make sense of the options)</a></li>
+          <li><a href="#the-options">The four serious options</a></li>
+          <li><a href="#performance">Honest performance expectations on Apple Silicon</a></li>
+          <li><a href="#when-local">When local is the right call (and when it isn't)</a></li>
+          <li><a href="#setup">Setup notes for each option</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- ============================= BODY ============================= -->
+    <section class="body">
+      <div class="body__container">
+
+        <h2 id="why-local">Why local Whisper actually matters in 2026</h2>
+        <p>
+          The privacy argument for local transcription is the obvious one, but it's worth being precise about what's at stake. There are three real reasons people end up here, and only one of them is what most marketing pages talk about.
+        </p>
+        <p>
+          <strong>1. Audio is the most privacy-sensitive content surface you produce.</strong> A typed message contains the words you decided to send. A voice recording contains your voice — biometric data, with all the implications of that — plus background audio you didn't intend to capture (a colleague's call across the room, your kid in the next room, a TV in the background). It also captures the half-formed monologue you talk yourself through before deciding what to actually write. Sending all of that to a cloud transcription provider is a meaningfully bigger privacy footprint than sending text. Even with good vendor policies, the surface area is larger and the data is more revealing.
+        </p>
+        <p>
+          <strong>2. Zero ongoing cost.</strong> Cloud Whisper APIs charge per minute. For light use (a few minutes a day), that's small. For heavy daily dictation — call it 30 minutes a day across emails, notes, Slack, drafts — it adds up to real money over a year, and the meter never stops. Local Whisper has a fixed cost: the time to download the model. After that, marginal transcription is free forever, regardless of how much you talk.
+        </p>
+        <p>
+          <strong>3. Latency control — but not in the way you'd think.</strong> Local has no network round-trip, which sounds like it should be faster. It usually isn't. Whisper is an encoder-decoder transformer that produces output in a single batch pass after the recording stops; on consumer hardware it can't compete with a cloud streaming endpoint that emits tokens during the recording itself. What local <em>does</em> give you is predictable latency — no spinning beachball when your wifi flakes, no rate-limit surprises, and no degradation when the provider's infra has a bad day. The floor is also the ceiling, which matters more than people realize.
+        </p>
+        <p>
+          So local is the right call when (a) the content is sensitive, (b) the volume is high enough that per-call cost matters, or (c) reliability under flaky connectivity matters more than peak speed. We'll come back to the "when isn't it right" question in a section below.
+        </p>
+
+        <h2 id="how-whisper-works">How Whisper works (just enough to make sense of the options)</h2>
+        <p>
+          Whisper is an encoder-decoder transformer trained by OpenAI on roughly 680,000 hours of multilingual audio. The encoder turns 30-second audio chunks into a representation; the decoder generates text tokens conditioned on that representation. Critically, the decoder runs <strong>after</strong> the audio is captured, not during it. This is why Whisper is fundamentally a batch model — it doesn't emit text as you talk, it emits text after you stop.
+        </p>
+        <p>
+          "Local" on Mac means the model weights run on your Apple Silicon GPU using Metal acceleration. Two stacks dominate: <strong>Whisper.cpp</strong> (Georgi Gerganov's C/C++ port using ggml, the same quantization library that powers llama.cpp) and Apple's <strong>Core ML</strong> path (used by some apps, sometimes alongside NeMo for Parakeet). Whisper.cpp is what most of the apps in this guide are built on, including ThoughtMic.
+        </p>
+        <p>
+          The model size tiers, in order of accuracy and resource cost: <strong>Tiny</strong> (~75 MB) → <strong>Base</strong> (~150 MB) → <strong>Small</strong> (~500 MB) → <strong>Medium</strong> (~1.5 GB) → <strong>Large V3</strong> (~3 GB) → <strong>Large V3 Turbo</strong> (~1.6 GB, distilled from Large V3 for ~2x speed at near-identical accuracy). Quantization further shrinks these — Q5 cuts roughly half the memory at minimal accuracy cost; Q4 cuts more but starts producing visible degradation, especially on proper nouns.
+        </p>
+        <p>
+          The reason all of this works on a MacBook is Apple Silicon's unified memory architecture. On a desktop PC, the GPU has its own VRAM and you're constantly shuffling data across the PCIe bus; on M-series Macs, the CPU and GPU share the same memory pool, so loading a 1.6 GB model into "GPU memory" is just allocating it once. That's why a base-tier 8 GB M1 can run Large V3 Turbo at usable speed, and why this comparison page only exists for Mac.
+        </p>
+        <p>
+          Practical recommendation for most people: <strong>Large V3 Turbo at Q5</strong>. Best accuracy-to-speed tradeoff currently available, fits comfortably in memory on every M-series Mac, handles technical vocabulary and proper nouns well. This is what ThoughtMic ships with by default; MacWhisper and VoiceInk both let you pick.
+        </p>
+
+        <h2 id="the-options">The four serious options</h2>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">Whisper.cpp directly</h3>
+            <span class="option__pill">Free · open source · CLI</span>
+          </header>
+          <p class="option__verdict">The engine. Free, fast, MIT-licensed, no GUI. For people building their own tooling.</p>
+          <dl class="option__row">
+            <dt>Model</dt><dd>Any GGUF Whisper model — Tiny through Large V3 Turbo, any quantization tier</dd>
+            <dt>Output</dt><dd>Text or JSON to stdout; file out with <code>-otxt</code>, <code>-osrt</code>, <code>-ovtt</code></dd>
+            <dt>Privacy</dt><dd>100% local. No telemetry, no network calls.</dd>
+            <dt>Speed</dt><dd>Fastest of all the options — no GUI overhead, direct Metal acceleration</dd>
+            <dt>Structure</dt><dd>None. It's a transcription engine; what you do with the output is your problem.</dd>
+            <dt>Best for</dt><dd>Engineers, automation pipelines, building your own tools, batch-processing existing audio archives. Also the foundation almost every other tool here is built on.</dd>
+          </dl>
+        </article>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">MacWhisper</h3>
+            <span class="option__pill">$5–$20 one-time · local</span>
+          </header>
+          <p class="option__verdict">The most polished GUI wrapper. Built for transcribing audio files (podcasts, meetings, interviews), not for live capture.</p>
+          <dl class="option__row">
+            <dt>Model</dt><dd>Whisper Tiny → Large V3, multiple quantization options</dd>
+            <dt>Output</dt><dd>Transcript displayed in-app; export to TXT, SRT, VTT, DOCX, PDF</dd>
+            <dt>Privacy</dt><dd>100% local Whisper</dd>
+            <dt>Speed</dt><dd>Batch — feed it a file, get a transcript. Real-time recording also supported but the workflow is file-first.</dd>
+            <dt>Structure</dt><dd>None at the vault level. You move the transcript wherever it needs to go.</dd>
+            <dt>Best for</dt><dd>People who have audio files (call recordings, podcast episodes, lecture captures) they want clean transcripts of. Polished UX, sensible defaults, frequent updates.</dd>
+          </dl>
+        </article>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">VoiceInk</h3>
+            <span class="option__pill">Free (build) · ~$25–$49 paid · open source</span>
+          </header>
+          <p class="option__verdict">System-wide dictation hotkey with an open-source backbone. Strong fit for people who want to inspect or modify the code.</p>
+          <dl class="option__row">
+            <dt>Model</dt><dd>Whisper variants; some users add Parakeet V3 alongside</dd>
+            <dt>Output</dt><dd>Text at the cursor in any active app</dd>
+            <dt>Privacy</dt><dd>Local by default; some optional cloud features in paid tiers — check the current docs</dd>
+            <dt>Speed</dt><dd>Local batch, comparable to other Whisper.cpp wrappers</dd>
+            <dt>Structure</dt><dd>None. Plain text into whatever has focus.</dd>
+            <dt>Best for</dt><dd>Open-source users who want a dictation app they can audit or modify. Build-from-source path is real and supported. Paid tier funds development.</dd>
+          </dl>
+        </article>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">ThoughtMic</h3>
+            <span class="option__pill">Free up to 2k words/wk · $8/mo · $99 lifetime</span>
+          </header>
+          <p class="option__verdict">Voice-to-vault pipeline. Local Whisper Large V3 Turbo plus auto-titles, auto-tags, auto-backlinks, and a Friday-review surface so captures don't pile up.</p>
+          <dl class="option__row">
+            <dt>Model</dt><dd>Whisper Large V3 Turbo at Q5, Metal-accelerated via Whisper.cpp</dd>
+            <dt>Output</dt><dd>Text at cursor in any app, AND a titled/tagged/linked Markdown note in your vault folder</dd>
+            <dt>Privacy</dt><dd>Audio and vault stay local. Optional cloud rephrase is text-only via Zero Data Retention — never audio, never vault contents.</dd>
+            <dt>Speed</dt><dd>~1.5s overhead + ~80ms per second of audio on M1/M2/M3</dd>
+            <dt>Structure</dt><dd>Auto-generated title, tags suggested from your existing vault taxonomy, backlinks resolved against existing notes, queryable from Claude Desktop / Cursor via local MCP server</dd>
+            <dt>Best for</dt><dd>Obsidian / Logseq / Foam / VS Code / plain-Markdown users who want voice capture that integrates with their note system, not just transcribes around it. <a href="/">See thoughtmic.com.</a></dd>
+          </dl>
+        </article>
+
+        <h2 id="performance">Honest performance expectations on Apple Silicon</h2>
+        <p>
+          The single most common mistake people make about local Whisper is expecting it to feel like cloud streaming dictation. It doesn't, and it can't, given the architecture. Here's what to actually expect:
+        </p>
+        <p>
+          <strong>Whisper Large V3 Turbo, Q5, on M1/M2/M3:</strong> roughly 1.5 seconds of fixed overhead (model warm-up, audio normalization, encoder pass) plus about 80 milliseconds per second of audio. So a 6-second utterance lands in roughly 2 seconds total after you stop talking. A 30-second utterance: about 4 seconds. A 5-minute meeting recording: about 25 seconds. M3 Pro and M3 Max are noticeably faster on long content; the fixed overhead is similar, but the per-second cost drops.
+        </p>
+        <p>
+          <strong>Smaller models are faster, with caveats.</strong> Whisper Small is roughly 3x faster than Large V3 Turbo, but its accuracy on proper nouns, brand names, technical vocabulary, and acronyms degrades visibly. For a stream-of-consciousness journal entry, Small is fine. For meeting notes where you'll later search for "Anthropic" or "Postgres" or your colleague's name, Large V3 Turbo earns its keep.
+        </p>
+        <p>
+          <strong>Neither tier is the streaming experience cloud apps deliver.</strong> Apps like Wispr Flow that produce text appearing as you speak are doing one of two things: running a streaming-capable architecture (Conformer, RNN-T, or Whisper modified for rolling chunks), or running Whisper on cloud GPUs that are an order of magnitude faster than even an M3 Max. Neither path is available locally on Apple Silicon today at the same fluency. If sub-300ms perceived latency is non-negotiable for your workflow, local Whisper isn't the answer; cloud streaming is.
+        </p>
+        <p>
+          <strong>Energy cost is real but manageable.</strong> A short transcription pass barely registers. Sustained heavy use (transcribing an hour-long meeting on Large V3) is comparable to a video call in battery hit. The Apple Silicon GPU is dramatically more efficient than a discrete card for this workload, but it's still real work.
+        </p>
+
+        <h2 id="when-local">When local is the right call (and when it isn't)</h2>
+
+        <h3>Local is the right call when:</h3>
+        <ul>
+          <li><strong>The content is sensitive.</strong> Personal journaling, therapy notes, work that touches client/patient/customer data, anything covered by HIPAA / GDPR / SOC 2 contractual obligations. The simpler and safer story is "the audio never left this Mac."</li>
+          <li><strong>You're in a regulated industry.</strong> Legal, healthcare, finance, government, defense — even if a cloud vendor would technically be compliant, local removes a category of compliance work entirely.</li>
+          <li><strong>You dictate a lot.</strong> Per-minute API pricing is unobjectionable at low volume and adds up fast at high volume. Local has no marginal cost.</li>
+          <li><strong>You don't want vendor lock-in or surprise pricing changes.</strong> The model on your disk doesn't get a pricing-page update.</li>
+          <li><strong>You want it to work offline.</strong> Plane mode, train tunnel, spotty coffee shop wifi, the airline's "we have wifi" theater that returns 0.3 Mbps — local doesn't care.</li>
+        </ul>
+
+        <h3>Cloud streaming is the right call when:</h3>
+        <ul>
+          <li><strong>You absolutely need sub-300ms perceived latency.</strong> If you write thousands of words a day by voice into messaging apps and feel each second of post-recording delay, the streaming experience is meaningfully better. Local Whisper isn't going to compete on this axis any time soon.</li>
+          <li><strong>The content isn't sensitive and the per-call cost is small.</strong> Casual dictation into general-purpose apps, with a vendor whose privacy story you're comfortable with.</li>
+          <li><strong>You're on a Mac with limited memory pressure budget.</strong> Local Whisper is memory-efficient but not free; if you're already maxing 8 GB unified memory on Chrome and Slack and Xcode, the offload helps.</li>
+        </ul>
+
+        <h3>Both are fine when:</h3>
+        <ul>
+          <li>Most casual PKM use sits here. The 1–2 second latency penalty for local matters less than the privacy and cost advantages over a year of use. Pick on the privacy/cost axis, not the latency one.</li>
+        </ul>
+
+        <h2 id="setup">Setup notes for each option</h2>
+
+        <h3>Whisper.cpp directly</h3>
+        <ol>
+          <li>Install via Homebrew: <code>brew install whisper-cpp</code> — or clone and build from source if you want the latest:
+            <code>git clone https://github.com/ggerganov/whisper.cpp &amp;&amp; cd whisper.cpp &amp;&amp; make</code></li>
+          <li>Download a model. For Large V3 Turbo Q5: <code>bash ./models/download-ggml-model.sh large-v3-turbo-q5_0</code> (or grab any quantization from <a href="https://huggingface.co/ggerganov/whisper.cpp">huggingface.co/ggerganov/whisper.cpp</a>)</li>
+          <li>Run: <code>./main -m models/ggml-large-v3-turbo-q5_0.bin -f your-audio.wav</code></li>
+          <li>For real-time mic input, use the <code>./stream</code> binary built alongside <code>main</code>. Note this is genuinely DIY tooling — wire it into a hotkey, output target, and post-processing yourself.</li>
+        </ol>
+
+        <h3>MacWhisper</h3>
+        <ol>
+          <li>Buy from <a href="https://goodsnooze.gumroad.com/l/macwhisper">goodsnooze.gumroad.com/l/macwhisper</a> (one-time price; tiers unlock larger models and pro features)</li>
+          <li>Open the app, drag in an audio file (or hit record)</li>
+          <li>Pick a Whisper model size — start with Small for speed-testing the workflow, switch to Large V3 once you trust it</li>
+          <li>Wait for transcription, then export TXT / SRT / DOCX or copy/paste into wherever it needs to go</li>
+        </ol>
+
+        <h3>VoiceInk</h3>
+        <ol>
+          <li>Visit the project on GitHub: <a href="https://github.com/Beingpax/VoiceInk">github.com/Beingpax/VoiceInk</a></li>
+          <li>Either build from source (instructions in the repo) or grab a paid build from the project's website</li>
+          <li>On first launch, grant microphone + accessibility permissions (the latter is what lets it inject text at the cursor)</li>
+          <li>Set a hotkey, pick a model, and you're dictating system-wide</li>
+        </ol>
+
+        <h3>ThoughtMic</h3>
+        <ol>
+          <li>Join the <a href="/#waitlist">waitlist</a> (launches summer 2026)</li>
+          <li>At launch: download, point it at your vault folder, set the hotkey</li>
+          <li>Press <code>⌥ Space</code> anywhere on your Mac, talk — text appears at your cursor and a structured Markdown note lands in your vault with a title, tags, and backlinks</li>
+          <li>Hit <code>⌥⇧ R</code> on Fridays to walk through your <code>#inbox</code> notes with one-keystroke decisions (Discard / Keep / Promote / Archive)</li>
+          <li>Optional: enable the local MCP server so Claude Desktop or Cursor can query your vault directly</li>
+        </ol>
+
+        <h3>One thing worth knowing regardless of which tool you pick</h3>
+        <p>
+          The first time you run Whisper Large V3 Turbo locally, the encoder pass on the first transcription is slower than subsequent runs — the model needs to warm into the GPU caches. Don't benchmark your first transcription; the second and third are the real number.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ============================= FAQ ============================= -->
+    <section class="faq" id="faq">
+      <div class="faq__container">
+        <h2 class="faq__title">Frequently asked</h2>
+
+        <details>
+          <summary>How fast is local Whisper on Apple Silicon, really?</summary>
+          <div class="faq__answer">
+            <p>On an M1/M2/M3, Whisper Large V3 Turbo at Q5 measures roughly 1.5 seconds of fixed overhead plus about 80ms per second of audio. So a 6-second utterance takes around 2 seconds total to transcribe after you stop talking. The Small model is roughly 3x faster but loses accuracy on proper nouns, brand names, and technical vocabulary. Neither is the streaming-fast experience you get from cloud apps like Wispr Flow — that requires architectural differences (rolling-chunk Whisper, or a non-Whisper architecture like Parakeet RNN-T).</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Will running Whisper locally drain my battery?</summary>
+          <div class="faq__answer">
+            <p>For typical PKM-style use (a handful of short utterances per hour), no — the model only runs during a transcription pass, which is a few hundred milliseconds to a few seconds at a time. For sustained heavy use (an hour-long meeting transcription on Large), expect noticeable battery hit, similar to running a video call. The Apple Silicon GPU is far more efficient than a discrete card for this workload, but it's still real work.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Can I run Whisper Large on an M1 Mac?</summary>
+          <div class="faq__answer">
+            <p>Yes. Whisper Large V3 Turbo at Q5 needs roughly 1.5–2 GB of memory and runs comfortably on every M-series Mac including the base 8 GB M1. Unified memory is what makes this practical — there's no separate VRAM bottleneck. The 8 GB M1 will feel some pressure if you're running Whisper, Chrome with 30 tabs, and Xcode at once, but the model itself fits.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Is there a Linux version of any of these tools?</summary>
+          <div class="faq__answer">
+            <p>Whisper.cpp builds and runs on Linux out of the box and is the foundation most local Whisper tools sit on. MacWhisper, VoiceInk, and ThoughtMic are all Mac-only. For Linux specifically, you're looking at Whisper.cpp directly, plus open-source frontends like nerd-dictation or whisper-writer if you want hotkey-driven dictation. The vault-native tooling (auto-tagging, auto-backlinks, Friday review) doesn't have a comparable Linux equivalent today.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Parakeet vs Whisper — which is better for local dictation?</summary>
+          <div class="faq__answer">
+            <p>They optimize for different things. Whisper is an encoder-decoder transformer built for batch transcription — high accuracy, runs after you stop talking. Parakeet (NVIDIA's RNN-T model) is built for streaming — emits tokens during speech, lower latency, but historically worse on long-form audio and proper nouns. For PKM-style capture where you record 10–60 seconds and want clean output, Whisper Large V3 Turbo is the better tradeoff today. For real-time messaging-style dictation where you want words appearing as you talk, Parakeet V3 is competitive and getting closer every release.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Why is local Whisper sometimes slower than cloud transcription?</summary>
+          <div class="faq__answer">
+            <p>Two reasons. First, Whisper is architecturally a batch model — it can't emit text until you stop talking, regardless of where it runs. Cloud apps that feel instant (like Wispr Flow) typically use streaming architectures like Conformer or RNN-T, which emit tokens during the recording. Second, big cloud providers run inference on H100/H200 GPUs that are dramatically faster than even an M3 Max for this workload — Groq's Whisper Large V3 endpoint can transcribe 10 seconds of audio in under 200ms. Local trades that raw throughput for zero data egress, zero per-call cost, and full offline capability.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Which model size should I actually pick?</summary>
+          <div class="faq__answer">
+            <p>For most people, Large V3 Turbo at Q5. Best accuracy-to-speed tradeoff currently shipping, fits in memory on every M-series Mac, handles technical vocabulary well. Drop to Small only if you're on a very memory-constrained machine, content is purely conversational with no proper nouns or jargon, or you're transcribing extremely long files where the speed delta matters. Skip Tiny and Base unless you're on an Intel Mac (in which case you have bigger problems than model choice).</p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ============================= FINAL CTA ============================= -->
+    <section class="finalcta" id="waitlist">
+      <div class="container">
+        <svg class="finalcta__mark" viewBox="0 0 1024 1024" width="72" height="72" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="56" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <h2 class="finalcta__title">Want local Whisper that lands as structured notes?</h2>
+        <p class="finalcta__sub">
+          ThoughtMic ships summer 2026. Whisper Large V3 Turbo on your Mac, vault-native output, Friday-review built in. Join the waitlist for a launch-day download link and the Founder's Deal ($49 lifetime, first 50 only).
+        </p>
+
+        <form class="waitlist-form" action="https://app.kit.com/forms/9359921/subscriptions" method="post">
+          <ul class="formkit-alert formkit-alert-error" data-element="errors" role="alert"></ul>
+          <div data-element="fields" class="waitlist-form__fields">
+            <label for="waitlist-email" class="sr-only">Email address</label>
+            <div class="waitlist-form__field">
+              <input class="waitlist-form__input" type="email" name="email_address" id="waitlist-email" placeholder="you@example.com" required autocomplete="email" inputmode="email" aria-label="Email address">
+            </div>
+            <button class="btn btn--primary btn--lg waitlist-form__submit" type="submit">
+              <span>Join the waitlist</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="finalcta__micro">
+          We'll email you at launch. No newsletter. Unsubscribe any time.
+        </p>
+        <p class="finalcta__compat">
+          Works with <strong>Obsidian</strong> · <strong>Logseq</strong> · <strong>Foam</strong> · <strong>VS&nbsp;Code</strong> · any&nbsp;.md&nbsp;folder
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= RELATED GUIDES ============================= -->
+    <section class="related">
+      <div class="related__container">
+        <p class="related__label">More guides</p>
+        <ul class="related__list">
+          <li><a href="/guides/voice-notes-for-obsidian">Voice notes for Obsidian — the four real options in 2026</a></li>
+          <li><a href="/guides/mcp-for-personal-notes">MCP for personal notes — what it is and why it matters</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="footer">
+    <div class="container footer__row">
+      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
+      <ul class="footer__links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#privacy">Privacy</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/licenses">Licenses</a></li>
+        <li><a href="/terms">Terms</a></li>
+        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script defer src="/js/reveal.js"></script>
+  <script defer src="/js/waitlist-form.js"></script>
+</body>
+</html>
