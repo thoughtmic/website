@@ -731,7 +731,7 @@
           What you give up with proprietary: source-level audit, the right to fork, and a guarantee against the company disappearing. Those are not small things, and we're not going to pretend they are. The PKM-buyer who picks ThoughtMic is making a trade — paying for depth (vault enrichment, review surface, MCP, ongoing development) at the cost of source-level verifiability.
         </p>
         <p>
-          What we offer in partial answer: <strong>verifiable network behavior</strong>. Run Little Snitch. Watch the connections. Voice and vault never leave your machine. The only outbound call is the optional text-only rephrase to Groq Zero Data Retention, and you can disable it in one click. Every telemetry event we send is documented at <a href="/privacy/telemetry/">/privacy/telemetry/</a> — aggregate counts, no content, one-click off. Closed source means you can't read the code. It doesn't mean you can't verify what the code does on the wire.
+          What we offer in partial answer: <strong>verifiable network behavior</strong>. Run Little Snitch. Watch the connections. Voice and vault never leave your machine. The only outbound call is the optional text-only rephrase to Groq Zero Data Retention, and you can disable it in one click. Every telemetry event we send is documented at <a href="/privacy/telemetry">/privacy/telemetry/</a> — aggregate counts, no content, one-click off. Closed source means you can't read the code. It doesn't mean you can't verify what the code does on the wire.
         </p>
 
         <h3 class="deep__h3">Why "vault-native" matters</h3>
@@ -769,7 +769,7 @@
           <summary>Is ThoughtMic open source?</summary>
           <div class="faq__answer">
             <p>No. ThoughtMic is a proprietary commercial app, and we're upfront about that. If open-source identity is a hard requirement for you, VoiceInk is the right pick — full stop. The trade we're asking you to make is depth (vault enrichment, review, MCP, ongoing roadmap) for source-level auditability. Whether that trade is worth it is your call.</p>
-            <p>We may open-source pieces over time — the <a href="/starter-vault/">Obsidian starter vault</a> is already free, and the local MCP server is a candidate. We won't commit to anything we can't deliver.</p>
+            <p>We may open-source pieces over time — the <a href="/starter-vault">Obsidian starter vault</a> is already free, and the local MCP server is a candidate. We won't commit to anything we can't deliver.</p>
           </div>
         </details>
 
@@ -786,7 +786,7 @@
           <div class="faq__answer">
             <p>Fair question. Two ways to verify without reading our source:</p>
             <p>(1) <strong>Run Little Snitch.</strong> Voice and vault stay local; the only outbound call is the optional text-only rephrase to Groq Zero Data Retention. You can confirm this on your own machine in a few minutes — no marketing claim required.</p>
-            <p>(2) <strong>Read the telemetry disclosure.</strong> Every event we send is documented at <a href="/privacy/telemetry/">/privacy/telemetry/</a>. Aggregate counts only, no content, one-click off. We don't bury anything in a privacy policy.</p>
+            <p>(2) <strong>Read the telemetry disclosure.</strong> Every event we send is documented at <a href="/privacy/telemetry">/privacy/telemetry/</a>. Aggregate counts only, no content, one-click off. We don't bury anything in a privacy policy.</p>
             <p>Closed source is a real downside. Verifiable network behavior is how we partly answer for it.</p>
           </div>
         </details>
@@ -810,7 +810,7 @@
           <summary>Will ThoughtMic ever go open source?</summary>
           <div class="faq__answer">
             <p>No commitment yet. The honest answer is that the business model is paid Pro, and the enrichment pipeline (auto-tag/title/backlink quality, MCP integration) is the moat. Open-sourcing the whole app would undercut the only thing keeping the lights on for a one-person operation.</p>
-            <p>We may open-source pieces — the <a href="/starter-vault/">starter vault</a> already is, and the local MCP server is a candidate. Anything we promise here we'd promise in writing. For now, treat ThoughtMic as proprietary indefinitely.</p>
+            <p>We may open-source pieces — the <a href="/starter-vault">starter vault</a> already is, and the local MCP server is a candidate. Anything we promise here we'd promise in writing. For now, treat ThoughtMic as proprietary indefinitely.</p>
           </div>
         </details>
       </div>
@@ -872,16 +872,48 @@
 
   <!-- ============================= FOOTER ============================= -->
   <footer class="footer">
-    <div class="container footer__row">
-      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
-      <ul class="footer__links">
-        <li><a href="/#features">Features</a></li>
-        <li><a href="/#privacy">Privacy</a></li>
-        <li><a href="/#pricing">Pricing</a></li>
-        <li><a href="/licenses/">Licenses</a></li>
-        <li><a href="/terms/">Terms</a></li>
-        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
-      </ul>
+    <div class="container footer__grid">
+      <div class="footer__col footer__col--brand">
+        <a href="/" class="footer__brand" aria-label="ThoughtMic home">
+          <svg viewBox="150 230 724 600" aria-hidden="true">
+            <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z" fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+            <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+            <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+            <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+            <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+            <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          </svg>
+          <span class="footer__brand-text">ThoughtMic</span>
+        </a>
+        <p class="footer__tagline">Built for people who think out loud.</p>
+        <ul class="footer__list">
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#privacy">Privacy</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/starter-vault">Starter vault</a></li>
+          <li><a href="/licenses">Licenses</a> · <a href="/terms">Terms</a></li>
+          <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+        </ul>
+        <p class="footer__copy">© 2026 ThoughtMic</p>
+      </div>
+      <div class="footer__col">
+        <p class="footer__heading">Compare</p>
+        <ul class="footer__list">
+          <li><a href="/vs/superwhisper">vs SuperWhisper</a></li>
+          <li><a href="/vs/wispr-flow">vs Wispr Flow</a></li>
+          <li><a href="/vs/onit">vs Onit</a></li>
+          <li><a href="/vs/voiceink">vs VoiceInk</a></li>
+          <li><a href="/vs/whisper-plugin">vs Whisper plugin</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__heading">Guides</p>
+        <ul class="footer__list">
+          <li><a href="/guides/voice-notes-for-obsidian">Voice notes for Obsidian</a></li>
+          <li><a href="/guides/local-whisper-on-mac">Local Whisper on Mac</a></li>
+          <li><a href="/guides/mcp-for-personal-notes">MCP for personal notes</a></li>
+        </ul>
+      </div>
     </div>
   </footer>
 

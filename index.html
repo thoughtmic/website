@@ -389,7 +389,7 @@ checkout flow involves moving…
         <p data-reveal style="font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); max-width: 58ch; margin: 0 auto 28px;">
           A vault built for voice-first note-taking — voice-memo template, daily-note scaffolding, a tag taxonomy that survives the way you actually think out loud, and the folder structure we use ourselves. Works whether or not you ever install ThoughtMic.
         </p>
-        <a class="btn btn--ghost" href="/starter-vault/">
+        <a class="btn btn--ghost" href="/starter-vault">
           Get the vault <span class="btn__chev" aria-hidden="true">→</span>
         </a>
       </div>
@@ -470,6 +470,30 @@ checkout flow involves moving…
       </div>
     </section>
 
+    <!-- ============================= RESOURCES ============================= -->
+    <section class="section" id="resources" style="padding-block: 72px;">
+      <div class="container" style="max-width: 760px; margin: 0 auto; text-align: center;">
+        <span class="hero__eyebrow" data-reveal style="display: inline-block; margin-bottom: 16px;">Learn more</span>
+        <h2 data-reveal style="font-family: var(--font-display); font-weight: 400; font-size: 44px; line-height: 1.08; letter-spacing: -0.015em; color: var(--fg); margin-bottom: 32px; font-variation-settings: 'opsz' 44, 'SOFT' -5, 'wght' 480;">
+          Read more before you commit.
+        </h2>
+        <div class="resources__grid">
+          <a href="/vs/superwhisper" class="resources__card" data-reveal>
+            <p class="resources__label">Compare to alternatives</p>
+            <p class="resources__head">Side-by-side honest comparisons</p>
+            <p class="resources__body">vs SuperWhisper, Wispr Flow, Onit, VoiceInk, and Nik Danilov's Whisper plugin — what each is good at, where each falls short, when to pick which.</p>
+            <span class="resources__cta">Read 5 comparisons →</span>
+          </a>
+          <a href="/guides/voice-notes-for-obsidian" class="resources__card" data-reveal>
+            <p class="resources__label">Read our guides</p>
+            <p class="resources__head">Workflow guides for voice + PKM</p>
+            <p class="resources__body">Voice notes for Obsidian, local Whisper on Mac, MCP for personal notes — practical guides written for sophisticated readers, not marketing copy.</p>
+            <span class="resources__cta">Read 3 guides →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ============================= WAITLIST (final CTA) ============================= -->
     <section class="finalcta" id="waitlist">
       <div class="container">
@@ -531,16 +555,48 @@ checkout flow involves moving…
 
   <!-- ============================= FOOTER ============================= -->
   <footer class="footer">
-    <div class="container footer__row">
-      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
-      <ul class="footer__links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#privacy">Privacy</a></li>
-        <li><a href="#pricing">Pricing</a></li>
-        <li><a href="/licenses/">Licenses</a></li>
-        <li><a href="/terms/">Terms</a></li>
-        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
-      </ul>
+    <div class="container footer__grid">
+      <div class="footer__col footer__col--brand">
+        <a href="/" class="footer__brand" aria-label="ThoughtMic home">
+          <svg viewBox="150 230 724 600" aria-hidden="true">
+            <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z" fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+            <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+            <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+            <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+            <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+            <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          </svg>
+          <span class="footer__brand-text">ThoughtMic</span>
+        </a>
+        <p class="footer__tagline">Built for people who think out loud.</p>
+        <ul class="footer__list">
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#privacy">Privacy</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/starter-vault">Starter vault</a></li>
+          <li><a href="/licenses">Licenses</a> · <a href="/terms">Terms</a></li>
+          <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+        </ul>
+        <p class="footer__copy">© 2026 ThoughtMic</p>
+      </div>
+      <div class="footer__col">
+        <p class="footer__heading">Compare</p>
+        <ul class="footer__list">
+          <li><a href="/vs/superwhisper">vs SuperWhisper</a></li>
+          <li><a href="/vs/wispr-flow">vs Wispr Flow</a></li>
+          <li><a href="/vs/onit">vs Onit</a></li>
+          <li><a href="/vs/voiceink">vs VoiceInk</a></li>
+          <li><a href="/vs/whisper-plugin">vs Whisper plugin</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__heading">Guides</p>
+        <ul class="footer__list">
+          <li><a href="/guides/voice-notes-for-obsidian">Voice notes for Obsidian</a></li>
+          <li><a href="/guides/local-whisper-on-mac">Local Whisper on Mac</a></li>
+          <li><a href="/guides/mcp-for-personal-notes">MCP for personal notes</a></li>
+        </ul>
+      </div>
     </div>
   </footer>
 
