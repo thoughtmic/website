@@ -28,7 +28,7 @@
   display: inline-flex !important;
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
   text-decoration: none;
   color: var(--fg);
   line-height: 1;
@@ -37,8 +37,8 @@
 .nav__wordmark .nav__mark {
   display: block;
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
+  width: 76px;
+  height: 76px;
   color: var(--fg);
 }
 
