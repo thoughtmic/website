@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCP for personal notes — what it is and why it matters for PKM in 2026</title>
+  <meta name="description" content="A plain-English guide to Model Context Protocol for personal note-taking. What MCP is, why AI-queryable vaults are a fundamental shift, what works today, and how to wire Obsidian into Claude Desktop.">
+  <meta name="theme-color" content="#f6f3ec">
+  <link rel="canonical" href="https://thoughtmic.com/guides/mcp-for-personal-notes">
+
+  <meta property="og:title" content="MCP for personal notes — what it is and why it matters">
+  <meta property="og:description" content="A plain-English guide to Model Context Protocol for personal note-taking. What MCP is, why AI-queryable vaults change PKM, and how to set it up for Obsidian.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thoughtmic.com/guides/mcp-for-personal-notes">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    /* ---- Guide page styles ---- */
+    .guide-hero {
+      padding-block: var(--space-7) var(--space-5);
+    }
+    .guide-hero__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .guide-hero__meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .guide-hero__meta-sep {
+      color: var(--fg-subtle);
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .guide-hero__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 56px;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin: 0 0 var(--space-3);
+      font-variation-settings: "opsz" 56, "SOFT" -5, "wght" 460;
+    }
+    .guide-hero__lede {
+      font-size: 20px;
+      line-height: 1.55;
+      color: var(--fg-muted);
+      max-width: 60ch;
+      margin: 0;
+    }
+    @media (max-width: 720px) {
+      .guide-hero { padding-block: var(--space-6) var(--space-4); }
+      .guide-hero__title { font-size: 36px; }
+      .guide-hero__lede { font-size: 17px; }
+    }
+
+    /* ---- TL;DR box ---- */
+    .tldr {
+      max-width: 760px;
+      margin: 0 auto var(--space-6);
+      padding: var(--space-4);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-lg);
+    }
+    .tldr__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .tldr__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 var(--space-2);
+    }
+    .tldr p {
+      margin: 0 0 var(--space-2);
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+      color: var(--fg);
+    }
+    .tldr p:last-child { margin-bottom: 0; }
+    .tldr strong { font-weight: 600; }
+
+    /* ---- TOC ---- */
+    .toc {
+      max-width: 760px;
+      margin: 0 auto var(--space-6);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+    }
+    .toc__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-2);
+    }
+    .toc ol {
+      margin: 0;
+      padding-left: 24px;
+      display: grid;
+      gap: 4px;
+    }
+    .toc li {
+      font-size: var(--fs-body-sm);
+      line-height: 1.5;
+    }
+    .toc a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .toc a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* ---- Body content ---- */
+    .body {
+      padding-block: var(--space-3) var(--space-7);
+    }
+    .body__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .body h2 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: var(--space-7) 0 var(--space-3);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+      scroll-margin-top: 96px;
+    }
+    .body h2:first-child { margin-top: 0; }
+    .body h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--fg);
+      margin: var(--space-5) 0 var(--space-2);
+      font-variation-settings: "opsz" 22, "SOFT" -2, "wght" 540;
+    }
+    .body p {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-3);
+    }
+    .body p strong { color: var(--fg); font-weight: 600; }
+    .body ul, .body ol {
+      margin: 0 0 var(--space-3);
+      padding-left: 24px;
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .body li { margin-bottom: 8px; }
+    .body li strong { color: var(--fg); font-weight: 600; }
+    .body code {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      padding: 2px 6px;
+      background: var(--bg);
+      border-radius: 4px;
+    }
+    .body pre {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      line-height: 1.55;
+      padding: var(--space-3);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow-x: auto;
+      margin: 0 0 var(--space-3);
+      color: var(--fg);
+    }
+    .body pre code {
+      padding: 0;
+      background: transparent;
+      border-radius: 0;
+      font-size: inherit;
+    }
+    .body blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 20px;
+      margin: var(--space-3) 0;
+      font-style: italic;
+      color: var(--fg);
+      font-size: var(--fs-body);
+      line-height: 1.55;
+    }
+    .body blockquote p { color: var(--fg); margin-bottom: var(--space-2); }
+    .body blockquote p:last-child { margin-bottom: 0; }
+    .body blockquote ul {
+      color: var(--fg);
+      margin: var(--space-2) 0 0;
+    }
+    .body blockquote li { font-style: italic; }
+    .body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .body a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    /* ---- Option cards ---- */
+    .option {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      margin: var(--space-3) 0;
+      background: var(--bg-elev);
+    }
+    .option__head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-2);
+    }
+    .option__name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--fg);
+      margin: 0;
+      font-variation-settings: "opsz" 22, "SOFT" -2, "wght" 540;
+    }
+    .option__pill {
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--fg-muted);
+      padding: 2px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+    .option__verdict {
+      font-size: var(--fs-body-sm);
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0 0 var(--space-3);
+    }
+    .option__row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 8px 16px;
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+    }
+    .option__row dt {
+      font-weight: 600;
+      color: var(--fg);
+    }
+    .option__row dd {
+      margin: 0;
+      color: var(--fg-muted);
+    }
+    @media (max-width: 540px) {
+      .option__row { grid-template-columns: 1fr; gap: 4px 0; }
+      .option__row dd { margin-bottom: 8px; }
+    }
+
+    /* ---- FAQ ---- */
+    .faq {
+      padding-block: var(--space-6);
+      background: var(--bg-elev);
+      border-block: 1px solid var(--border);
+    }
+    .faq__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .faq__title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0 0 var(--space-4);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+    }
+    .faq details {
+      border-bottom: 1px solid var(--border);
+      padding-block: var(--space-3);
+    }
+    .faq details:first-of-type { border-top: 1px solid var(--border); }
+    .faq summary {
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--fg);
+      list-style: none;
+      position: relative;
+      padding-right: 32px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      position: absolute;
+      right: 4px;
+      top: 0;
+      font-size: 22px;
+      color: var(--accent);
+      transition: transform var(--dur-micro) var(--ease);
+    }
+    .faq details[open] summary::after { content: "−"; }
+    .faq__answer {
+      margin-top: var(--space-3);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .faq__answer p { margin: 0 0 var(--space-3); }
+    .faq__answer p:last-child { margin-bottom: 0; }
+    .faq__answer a { color: var(--accent); }
+
+    /* ---- Related guides ---- */
+    .related {
+      padding-block: var(--space-5);
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .related__container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+      text-align: center;
+    }
+    .related__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .related__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+    .related__list a {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+      color: var(--fg);
+      text-decoration: none;
+      font-size: var(--fs-body-sm);
+      font-weight: 500;
+      transition: border-color var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease);
+    }
+    .related__list a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "MCP for personal notes — what it is and why it matters for PKM in 2026",
+    "description": "A plain-English guide to Model Context Protocol for personal note-taking. What MCP is, why AI-queryable vaults are a fundamental shift, what works today, and how to wire Obsidian into Claude Desktop.",
+    "datePublished": "2026-05-07",
+    "dateModified": "2026-05-07",
+    "author": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "url": "https://thoughtmic.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thoughtmic.com/assets/apple-touch-icon.png"
+      }
+    },
+    "mainEntityOfPage": "https://thoughtmic.com/guides/mcp-for-personal-notes",
+    "image": "https://thoughtmic.com/assets/og-image.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Do my notes get sent to Anthropic or OpenAI when MCP queries them?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The MCP server itself runs locally and reads your vault locally. But once the AI client (Claude Desktop, Cursor) retrieves a note via MCP, that note's content is included in the prompt the client sends to its model provider. So: your vault stays on your machine at rest, but the specific notes the AI pulls during a query do reach the model provider as part of that conversation. MCP changes the storage model, not the provider transmission model."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does MCP work with ChatGPT, Gemini, or other AI tools?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MCP is an open protocol, so any AI client can adopt it. Today the strongest support is in Claude Desktop, Claude Code, Cursor, Windsurf, and Zed. ChatGPT and Gemini have not shipped first-party MCP client support as of mid-2026. Adapters and bridges exist but are early. If your primary AI tool is ChatGPT, MCP isn't useful to you yet — track this and revisit in a few months."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is MCP secure? What if a malicious MCP server is installed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "MCP servers run as local processes with whatever permissions you give them. A malicious server you install yourself can read whatever you let it read. The same rule that applies to npm packages or VS Code extensions applies here: only install MCP servers from sources you trust, and prefer servers that are read-only or scoped to a specific folder. Claude Desktop also prompts you before tool calls execute, which is a practical safeguard against runaway behavior."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can MCP write to my notes, or only read?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Either. The MCP spec supports tools that read and tools that mutate. Most community vault MCP servers default to read-only — the AI can search and retrieve notes but can't silently rewrite them. If you want the AI to create or edit notes, you opt in to a server that exposes write tools. Read-only is the safer default for a personal vault."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to be a developer to use MCP?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not anymore. Editing claude_desktop_config.json by hand is the most technical step today, and it's a 10-line JSON file. Tools like ThoughtMic that bundle a local MCP server remove even that step — you point the app at your vault and the MCP wiring happens behind the scenes. If you can install Obsidian, you can use MCP."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about iPhone — does MCP work on mobile?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not really, today. MCP servers are local processes; mobile OSes don't run arbitrary background processes the way a Mac does, and the major mobile AI clients (Claude iOS, ChatGPT iOS) don't yet expose an MCP client interface. For now MCP is a desktop pattern. Cloud-hosted MCP servers (where the server runs in your account, not on your device) are emerging and will likely be the mobile path."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ============================= NAV ============================= -->
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="150 230 724 600" width="60" height="60" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/#privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="/#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================= HERO ============================= -->
+    <section class="guide-hero">
+      <div class="guide-hero__container">
+        <p class="guide-hero__meta">
+          Guide
+          <span class="guide-hero__meta-sep">·</span>
+          11 min read
+          <span class="guide-hero__meta-sep">·</span>
+          Updated May 2026
+        </p>
+        <h1 class="guide-hero__title">MCP for personal notes — what it is and why it matters</h1>
+        <p class="guide-hero__lede">
+          MCP is being called the "USB-C for AI tools," and personal notes turn out to be one of the most natural things to plug in. Here's what the protocol actually is in plain English, why an AI that can query your own vault is a different kind of tool than one you paste into, and how to wire it up today.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= TL;DR ============================= -->
+    <div class="tldr__container">
+      <aside class="tldr">
+        <p class="tldr__label">TL;DR</p>
+        <p>
+          <strong>MCP (Model Context Protocol)</strong> is an open standard, introduced by Anthropic in late 2024, that lets AI assistants like Claude Desktop, Cursor, and Windsurf call into local services through a common interface. The "service" can be anything — a database, an API, a file system. Crucially, it can also be your notes vault.
+        </p>
+        <p>
+          For an Obsidian or Logseq user, the practical change is this: instead of pasting relevant notes into Claude every time you want help with something, the AI can <strong>query your vault directly</strong> as part of answering your question. You ask, the AI looks, the AI answers — your notes stay on your machine, you don't have to play indexer. It's early infrastructure, not a finished product, but the implication for PKM is large.
+        </p>
+      </aside>
+    </div>
+
+    <!-- ============================= TOC ============================= -->
+    <div class="tldr__container">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc__label">On this page</p>
+        <ol>
+          <li><a href="#what-mcp-is">What MCP actually is (no buzzwords)</a></li>
+          <li><a href="#fundamental-shift">Why notes-as-context is a fundamental shift</a></li>
+          <li><a href="#whats-possible">What's possible today, with examples</a></li>
+          <li><a href="#options">The current options for MCP-enabled vaults</a></li>
+          <li><a href="#setup">How to set it up — Obsidian + Claude Desktop</a></li>
+          <li><a href="#what-mcp-doesnt-do">What MCP doesn't do (yet)</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- ============================= BODY ============================= -->
+    <section class="body">
+      <div class="body__container">
+
+        <h2 id="what-mcp-is">What MCP actually is (no buzzwords)</h2>
+        <p>
+          Anthropic introduced the Model Context Protocol in late 2024 as an open standard. It solves a boring-sounding problem with large consequences: AI assistants need to talk to external tools and data, and without a standard, every AI app has to rebuild every integration from scratch. ChatGPT plugins, custom GPTs, Cursor's @-mentions, Claude's tool use — every one of these is a separate wheel, reinvented.
+        </p>
+        <p>
+          MCP is the standard. Conceptually it's the same kind of move HTTP made for the web: instead of every browser inventing its own way to fetch a page, every browser speaks one protocol and any server that speaks the same protocol can join. With MCP:
+        </p>
+        <ul>
+          <li><strong>Servers</strong> are small programs that expose data or actions — a database server, a filesystem server, a "search my vault" server. They speak MCP.</li>
+          <li><strong>Clients</strong> are AI applications — Claude Desktop, Cursor, Windsurf, Zed, Claude Code. They consume MCP.</li>
+          <li><strong>Any client can talk to any server.</strong> Wire your vault server into Claude Desktop today, swap in Cursor tomorrow, and the same vault tools just work.</li>
+        </ul>
+        <p>
+          That's it. The whole concept is genuinely simple — what's interesting is what it lets you compose. The ecosystem is young (mid-2026), but the list of tools that ship MCP support is growing fast, and the implication for personal data is much bigger than the protocol itself sounds.
+        </p>
+
+        <h2 id="fundamental-shift">Why notes-as-context is a fundamental shift</h2>
+        <p>
+          Think about how you use Claude or ChatGPT with your notes today. The workflow looks something like this: you have a question. You remember you wrote about it. You open Obsidian, search for the relevant note, copy the text, paste it into the chat, then ask. If the answer needs another note, you go fetch that one too. <strong>You are the indexer.</strong> The AI is blind to anything you don't manually feed it, and your job is to figure out what to feed.
+        </p>
+        <p>
+          With MCP wired in, the loop changes. You ask the AI a question. The AI calls into your vault through the MCP server, retrieves the notes that look relevant, and uses them to answer — without you ever touching the file picker. If a follow-up needs more context, the AI fetches more. The AI does the routing; you just have a conversation.
+        </p>
+        <p>
+          This is qualitatively different from older patterns:
+        </p>
+        <ul>
+          <li><strong>It's not RAG over a cloud-uploaded vault.</strong> Your notes don't get ingested into someone's vector database. The MCP server runs on your machine; the AI client only retrieves notes when it actually needs them, in response to a query.</li>
+          <li><strong>It's not a chat plugin glued to one app.</strong> Once your vault speaks MCP, every MCP-compatible client gets access. Claude Desktop today, a different AI tool next year, same vault interface.</li>
+          <li><strong>It's not "the AI memorizes your notes."</strong> The AI doesn't preload your vault into context. It searches on demand, retrieves the slice it needs, and answers. Your vault can be 10,000 notes and the model never sees most of them.</li>
+        </ul>
+        <p>
+          The result is something the PKM world has wanted for years and never quite had: notes that are present when you need them and out of the way when you don't, accessible to whatever tool you're using, without you doing the schlep.
+        </p>
+
+        <h2 id="whats-possible">What's possible today, with examples</h2>
+        <p>
+          Once your vault is wired via MCP, the queries that suddenly become natural look like this:
+        </p>
+        <blockquote>
+          <ul>
+            <li>"What did I decide about the Acme deal last month?"</li>
+            <li>"Show me everything tagged <code>#meeting</code> from the last two weeks and pull out the action items."</li>
+            <li>"What was my reasoning when I picked Postgres over MongoDB? Find the note where I wrote it down."</li>
+            <li>"Summarize my notes on the rewrite proposal and flag anything I never followed up on."</li>
+            <li>"What have I written about retrieval-augmented generation? Group it by month."</li>
+          </ul>
+        </blockquote>
+        <p>
+          What's new about each of these isn't the question — it's that you can ask without first becoming the indexer. The AI handles the search, the retrieval, and the synthesis in one move, and your vault never leaves your machine to make it happen.
+        </p>
+        <p>
+          Under the hood, the MCP server exposes a small set of tools that the AI can call. The common surface for a vault server looks like:
+        </p>
+        <ul>
+          <li><code>vault_search</code> — text search across all notes, optionally filtered by folder or tag</li>
+          <li><code>vault_semantic_search</code> — embeddings-based search for conceptually related notes (not just keyword matches)</li>
+          <li><code>vault_get_note</code> — fetch the full content of a specific note by path</li>
+          <li><code>vault_list_recent</code> — list notes modified in the last N days</li>
+          <li><code>vault_list_by_tag</code> — list notes carrying a specific tag</li>
+        </ul>
+        <p>
+          When you ask "what did I decide about Acme last month," the AI doesn't see that intent directly — it sees the question, decides search is the right move, calls <code>vault_search</code> with sensible parameters, reads what comes back, and writes its answer using the retrieved notes as context. You watch all this happen in the chat (most clients show tool calls inline), which is honestly part of what makes it feel different from black-box AI: you can see what your vault gave the model.
+        </p>
+
+        <h2 id="options">The current options for MCP-enabled vaults</h2>
+        <p>
+          As of mid-2026, you have three real paths for getting your vault on MCP. They trade off effort against polish in the way you'd expect.
+        </p>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">Roll your own MCP server</h3>
+            <span class="option__pill">Free · developer-only</span>
+          </header>
+          <p class="option__verdict">Maximum flexibility. Anthropic's reference SDKs make the server scaffolding straightforward; the work is in the vault adapter.</p>
+          <dl class="option__row">
+            <dt>Setup</dt><dd>Write or fork a small Python / TypeScript program using the official MCP SDK; expose vault search and read tools; run it as a local process</dd>
+            <dt>You get</dt><dd>A vault adapter shaped exactly the way you want it — your own search heuristics, your own tagging conventions, your own write rules</dd>
+            <dt>You give up</dt><dd>Your evenings. And ongoing maintenance whenever the spec or your vault structure shifts.</dd>
+            <dt>Best for</dt><dd>Developers who want to learn the protocol and care about exactly how their vault is exposed</dd>
+          </dl>
+        </article>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">Community MCP servers for Obsidian</h3>
+            <span class="option__pill">Free · CLI-comfortable</span>
+          </header>
+          <p class="option__verdict">A handful of open-source vault servers exist on GitHub and npm. Quality and maintenance vary.</p>
+          <dl class="option__row">
+            <dt>Setup</dt><dd>Find a maintained server (search GitHub for "obsidian mcp"), <code>npm install</code> or clone, point it at your vault path, register it in your AI client's config</dd>
+            <dt>You get</dt><dd>A working vault server without writing one yourself; community-driven feature set</dd>
+            <dt>You give up</dt><dd>Predictable maintenance — some projects are abandoned, some are actively developed, some are one-developer experiments. Vet before you trust.</dd>
+            <dt>Best for</dt><dd>Comfortable-with-the-terminal users who want to stay free and don't mind doing the integration work</dd>
+          </dl>
+        </article>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">ThoughtMic</h3>
+            <span class="option__pill">Free up to 2k words/wk · $8/mo Pro</span>
+          </header>
+          <p class="option__verdict">Bundled local MCP server. Capture by voice, write to vault, expose the vault to Claude Desktop and Cursor — same tool does all three.</p>
+          <dl class="option__row">
+            <dt>Setup</dt><dd>Install ThoughtMic, point it at your vault folder. The MCP server is bundled and registered automatically; restart Claude Desktop and your vault tools appear.</dd>
+            <dt>You get</dt><dd>Voice-to-vault capture (local Whisper, auto-titles, auto-tags, auto-backlinks) plus a maintained MCP server with the standard tool surface (<code>vault_search</code>, <code>vault_semantic_search</code>, <code>vault_get_note</code>, <code>vault_list_recent</code>)</dd>
+            <dt>You give up</dt><dd>Free tier caps at 2,000 words/week; Pro is $8/mo or $72/yr. Lifetime is $99 (200-slot cap; first 50 are $49).</dd>
+            <dt>Best for</dt><dd>PKM users who want both halves of the loop — fast capture and AI-queryable retrieval — from the same tool, with no terminal time. <a href="/">See thoughtmic.com.</a></dd>
+          </dl>
+        </article>
+
+        <h2 id="setup">How to set it up — Obsidian + Claude Desktop</h2>
+        <p>
+          Whether you go with a community server or ThoughtMic's bundled one, the wiring on the Claude Desktop side is the same. Here's the practical walkthrough.
+        </p>
+
+        <h3>1. Install your MCP server</h3>
+        <p>
+          For a community server, follow that project's README — usually a clone, an <code>npm install</code>, and a build step. For ThoughtMic, install the app and point it at your vault; it handles the next two steps for you.
+        </p>
+
+        <h3>2. Register the server in Claude Desktop's config</h3>
+        <p>
+          Claude Desktop reads MCP server definitions from a JSON config file. On macOS it lives at:
+        </p>
+        <pre><code>~/Library/Application Support/Claude/claude_desktop_config.json</code></pre>
+        <p>
+          On Windows it's at <code>%APPDATA%\Claude\claude_desktop_config.json</code>. Open the file in a text editor (create it if it doesn't exist) and add an entry that looks like this:
+        </p>
+        <pre><code>{
+  "mcpServers": {
+    "obsidian-vault": {
+      "command": "/path/to/your/mcp-server",
+      "args": ["--vault", "/Users/you/Documents/MyVault"]
+    }
+  }
+}</code></pre>
+        <p>
+          The exact <code>command</code> and <code>args</code> values depend on which server you picked — community READMEs spell it out. ThoughtMic writes this entry for you and fills in the right paths.
+        </p>
+
+        <h3>3. Restart Claude Desktop</h3>
+        <p>
+          MCP servers are loaded at startup. Quit Claude Desktop fully (not just close the window) and reopen it. If the config has a syntax error, Claude Desktop will surface it in its developer console — worth checking if anything looks off.
+        </p>
+
+        <h3>4. Verify the wiring</h3>
+        <p>
+          Open a new chat in Claude Desktop and ask:
+        </p>
+        <blockquote>
+          "What MCP tools do you have access to right now?"
+        </blockquote>
+        <p>
+          You should see your vault tools listed by name — <code>vault_search</code>, <code>vault_get_note</code>, and so on. If they show up, you're done. Try a real query: "search my vault for anything I've written about Postgres." Watch Claude make the tool call and answer with the results.
+        </p>
+
+        <h3>5. Same wiring for Cursor</h3>
+        <p>
+          Cursor uses the same MCP server format with a slightly different config location (<code>~/.cursor/mcp.json</code>). The server itself is unchanged — that's the whole point of the protocol. Once you have the server running, every MCP-aware client can read from it.
+        </p>
+
+        <h2 id="what-mcp-doesnt-do">What MCP doesn't do (yet)</h2>
+        <p>
+          MCP is genuinely promising, and it's also early. A few things to be honest about before you over-invest:
+        </p>
+        <p>
+          <strong>It doesn't write to your vault by default.</strong> Most community vault servers ship read-only — the AI can search and retrieve, not silently rewrite. This is the right default for trust, but it means "Claude, fix the typo in my note from yesterday" still requires you to do the fix (or to opt into a server that exposes write tools, which a few do). Watch this space.
+        </p>
+        <p>
+          <strong>It doesn't replace actually reading your notes.</strong> The AI surfaces what it finds, but the depth of any answer is bounded by the depth of what's in the notes. If your vault is half-finished thoughts and #inbox dumps, the AI gets half-finished thoughts back. MCP rewards a curated vault more than a sprawling one — the same way good search has always rewarded good metadata.
+        </p>
+        <p>
+          <strong>It doesn't make AI use of your notes private.</strong> This is the critical caveat. The MCP server runs locally and reads your vault locally — true. But once Claude Desktop pulls a note via that server, the note's content is included in the prompt the client sends to Anthropic's model. So your <em>vault at rest</em> stays on your machine, but the <em>specific notes the AI retrieves during a query</em> do reach the model provider as part of that conversation. The privacy claim is "your vault stays on your machine," not "your notes never reach a model." If you need the second, you'd need a local model on the client side too — possible but a separate decision from MCP.
+        </p>
+        <p>
+          <strong>The mobile story is weak.</strong> MCP servers are local processes. Mobile OSes don't run arbitrary background processes the way macOS does, and the major mobile AI clients haven't shipped MCP support. For now, MCP is a desktop pattern. Cloud-hosted MCP servers (where the server runs in your cloud account, not on your laptop) are starting to emerge and will probably be the mobile path eventually — but that's a different privacy posture again.
+        </p>
+        <p>
+          None of this means MCP isn't worth it. It means you should adopt it eyes-open: it's powerful infrastructure with real tradeoffs, not a magic-words feature that solves PKM by itself.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ============================= FAQ ============================= -->
+    <section class="faq" id="faq">
+      <div class="faq__container">
+        <h2 class="faq__title">Frequently asked</h2>
+
+        <details>
+          <summary>Do my notes get sent to Anthropic or OpenAI when MCP queries them?</summary>
+          <div class="faq__answer">
+            <p>The MCP server itself runs locally and reads your vault locally. But once the AI client (Claude Desktop, Cursor) retrieves a note via MCP, that note's content is included in the prompt the client sends to its model provider. So: your vault stays on your machine at rest, but the specific notes the AI pulls during a query do reach the model provider as part of that conversation. MCP changes the storage model, not the provider transmission model.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Does MCP work with ChatGPT, Gemini, or other AI tools?</summary>
+          <div class="faq__answer">
+            <p>MCP is an open protocol, so any AI client can adopt it. Today the strongest support is in Claude Desktop, Claude Code, Cursor, Windsurf, and Zed. ChatGPT and Gemini have not shipped first-party MCP client support as of mid-2026. Adapters and bridges exist but are early. If your primary AI tool is ChatGPT, MCP isn't useful to you yet — track this and revisit in a few months.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Is MCP secure? What if a malicious MCP server is installed?</summary>
+          <div class="faq__answer">
+            <p>MCP servers run as local processes with whatever permissions you give them. A malicious server you install yourself can read whatever you let it read. The same rule that applies to <code>npm</code> packages or VS Code extensions applies here: only install MCP servers from sources you trust, and prefer servers that are read-only or scoped to a specific folder. Claude Desktop also prompts you before tool calls execute, which is a practical safeguard against runaway behavior.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Can MCP write to my notes, or only read?</summary>
+          <div class="faq__answer">
+            <p>Either. The MCP spec supports tools that read and tools that mutate. Most community vault MCP servers default to read-only — the AI can search and retrieve notes but can't silently rewrite them. If you want the AI to create or edit notes, you opt in to a server that exposes write tools. Read-only is the safer default for a personal vault.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Do I need to be a developer to use MCP?</summary>
+          <div class="faq__answer">
+            <p>Not anymore. Editing <code>claude_desktop_config.json</code> by hand is the most technical step today, and it's a 10-line JSON file. Tools like ThoughtMic that bundle a local MCP server remove even that step — you point the app at your vault and the MCP wiring happens behind the scenes. If you can install Obsidian, you can use MCP.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What about iPhone — does MCP work on mobile?</summary>
+          <div class="faq__answer">
+            <p>Not really, today. MCP servers are local processes; mobile OSes don't run arbitrary background processes the way a Mac does, and the major mobile AI clients (Claude iOS, ChatGPT iOS) don't yet expose an MCP client interface. For now MCP is a desktop pattern. Cloud-hosted MCP servers (where the server runs in your account, not on your device) are emerging and will likely be the mobile path. ThoughtMic's iOS companion is planned 6–8 weeks after the macOS launch and will follow whatever the mobile MCP story looks like at that point.</p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ============================= FINAL CTA ============================= -->
+    <section class="finalcta" id="waitlist">
+      <div class="container">
+        <svg class="finalcta__mark" viewBox="0 0 1024 1024" width="72" height="72" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="56" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <h2 class="finalcta__title">Want a vault Claude can actually read?</h2>
+        <p class="finalcta__sub">
+          ThoughtMic ships summer 2026. Local Whisper for capture, a bundled local MCP server for retrieval, and Friday-review built in. Join the waitlist for a launch-day download link and the Founder's Deal ($49 lifetime, first 50 only).
+        </p>
+
+        <form class="waitlist-form" action="https://app.kit.com/forms/9359921/subscriptions" method="post">
+          <ul class="formkit-alert formkit-alert-error" data-element="errors" role="alert"></ul>
+          <div data-element="fields" class="waitlist-form__fields">
+            <label for="waitlist-email" class="sr-only">Email address</label>
+            <div class="waitlist-form__field">
+              <input class="waitlist-form__input" type="email" name="email_address" id="waitlist-email" placeholder="you@example.com" required autocomplete="email" inputmode="email" aria-label="Email address">
+            </div>
+            <button class="btn btn--primary btn--lg waitlist-form__submit" type="submit">
+              <span>Join the waitlist</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="finalcta__micro">
+          We'll email you at launch. No newsletter. Unsubscribe any time.
+        </p>
+        <p class="finalcta__compat">
+          Works with <strong>Obsidian</strong> · <strong>Logseq</strong> · <strong>Foam</strong> · <strong>VS&nbsp;Code</strong> · any&nbsp;.md&nbsp;folder
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= RELATED GUIDES ============================= -->
+    <section class="related">
+      <div class="related__container">
+        <p class="related__label">More guides</p>
+        <ul class="related__list">
+          <li><a href="/guides/voice-notes-for-obsidian">Voice notes for Obsidian — the four real options in 2026</a></li>
+          <li><a href="/guides/local-whisper-on-mac">Local Whisper on Mac — the privacy-first dictation guide</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="footer">
+    <div class="container footer__row">
+      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
+      <ul class="footer__links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#privacy">Privacy</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/licenses">Licenses</a></li>
+        <li><a href="/terms">Terms</a></li>
+        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script defer src="/js/reveal.js"></script>
+  <script defer src="/js/waitlist-form.js"></script>
+</body>
+</html>

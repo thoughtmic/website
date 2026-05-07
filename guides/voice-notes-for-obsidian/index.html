@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice notes for Obsidian — the four real options in 2026 (and how to pick)</title>
+  <meta name="description" content="A practical, no-marketing guide to adding voice capture to your Obsidian vault. Compares Apple Dictation, the Whisper plugin, MacWhisper, and ThoughtMic — what each is good at, what each gives up, and how to set them up.">
+  <meta name="theme-color" content="#f6f3ec">
+  <link rel="canonical" href="https://thoughtmic.com/guides/voice-notes-for-obsidian">
+
+  <meta property="og:title" content="Voice notes for Obsidian — the four real options in 2026">
+  <meta property="og:description" content="A practical, no-marketing guide to adding voice capture to your Obsidian vault. Compares Apple Dictation, the Whisper plugin, MacWhisper, and ThoughtMic.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://thoughtmic.com/guides/voice-notes-for-obsidian">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    /* ---- Guide page styles ---- */
+    .guide-hero {
+      padding-block: var(--space-7) var(--space-5);
+    }
+    .guide-hero__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .guide-hero__meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .guide-hero__meta-sep {
+      color: var(--fg-subtle);
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .guide-hero__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 56px;
+      line-height: 1.06;
+      letter-spacing: -0.02em;
+      color: var(--fg);
+      margin: 0 0 var(--space-3);
+      font-variation-settings: "opsz" 56, "SOFT" -5, "wght" 460;
+    }
+    .guide-hero__lede {
+      font-size: 20px;
+      line-height: 1.55;
+      color: var(--fg-muted);
+      max-width: 60ch;
+      margin: 0;
+    }
+    @media (max-width: 720px) {
+      .guide-hero { padding-block: var(--space-6) var(--space-4); }
+      .guide-hero__title { font-size: 36px; }
+      .guide-hero__lede { font-size: 17px; }
+    }
+
+    /* ---- TL;DR box ---- */
+    .tldr {
+      max-width: 760px;
+      margin: 0 auto var(--space-6);
+      padding: var(--space-4);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-lg);
+    }
+    .tldr__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .tldr__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 var(--space-2);
+    }
+    .tldr p {
+      margin: 0 0 var(--space-2);
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+      color: var(--fg);
+    }
+    .tldr p:last-child { margin-bottom: 0; }
+    .tldr strong { font-weight: 600; }
+
+    /* ---- TOC ---- */
+    .toc {
+      max-width: 760px;
+      margin: 0 auto var(--space-6);
+      padding: var(--space-3) var(--space-4);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+    }
+    .toc__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-2);
+    }
+    .toc ol {
+      margin: 0;
+      padding-left: 24px;
+      display: grid;
+      gap: 4px;
+    }
+    .toc li {
+      font-size: var(--fs-body-sm);
+      line-height: 1.5;
+    }
+    .toc a {
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .toc a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* ---- Body content ---- */
+    .body {
+      padding-block: var(--space-3) var(--space-7);
+    }
+    .body__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .body h2 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: var(--space-7) 0 var(--space-3);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+      scroll-margin-top: 96px;
+    }
+    .body h2:first-child { margin-top: 0; }
+    .body h3 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--fg);
+      margin: var(--space-5) 0 var(--space-2);
+      font-variation-settings: "opsz" 22, "SOFT" -2, "wght" 540;
+    }
+    .body p {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-3);
+    }
+    .body p strong { color: var(--fg); font-weight: 600; }
+    .body ul, .body ol {
+      margin: 0 0 var(--space-3);
+      padding-left: 24px;
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .body li { margin-bottom: 8px; }
+    .body li strong { color: var(--fg); font-weight: 600; }
+    .body code {
+      font-family: var(--font-mono);
+      font-size: 0.92em;
+      padding: 2px 6px;
+      background: var(--bg);
+      border-radius: 4px;
+    }
+    .body blockquote {
+      border-left: 3px solid var(--accent);
+      padding: 4px 0 4px 20px;
+      margin: var(--space-3) 0;
+      font-style: italic;
+      color: var(--fg);
+      font-size: var(--fs-body);
+      line-height: 1.55;
+    }
+    .body a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .body a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    /* ---- Option cards ---- */
+    .option {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      margin: var(--space-3) 0;
+      background: var(--bg-elev);
+    }
+    .option__head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: var(--space-2);
+    }
+    .option__name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--fg);
+      margin: 0;
+      font-variation-settings: "opsz" 22, "SOFT" -2, "wght" 540;
+    }
+    .option__pill {
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--fg-muted);
+      padding: 2px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+    }
+    .option__verdict {
+      font-size: var(--fs-body-sm);
+      color: var(--accent);
+      font-weight: 600;
+      margin: 0 0 var(--space-3);
+    }
+    .option__row {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 8px 16px;
+      font-size: var(--fs-body-sm);
+      line-height: 1.55;
+    }
+    .option__row dt {
+      font-weight: 600;
+      color: var(--fg);
+    }
+    .option__row dd {
+      margin: 0;
+      color: var(--fg-muted);
+    }
+    @media (max-width: 540px) {
+      .option__row { grid-template-columns: 1fr; gap: 4px 0; }
+      .option__row dd { margin-bottom: 8px; }
+    }
+
+    /* ---- FAQ ---- */
+    .faq {
+      padding-block: var(--space-6);
+      background: var(--bg-elev);
+      border-block: 1px solid var(--border);
+    }
+    .faq__container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .faq__title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      margin: 0 0 var(--space-4);
+      font-variation-settings: "opsz" 36, "SOFT" -4, "wght" 500;
+    }
+    .faq details {
+      border-bottom: 1px solid var(--border);
+      padding-block: var(--space-3);
+    }
+    .faq details:first-of-type { border-top: 1px solid var(--border); }
+    .faq summary {
+      cursor: pointer;
+      font-size: 17px;
+      font-weight: 500;
+      color: var(--fg);
+      list-style: none;
+      position: relative;
+      padding-right: 32px;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: "+";
+      position: absolute;
+      right: 4px;
+      top: 0;
+      font-size: 22px;
+      color: var(--accent);
+      transition: transform var(--dur-micro) var(--ease);
+    }
+    .faq details[open] summary::after { content: "−"; }
+    .faq__answer {
+      margin-top: var(--space-3);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+    }
+    .faq__answer p { margin: 0 0 var(--space-3); }
+    .faq__answer p:last-child { margin-bottom: 0; }
+    .faq__answer a { color: var(--accent); }
+
+    /* ---- Related guides ---- */
+    .related {
+      padding-block: var(--space-5);
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+    .related__container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+      text-align: center;
+    }
+    .related__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .related__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-3);
+    }
+    .related__list a {
+      display: inline-block;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-elev);
+      color: var(--fg);
+      text-decoration: none;
+      font-size: var(--fs-body-sm);
+      font-weight: 500;
+      transition: border-color var(--dur-micro) var(--ease), color var(--dur-micro) var(--ease);
+    }
+    .related__list a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Voice notes for Obsidian — the four real options in 2026 (and how to pick)",
+    "description": "A practical, no-marketing guide to adding voice capture to your Obsidian vault. Compares Apple Dictation, the Whisper plugin, MacWhisper, and ThoughtMic — what each is good at, what each gives up, and how to set them up.",
+    "datePublished": "2026-05-07",
+    "dateModified": "2026-05-07",
+    "author": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "url": "https://thoughtmic.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "ThoughtMic",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://thoughtmic.com/assets/apple-touch-icon.png"
+      }
+    },
+    "mainEntityOfPage": "https://thoughtmic.com/guides/voice-notes-for-obsidian",
+    "image": "https://thoughtmic.com/assets/og-image.png"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What's the simplest way to add voice notes to Obsidian?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If you're on macOS 14 or later, the simplest path is Apple Dictation: nothing to install, runs locally, dictates directly into the active note. The downside is it's purely transcription — no titles, tags, or backlinks generated automatically. For more structure, the Obsidian Whisper plugin by Nik Danilov is the community standard."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Whisper actually local on Mac, or does it call OpenAI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Both options exist. Nik Danilov's Whisper plugin uses the OpenAI Whisper API (cloud, requires your own API key, audio leaves your machine). Apps like MacWhisper, VoiceInk, and ThoughtMic run Whisper locally on Apple Silicon — no API key, no audio leaves the device. Pick based on whether you want zero cost (cloud, pay-per-use) or zero data leaving (local)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I dictate into Obsidian from outside Obsidian?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Plugin-based tools (Nik's Whisper plugin) only work inside Obsidian. System-wide dictation tools (Apple Dictation, ThoughtMic, SuperWhisper, Wispr Flow) work in any app — the difference is whether the output also writes a Markdown note into your vault automatically. ThoughtMic does both: text at the cursor anywhere AND a structured note in your vault."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will voice notes mess up my tag taxonomy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Only if your tool generates tags blindly. Tools that suggest tags from your existing vault tag list (rather than inventing new ones from the text) preserve your taxonomy. Plain dictation tools insert raw text and leave tagging to you."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about the Friday-review problem — do voice notes pile up?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — this is the failure mode most voice-into-vault workflows hit within a few weeks. Captured #inbox notes accumulate; nobody re-reads them; the vault becomes write-only. The cure is a dedicated review surface (a keyboard-driven walkthrough where every inbox note gets a Discard / Keep / Promote / Archive decision in one keystroke). Without that, even the best voice capture tool degrades into a junk drawer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about iPhone capture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "None of the four tools above ship a native iOS companion today. Workarounds: Apple Dictation works on iPhone if you dictate into Obsidian Mobile directly. The Whisper plugin doesn't run on mobile. For audio you record on phone, you can sync to Mac and run MacWhisper. ThoughtMic has iOS planned 6–8 weeks after the macOS launch."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "I don't use Mac. Does any of this work on Windows or Linux?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Apple Dictation is Mac-only. The Whisper plugin runs on whatever OS Obsidian runs on (Win, Linux, mobile) — but it's cloud-based, so the privacy tradeoff is the same everywhere. MacWhisper is Mac-only. ThoughtMic is Mac-only at launch. For local Whisper on Windows specifically, look at WhisperWriter or the Whisper.cpp ecosystem, though no comparable vault-native tool exists yet outside Mac."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <!-- ============================= NAV ============================= -->
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="150 230 724 600" width="60" height="60" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="72" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/#privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="/#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============================= HERO ============================= -->
+    <section class="guide-hero">
+      <div class="guide-hero__container">
+        <p class="guide-hero__meta">
+          Guide
+          <span class="guide-hero__meta-sep">·</span>
+          12 min read
+          <span class="guide-hero__meta-sep">·</span>
+          Updated May 2026
+        </p>
+        <h1 class="guide-hero__title">Voice notes for Obsidian — the four real options in 2026</h1>
+        <p class="guide-hero__lede">
+          You want to talk into your Obsidian vault. There are four serious tools for doing it on Mac, and they make very different tradeoffs — local vs cloud, in-editor vs system-wide, raw text vs structured notes. Here's an honest map of all four, and how to pick.
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= TL;DR ============================= -->
+    <div class="tldr__container">
+      <aside class="tldr">
+        <p class="tldr__label">TL;DR</p>
+        <p>
+          <strong>Apple Dictation</strong> if you just want to talk into a note and don't mind no extra structure. <strong>Nik Danilov's Whisper plugin</strong> if you want better-than-Apple transcription and you're fine sending audio to OpenAI. <strong>MacWhisper</strong> if you have audio files (podcasts, meetings) you want to batch-transcribe into your vault. <strong>ThoughtMic</strong> if you want voice that lands as titled, tagged, linked Markdown notes — and a Friday-review surface so they don't pile up.
+        </p>
+        <p>
+          The choice usually comes down to two questions: <strong>do you want audio to leave your machine?</strong> and <strong>do you want voice notes to organize themselves, or are you happy organizing them yourself?</strong>
+        </p>
+      </aside>
+    </div>
+
+    <!-- ============================= TOC ============================= -->
+    <div class="tldr__container">
+      <nav class="toc" aria-label="On this page">
+        <p class="toc__label">On this page</p>
+        <ol>
+          <li><a href="#why-voice-in-pkm">Why voice + PKM is harder than it looks</a></li>
+          <li><a href="#the-four-options">The four real options</a></li>
+          <li><a href="#how-to-pick">How to pick — three honest questions</a></li>
+          <li><a href="#friday-review">The Friday-review problem (the part everyone misses)</a></li>
+          <li><a href="#setup">Setup notes for each option</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- ============================= BODY ============================= -->
+    <section class="body">
+      <div class="body__container">
+
+        <h2 id="why-voice-in-pkm">Why voice + PKM is harder than it looks</h2>
+        <p>
+          Most "voice notes" tools are built for people who want to dictate text — emails, Slack messages, drafts. The PKM use case is fundamentally different. You're not trying to produce a finished message; you're trying to capture a thought before it evaporates, drop it into a system you've already curated, and have it be findable when you need it weeks later.
+        </p>
+        <p>
+          That has three consequences a generic dictation tool doesn't handle:
+        </p>
+        <ul>
+          <li><strong>Output destination matters.</strong> Text at the cursor is fine for messaging. For PKM, the destination needs to be your vault, with a filename, a frontmatter block, and tags that fit your existing taxonomy.</li>
+          <li><strong>Structure beats raw text.</strong> A 90-second voice memo is a stream of half-sentences and false starts. A vault note that's still useful in three months is structured — title, summary, links to related notes. Something has to do that work.</li>
+          <li><strong>Capture without review is a junk drawer.</strong> Most voice-to-vault workflows fail at the curation step, not the capture step. After two weeks of "I'll review my inbox later," you have 40 captured notes and zero curated ones. The tool needs to make review fast, or capture stops being useful.</li>
+        </ul>
+        <p>
+          With those constraints in mind, here are the four tools serious Obsidian users actually pick on Mac in 2026.
+        </p>
+
+        <h2 id="the-four-options">The four real options</h2>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">Apple Dictation</h3>
+            <span class="option__pill">Free · built into macOS</span>
+          </header>
+          <p class="option__verdict">The "just works" baseline. No install, no setup. macOS 14+ runs it locally.</p>
+          <dl class="option__row">
+            <dt>Output</dt><dd>Text at the cursor — including inside Obsidian's editor</dd>
+            <dt>Privacy</dt><dd>Local on macOS 14+ (Sonoma) and later. Older versions cloud.</dd>
+            <dt>Speed</dt><dd>Real-time, streaming</dd>
+            <dt>Structure</dt><dd>None. You name the file, you add tags, you write frontmatter.</dd>
+            <dt>Best for</dt><dd>Quick dictation directly into a note you've already created</dd>
+          </dl>
+        </article>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">Obsidian Whisper plugin (Nik Danilov)</h3>
+            <span class="option__pill">Free · OpenAI API key required</span>
+          </header>
+          <p class="option__verdict">The Obsidian community standard for in-editor voice. Better-than-Apple transcription quality.</p>
+          <dl class="option__row">
+            <dt>Output</dt><dd>Whisper transcript inserted into the active note</dd>
+            <dt>Privacy</dt><dd>Audio sent to OpenAI's Whisper API (cloud)</dd>
+            <dt>Speed</dt><dd>Cloud streaming via OpenAI</dd>
+            <dt>Structure</dt><dd>Raw text only. No titles, tags, or backlinks.</dd>
+            <dt>Best for</dt><dd>Obsidian users who want quality transcription and don't mind cloud + per-use cost (typically a few dollars a month)</dd>
+          </dl>
+        </article>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">MacWhisper</h3>
+            <span class="option__pill">$5–$20 one-time · local</span>
+          </header>
+          <p class="option__verdict">Different category — built for transcribing audio files (podcasts, recorded meetings), not live capture.</p>
+          <dl class="option__row">
+            <dt>Output</dt><dd>Transcript file you save into your vault manually</dd>
+            <dt>Privacy</dt><dd>100% local Whisper</dd>
+            <dt>Speed</dt><dd>Batch — feed it a file, get a transcript</dd>
+            <dt>Structure</dt><dd>None. You manually move the transcript into your vault and add structure.</dd>
+            <dt>Best for</dt><dd>Cleanly transcribing existing audio (recorded calls, podcast episodes you want to reference) into your vault. Not live thought-capture.</dd>
+          </dl>
+        </article>
+
+        <article class="option">
+          <header class="option__head">
+            <h3 class="option__name">ThoughtMic</h3>
+            <span class="option__pill">Free up to 2k words/wk · $8/mo Pro</span>
+          </header>
+          <p class="option__verdict">Voice-to-vault pipeline. Local Whisper plus auto-titles, auto-tags from your taxonomy, auto-backlinks, and a Friday-review surface.</p>
+          <dl class="option__row">
+            <dt>Output</dt><dd>Text at cursor in any app, AND a titled/tagged/linked Markdown note in your vault</dd>
+            <dt>Privacy</dt><dd>Local Whisper. Optional cloud rephrase is text-only via Zero Data Retention — never audio, never vault contents.</dd>
+            <dt>Speed</dt><dd>Local batch — Whisper Large V3 Turbo on Apple Silicon</dd>
+            <dt>Structure</dt><dd>Auto-generated title, suggested tags from your existing vault tags, backlinks resolved against existing notes</dd>
+            <dt>Best for</dt><dd>Obsidian / Logseq / Foam / plain-Markdown users who want voice capture that actually integrates with their PKM, not just transcribes around it. <a href="/">See thoughtmic.com.</a></dd>
+          </dl>
+        </article>
+
+        <h2 id="how-to-pick">How to pick — three honest questions</h2>
+
+        <h3>1. Does audio need to stay on your machine?</h3>
+        <p>
+          If yes — for compliance, philosophy, sensitive content, or just preference — your shortlist is Apple Dictation (macOS 14+), MacWhisper (for files), and ThoughtMic (for live capture). Skip the Whisper plugin; it sends audio to OpenAI.
+        </p>
+        <p>
+          If you don't care, the Whisper plugin's transcription quality on technical vocabulary and proper nouns is excellent, and the per-use cost is genuinely small for typical PKM use (a few dollars a month).
+        </p>
+
+        <h3>2. Do you want voice capture to also work outside Obsidian?</h3>
+        <p>
+          The Whisper plugin only runs inside Obsidian. If you also dictate into Slack, your IDE, email, and everywhere else on your Mac, you need a system-wide tool — Apple Dictation, SuperWhisper, Wispr Flow, or ThoughtMic. Of those, only ThoughtMic also writes a structured note into your vault when you dictate from anywhere on your machine; the others give you text at the cursor and stop there.
+        </p>
+
+        <h3>3. Do you want voice notes to organize themselves?</h3>
+        <p>
+          This is the question people don't ask early enough. After 30 voice notes piled up in your vault, do you want to spend 20 minutes triaging, retitling, and tagging them — or do you want them to arrive with titles, tags, and backlinks already in place? If the answer is the second one, you've narrowed the field to ThoughtMic; nothing else in the Mac ecosystem does this today. If you're happy curating manually, any of the four works.
+        </p>
+
+        <h2 id="friday-review">The Friday-review problem (the part everyone misses)</h2>
+        <p>
+          Here's the failure mode every voice-into-vault workflow hits within a few weeks of starting:
+        </p>
+        <blockquote>
+          You set up voice capture. It works great. You dictate forty short notes over three weeks — meeting recaps, ideas, todos, half-formed thoughts. Every one of them lands in your <code>#inbox</code> folder. You promise yourself you'll review them on Friday. Friday comes. Reviewing forty unstructured notes feels like work, so you don't. Now there are eighty. By next month, the inbox is write-only. Voice capture has produced a junk drawer.
+        </blockquote>
+        <p>
+          This is the <strong>Collector's Fallacy</strong>: the act of capturing feels productive even when it isn't. The cure is not "discipline." The cure is to make review take five minutes instead of an hour, by giving each note a four-key decision (Discard / Keep / Promote to a structured template / Archive) and walking through them keyboard-driven, two-pane, no mouse.
+        </p>
+        <p>
+          Apple Dictation, the Whisper plugin, and MacWhisper are all capture tools. None of them have an opinion on what happens after the text lands. ThoughtMic ships with a dedicated Friday-review surface (<code>⌥⇧ R</code>) that turns the "I'll review on Friday" promise into a five-minute keyboard sweep. If you've fallen into the junk-drawer pattern with a previous voice tool, the review surface is what makes the next attempt different.
+        </p>
+        <p>
+          You can also build this manually with templates and Obsidian queries — it just takes meaningful setup work and ongoing discipline. Worth knowing the pattern either way.
+        </p>
+
+        <h2 id="setup">Setup notes for each option</h2>
+
+        <h3>Apple Dictation</h3>
+        <ol>
+          <li>System Settings → Keyboard → Dictation → On</li>
+          <li>Pick a hotkey (default is press Fn twice; Globe key on newer keyboards)</li>
+          <li>In Obsidian, click into a note, hit the hotkey, talk</li>
+          <li>That's it. No Obsidian-side setup.</li>
+        </ol>
+
+        <h3>Obsidian Whisper plugin</h3>
+        <ol>
+          <li>Settings → Community plugins → Browse → search "Whisper" by Nik Danilov</li>
+          <li>Install + enable</li>
+          <li>Get an OpenAI API key from <a href="https://platform.openai.com/api-keys">platform.openai.com/api-keys</a> (you'll need a card on file)</li>
+          <li>Plugin settings → paste the API key, set a hotkey</li>
+          <li>Click into a note, hit the hotkey, talk, release</li>
+        </ol>
+
+        <h3>MacWhisper</h3>
+        <ol>
+          <li>Buy from <a href="https://goodsnooze.gumroad.com/l/macwhisper">goodsnooze.gumroad.com/l/macwhisper</a> (one-time price tier)</li>
+          <li>Open the app, drag in an audio file</li>
+          <li>Pick a Whisper model size (Small for speed, Large for accuracy)</li>
+          <li>Wait for transcription, copy result, paste into a new vault note</li>
+        </ol>
+
+        <h3>ThoughtMic</h3>
+        <ol>
+          <li>Join the <a href="/#waitlist">waitlist</a> (launches summer 2026)</li>
+          <li>At launch: download, point it at your vault folder, set the hotkey</li>
+          <li>Press <code>⌥ Space</code> anywhere on your Mac, talk — text appears at your cursor and a structured note lands in your vault</li>
+          <li>Hit <code>⌥⇧ R</code> on Fridays to clear your <code>#inbox</code></li>
+        </ol>
+
+        <h3>Free starter resource (regardless of which tool you pick)</h3>
+        <p>
+          We maintain a <a href="/starter-vault">free Obsidian starter vault</a> built specifically for voice-first capture — voice-memo template, daily-note scaffolding, a tag taxonomy that survives the way you actually think out loud, and the folder structure we use ourselves. It works whether or not you ever install ThoughtMic. If you're starting voice notes in Obsidian for the first time, grab it as a baseline.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- ============================= FAQ ============================= -->
+    <section class="faq" id="faq">
+      <div class="faq__container">
+        <h2 class="faq__title">Frequently asked</h2>
+
+        <details>
+          <summary>What's the simplest way to add voice notes to Obsidian?</summary>
+          <div class="faq__answer">
+            <p>If you're on macOS 14 or later, Apple Dictation is the simplest path: nothing to install, runs locally, dictates directly into the active note. The downside is it's purely transcription — no titles, tags, or backlinks generated automatically. For better quality, the Obsidian Whisper plugin by Nik Danilov is the community standard.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Is Whisper actually local on Mac, or does it call OpenAI?</summary>
+          <div class="faq__answer">
+            <p>Both options exist. Nik Danilov's Whisper plugin uses the OpenAI Whisper API (cloud, requires your own API key, audio leaves your machine). Apps like MacWhisper, VoiceInk, and ThoughtMic run Whisper locally on Apple Silicon — no API key, no audio leaves the device. Pick based on whether you want zero install cost (cloud, pay-per-use) or zero data leaving (local).</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Can I dictate into Obsidian from outside Obsidian?</summary>
+          <div class="faq__answer">
+            <p>Plugin-based tools (Nik's Whisper plugin) only work inside Obsidian. System-wide dictation tools (Apple Dictation, ThoughtMic, SuperWhisper, Wispr Flow) work in any app — the difference is whether the output also writes a Markdown note into your vault automatically. ThoughtMic does both: text at the cursor anywhere AND a structured note in your vault.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Will voice notes mess up my tag taxonomy?</summary>
+          <div class="faq__answer">
+            <p>Only if your tool generates tags blindly. Tools that suggest tags from your existing vault tag list (rather than inventing new ones from the text) preserve your taxonomy. Plain dictation tools insert raw text and leave tagging to you. ThoughtMic specifically biases toward tags that already exist in your vault, only suggesting new ones when nothing close fits.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What about the Friday-review problem — do voice notes pile up?</summary>
+          <div class="faq__answer">
+            <p>Yes — this is the failure mode most voice-into-vault workflows hit within a few weeks. Captured <code>#inbox</code> notes accumulate; nobody re-reads them; the vault becomes write-only. The cure is a dedicated review surface (a keyboard-driven walkthrough where every inbox note gets a Discard / Keep / Promote / Archive decision in one keystroke). Without that, even the best voice capture tool degrades into a junk drawer over time.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>What about iPhone capture?</summary>
+          <div class="faq__answer">
+            <p>None of the four tools above ship a native iOS companion today. Workarounds: Apple Dictation works on iPhone if you dictate into Obsidian Mobile directly. The Whisper plugin doesn't run on mobile. For audio you record on phone, you can sync to Mac and run MacWhisper. ThoughtMic has iOS planned 6–8 weeks after the macOS launch.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>I don't use Mac. Does any of this work on Windows or Linux?</summary>
+          <div class="faq__answer">
+            <p>Apple Dictation is Mac-only. The Whisper plugin runs on whatever OS Obsidian runs on (Win, Linux, mobile) — but it's cloud-based, so the privacy tradeoff is the same everywhere. MacWhisper is Mac-only. ThoughtMic is Mac-only at launch. For local Whisper on Windows specifically, look at WhisperWriter or the Whisper.cpp ecosystem, though no comparable vault-native tool exists yet outside Mac.</p>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ============================= FINAL CTA ============================= -->
+    <section class="finalcta" id="waitlist">
+      <div class="container">
+        <svg class="finalcta__mark" viewBox="0 0 1024 1024" width="72" height="72" aria-hidden="true">
+          <path d="M 180 540 C 180 360, 300 220, 420 260 C 460 280, 490 320, 512 360 C 534 320, 564 280, 604 260 C 724 220, 844 360, 844 540 C 844 720, 724 800, 512 800 C 300 800, 180 720, 180 540 Z"
+                fill="none" stroke="currentColor" stroke-width="56" stroke-linejoin="round" stroke-linecap="round"/>
+          <rect x="368" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+          <rect x="432" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="496" y="400" width="48" height="360" rx="24" fill="#457261"/>
+          <rect x="560" y="440" width="48" height="280" rx="24" fill="currentColor"/>
+          <rect x="624" y="500" width="48" height="160" rx="24" fill="currentColor"/>
+        </svg>
+        <h2 class="finalcta__title">Want voice that lands as structured notes?</h2>
+        <p class="finalcta__sub">
+          ThoughtMic ships summer 2026. Local Whisper, vault-native output, Friday-review built in. Join the waitlist for a launch-day download link and the Founder's Deal ($49 lifetime, first 50 only).
+        </p>
+
+        <form class="waitlist-form" action="https://app.kit.com/forms/9359921/subscriptions" method="post">
+          <ul class="formkit-alert formkit-alert-error" data-element="errors" role="alert"></ul>
+          <div data-element="fields" class="waitlist-form__fields">
+            <label for="waitlist-email" class="sr-only">Email address</label>
+            <div class="waitlist-form__field">
+              <input class="waitlist-form__input" type="email" name="email_address" id="waitlist-email" placeholder="you@example.com" required autocomplete="email" inputmode="email" aria-label="Email address">
+            </div>
+            <button class="btn btn--primary btn--lg waitlist-form__submit" type="submit">
+              <span>Join the waitlist</span>
+            </button>
+          </div>
+        </form>
+
+        <p class="finalcta__micro">
+          We'll email you at launch. No newsletter. Unsubscribe any time.
+        </p>
+        <p class="finalcta__compat">
+          Works with <strong>Obsidian</strong> · <strong>Logseq</strong> · <strong>Foam</strong> · <strong>VS&nbsp;Code</strong> · any&nbsp;.md&nbsp;folder
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================= RELATED GUIDES ============================= -->
+    <section class="related">
+      <div class="related__container">
+        <p class="related__label">More guides</p>
+        <ul class="related__list">
+          <li><a href="/guides/local-whisper-on-mac">Local Whisper on Mac — the privacy-first dictation guide</a></li>
+          <li><a href="/guides/mcp-for-personal-notes">MCP for personal notes — what it is and why it matters</a></li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="footer">
+    <div class="container footer__row">
+      <p class="footer__left">© 2026 ThoughtMic · Built for people who think out loud.</p>
+      <ul class="footer__links">
+        <li><a href="/#features">Features</a></li>
+        <li><a href="/#privacy">Privacy</a></li>
+        <li><a href="/#pricing">Pricing</a></li>
+        <li><a href="/licenses">Licenses</a></li>
+        <li><a href="/terms">Terms</a></li>
+        <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script defer src="/js/reveal.js"></script>
+  <script defer src="/js/waitlist-form.js"></script>
+</body>
+</html>
