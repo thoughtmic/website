@@ -35,6 +35,70 @@
   color: var(--fg);
 }
 
+/* =========================================================
+   Nav logo waveform animation
+   Ports the Mac app's 8-frame, 100ms-per-frame menu-bar
+   recording animation (MenuBarManager.swift) to CSS keyframes.
+   The 6 outer waveform bars in the inline SVG are targeted by
+   their `x` attribute. The center forest-green bar (x=492)
+   stays static — brand accent, not part of the waveform.
+   On-load: 2 cycles (1.6s total) then settle.
+   On-hover: re-triggered with infinite (matches the app's
+   "while recording" mode).
+   ========================================================= */
+@keyframes nav-mark-pulse {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(0.45); }
+}
+
+@keyframes nav-mark-pulse-hover {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(0.40); }
+}
+
+.nav__mark rect[x="312"],
+.nav__mark rect[x="372"],
+.nav__mark rect[x="432"],
+.nav__mark rect[x="552"],
+.nav__mark rect[x="612"],
+.nav__mark rect[x="672"] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* On-load: each bar runs 2 cycles, staggered 50ms across bars */
+.nav__mark rect[x="312"] { animation: nav-mark-pulse 800ms ease-in-out   0ms 2; }
+.nav__mark rect[x="372"] { animation: nav-mark-pulse 800ms ease-in-out  50ms 2; }
+.nav__mark rect[x="432"] { animation: nav-mark-pulse 800ms ease-in-out 100ms 2; }
+.nav__mark rect[x="552"] { animation: nav-mark-pulse 800ms ease-in-out 150ms 2; }
+.nav__mark rect[x="612"] { animation: nav-mark-pulse 800ms ease-in-out 200ms 2; }
+.nav__mark rect[x="672"] { animation: nav-mark-pulse 800ms ease-in-out 250ms 2; }
+
+/* On-hover: re-trigger with infinite (animation-name swap restarts the timeline) */
+.nav__wordmark:hover .nav__mark rect[x="312"] { animation: nav-mark-pulse-hover 800ms ease-in-out   0ms infinite; }
+.nav__wordmark:hover .nav__mark rect[x="372"] { animation: nav-mark-pulse-hover 800ms ease-in-out  50ms infinite; }
+.nav__wordmark:hover .nav__mark rect[x="432"] { animation: nav-mark-pulse-hover 800ms ease-in-out 100ms infinite; }
+.nav__wordmark:hover .nav__mark rect[x="552"] { animation: nav-mark-pulse-hover 800ms ease-in-out 150ms infinite; }
+.nav__wordmark:hover .nav__mark rect[x="612"] { animation: nav-mark-pulse-hover 800ms ease-in-out 200ms infinite; }
+.nav__wordmark:hover .nav__mark rect[x="672"] { animation: nav-mark-pulse-hover 800ms ease-in-out 250ms infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .nav__mark rect[x="312"],
+  .nav__mark rect[x="372"],
+  .nav__mark rect[x="432"],
+  .nav__mark rect[x="552"],
+  .nav__mark rect[x="612"],
+  .nav__mark rect[x="672"],
+  .nav__wordmark:hover .nav__mark rect[x="312"],
+  .nav__wordmark:hover .nav__mark rect[x="372"],
+  .nav__wordmark:hover .nav__mark rect[x="432"],
+  .nav__wordmark:hover .nav__mark rect[x="552"],
+  .nav__wordmark:hover .nav__mark rect[x="612"],
+  .nav__wordmark:hover .nav__mark rect[x="672"] {
+    animation: none;
+  }
+}
+
 .nav__wordmark-text {
   font-family: var(--font-display);
   font-size: 28px;
