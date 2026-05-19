@@ -53,11 +53,6 @@
   to   { transform: scaleY(1); }
 }
 
-@keyframes nav-mark-rise-hover {
-  from { transform: scaleY(0.05); }
-  to   { transform: scaleY(1); }
-}
-
 .nav__mark rect[x="312"],
 .nav__mark rect[x="372"],
 .nav__mark rect[x="432"],
@@ -69,7 +64,10 @@
   transform-origin: center;
 }
 
-/* On-load entrance: scaleY 0.05 → 1.0, 0.7s ease-out, 80ms stagger */
+/* On-load entrance: scaleY 0.05 → 1.0, 0.7s ease-out, 80ms stagger.
+   Hover replay is handled by js/nav-mark.js (with debouncing) because
+   CSS :hover triggers re-animation on BOTH mouseenter and mouseleave,
+   which causes janky mid-animation restarts on rapid mouse toggles. */
 .nav__mark rect[x="312"] { animation: nav-mark-rise 0.7s ease-out   0ms 1 both; }
 .nav__mark rect[x="372"] { animation: nav-mark-rise 0.7s ease-out  80ms 1 both; }
 .nav__mark rect[x="432"] { animation: nav-mark-rise 0.7s ease-out 160ms 1 both; }
@@ -78,15 +76,6 @@
 .nav__mark rect[x="612"] { animation: nav-mark-rise 0.7s ease-out 400ms 1 both; }
 .nav__mark rect[x="672"] { animation: nav-mark-rise 0.7s ease-out 480ms 1 both; }
 
-/* On hover: re-trigger via animation-name swap (restarts the timeline) */
-.nav__wordmark:hover .nav__mark rect[x="312"] { animation: nav-mark-rise-hover 0.7s ease-out   0ms 1 both; }
-.nav__wordmark:hover .nav__mark rect[x="372"] { animation: nav-mark-rise-hover 0.7s ease-out  80ms 1 both; }
-.nav__wordmark:hover .nav__mark rect[x="432"] { animation: nav-mark-rise-hover 0.7s ease-out 160ms 1 both; }
-.nav__wordmark:hover .nav__mark rect[x="492"] { animation: nav-mark-rise-hover 0.7s ease-out 240ms 1 both; }
-.nav__wordmark:hover .nav__mark rect[x="552"] { animation: nav-mark-rise-hover 0.7s ease-out 320ms 1 both; }
-.nav__wordmark:hover .nav__mark rect[x="612"] { animation: nav-mark-rise-hover 0.7s ease-out 400ms 1 both; }
-.nav__wordmark:hover .nav__mark rect[x="672"] { animation: nav-mark-rise-hover 0.7s ease-out 480ms 1 both; }
-
 @media (prefers-reduced-motion: reduce) {
   .nav__mark rect[x="312"],
   .nav__mark rect[x="372"],
@@ -94,14 +83,7 @@
   .nav__mark rect[x="492"],
   .nav__mark rect[x="552"],
   .nav__mark rect[x="612"],
-  .nav__mark rect[x="672"],
-  .nav__wordmark:hover .nav__mark rect[x="312"],
-  .nav__wordmark:hover .nav__mark rect[x="372"],
-  .nav__wordmark:hover .nav__mark rect[x="432"],
-  .nav__wordmark:hover .nav__mark rect[x="492"],
-  .nav__wordmark:hover .nav__mark rect[x="552"],
-  .nav__wordmark:hover .nav__mark rect[x="612"],
-  .nav__wordmark:hover .nav__mark rect[x="672"] {
+  .nav__mark rect[x="672"] {
     animation: none;
   }
 }
