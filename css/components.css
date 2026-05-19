@@ -6,15 +6,8 @@
   top: 0;
   z-index: 50;
   padding-block: 18px;
-  background: rgba(246, 243, 236, 0.88);
-  backdrop-filter: saturate(1.1) blur(12px);
-  -webkit-backdrop-filter: saturate(1.1) blur(12px);
+  background: var(--bg);
   border-bottom: 1px solid var(--border);
-}
-
-/* Browsers without backdrop-filter support: fall back to fully opaque */
-@supports not (backdrop-filter: blur(1px)) {
-  .nav { background: var(--bg); }
 }
 
 .nav__row {
@@ -839,6 +832,47 @@
   font-size: 13px;
   color: var(--fg-subtle);
   letter-spacing: 0.02em;
+}
+
+/* Three per-pillar demos beneath the hero clip */
+.how__triptych {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-4) 0 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  text-align: left;
+}
+
+.how__clip {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.how__stage--small {
+  aspect-ratio: 16 / 10;
+  border-radius: 12px;
+  max-width: none;
+}
+
+.how__clip-caption {
+  font-size: var(--fs-body-sm);
+  line-height: var(--lh-body-sm);
+  color: var(--fg-muted);
+}
+
+.how__clip-caption strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+@media (max-width: 960px) {
+  .how__triptych {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
 }
 
 /* =========================================================

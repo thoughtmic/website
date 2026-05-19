@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ThoughtMic — The fastest path from spoken thought to a real note.</title>
-  <meta name="description" content="The local voice layer for your Markdown vault. Press ⌥ Space anywhere on your Mac, speak, and your thoughts land as titled, tagged, linked Markdown — ready for Friday review and queryable from Claude. Your voice and your vault never leave your Mac.">
+  <title>ThoughtMic: The Fastest Path from Spoken Thought to a Real Note.</title>
+  <meta name="description" content="The local voice layer for your Markdown vault. Press ⌥ Space anywhere on your Mac, speak, and your thoughts land as titled, tagged, linked Markdown, ready for inbox review and queryable from Claude. Your voice and your vault never leave your Mac.">
   <meta name="theme-color" content="#f6f3ec">
   <link rel="canonical" href="https://thoughtmic.com/">
-  <meta property="og:title" content="ThoughtMic — The fastest path from spoken thought to a real note.">
+  <meta property="og:title" content="ThoughtMic: The Fastest Path from Spoken Thought to a Real Note.">
   <meta property="og:description" content="The local voice layer for your Markdown vault. Your voice and your vault never leave your Mac.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thoughtmic.com/">
@@ -38,7 +38,7 @@
     "operatingSystem": "macOS 14+",
     "applicationCategory": "ProductivityApplication",
     "applicationSubCategory": "Voice Dictation",
-    "description": "The local voice layer for your Markdown vault. Press ⌥ Space anywhere on your Mac, speak, and your thoughts land as titled, tagged, linked Markdown — ready for Friday review and queryable from Claude Desktop and Cursor via local MCP.",
+    "description": "The local voice layer for your Markdown vault. Press ⌥ Space anywhere on your Mac, speak, and your thoughts land as titled, tagged, linked Markdown, ready for inbox review and queryable from Claude Desktop and Cursor via local MCP.",
     "url": "https://thoughtmic.com/",
     "image": "https://thoughtmic.com/assets/og-image.png",
     "screenshot": "https://thoughtmic.com/assets/demo-poster.jpg",
@@ -70,7 +70,7 @@
           "name": "Pro Annual",
           "price": "72",
           "priceCurrency": "USD",
-          "description": "$6/month billed annually — save 25%"
+          "description": "$6/month billed annually, save 25%"
         },
         {
           "@type": "Offer",
@@ -95,7 +95,7 @@
       "100% local voice transcription with Whisper Large V3 Turbo",
       "Direct write into Obsidian, Logseq, Foam, or any Markdown vault",
       "Auto-generated titles, tags, and backlinks",
-      "Friday review surface for inbox notes",
+      "Inbox review surface for #inbox notes",
       "Local MCP server queryable from Claude Desktop and Cursor",
       "Zero Data Retention cloud rephrase (text-only, opt-in)"
     ]
@@ -152,7 +152,7 @@
           <p class="hero__sub">
             The local voice layer for your Markdown vault.
             Press <kbd>⌥ Space</kbd> anywhere on your Mac, speak, and your thoughts
-            land as titled, tagged, linked notes — ready for Friday review and queryable from Claude.
+            land as titled, tagged, linked notes, ready for inbox review and queryable from Claude.
           </p>
           <div class="hero__ctas">
             <a class="btn btn--primary btn--lg" href="#waitlist">Join the waitlist</a>
@@ -204,8 +204,8 @@
                 <span class="card-rec__bar"></span>
                 <span class="card-rec__bar"></span>
               </div>
-              <p class="card-rec__transcript" data-stream-text="&ldquo;Okay so the redesign idea for the checkout flow — um, we should move the coupon field below the shipping step, A/B test it against the current layout…&rdquo;">
-                <span class="card-rec__visible">&ldquo;Okay so the redesign idea for the checkout flow — um, we should move the coupon field below the shipping step, A/B test it against the current layout…&rdquo;</span><span class="card-rec__caret" aria-hidden="true">▊</span>
+              <p class="card-rec__transcript" data-stream-text="&ldquo;Okay so the redesign idea for the checkout flow, um, we should move the coupon field below the shipping step, A/B test it against the current layout…&rdquo;">
+                <span class="card-rec__visible">&ldquo;Okay so the redesign idea for the checkout flow, um, we should move the coupon field below the shipping step, A/B test it against the current layout…&rdquo;</span><span class="card-rec__caret" aria-hidden="true">▊</span>
               </p>
             </article>
 
@@ -262,7 +262,7 @@ checkout flow involves moving…
     <section class="section how" id="demo">
       <div class="container">
         <h2 class="how__title" data-reveal>30 seconds from thought to linked vault note.</h2>
-        <p class="how__dek" data-reveal>Speak once. Use it twice — polished text at your cursor, and a connected note in your vault.</p>
+        <p class="how__dek" data-reveal>Speak once. Use it twice: polished text at your cursor, and a connected note in your vault.</p>
         <div class="how__stage" data-autoplay-in-view>
           <video
             class="how__video"
@@ -271,12 +271,64 @@ checkout flow involves moving…
             loop
             playsinline
             preload="metadata"
-            aria-label="Screen recording: ThoughtMic dictation from press → text at cursor → vault note">
+            aria-label="Screen recording: ThoughtMic dictation from press to text at cursor to vault note">
             <source src="/assets/demo-full.webm" type="video/webm">
             <source src="/assets/demo-full.mp4" type="video/mp4">
           </video>
         </div>
         <p class="how__legend">0:02 speak · 0:07 text appears · 0:12 vault writes · 0:15 links resolve</p>
+
+        <!-- Three per-pillar demos. Day-4 swap: drop /assets/demo-{capture,vault,review}.{webm,mp4,jpg} -->
+        <ol class="how__triptych" data-reveal>
+          <li class="how__clip">
+            <div class="how__stage how__stage--small" data-autoplay-in-view>
+              <video
+                class="how__video"
+                poster="/assets/demo-capture-poster.jpg"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="Screen recording: pressing Option-Space and dictating text into Slack">
+                <source src="/assets/demo-capture.webm" type="video/webm">
+                <source src="/assets/demo-capture.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="how__clip-caption"><strong>01 · Capture anywhere.</strong> Hotkey from Slack, Mail, your IDE. Text at your cursor in seconds.</p>
+          </li>
+          <li class="how__clip">
+            <div class="how__stage how__stage--small" data-autoplay-in-view>
+              <video
+                class="how__video"
+                poster="/assets/demo-vault-poster.jpg"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="Screen recording: a voice note landing in Obsidian with auto-generated title, tags, and backlinks">
+                <source src="/assets/demo-vault.webm" type="video/webm">
+                <source src="/assets/demo-vault.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="how__clip-caption"><strong>02 · Land in your vault.</strong> Titles, tags, and backlinks generate themselves. The graph grows on its own.</p>
+          </li>
+          <li class="how__clip">
+            <div class="how__stage how__stage--small" data-autoplay-in-view>
+              <video
+                class="how__video"
+                poster="/assets/demo-review-poster.jpg"
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label="Screen recording: keyboard-driven inbox review surface triaging inbox notes">
+                <source src="/assets/demo-review.webm" type="video/webm">
+                <source src="/assets/demo-review.mp4" type="video/mp4">
+              </video>
+            </div>
+            <p class="how__clip-caption"><strong>03 · Inbox review.</strong> Discard, Keep, Promote, Archive. Five minutes, vault clean, ideas wired in.</p>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -337,7 +389,7 @@ checkout flow involves moving…
           A weekly review window that actually clears your inbox.
         </h2>
         <p data-reveal style="font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); max-width: 64ch; margin: 0 auto 28px;">
-          Voice captures pile up. Most apps stop there. ThoughtMic ships a dedicated review surface — keyboard-driven, two-pane — where every <code style="font-family: var(--font-mono); font-size: 0.92em; padding: 2px 6px; background: var(--bg-elev); border-radius: 4px;">#inbox</code> note gets one of four actions: <strong>Discard</strong>, <strong>Keep</strong>, <strong>Promote</strong> to a structured template, or <strong>Archive</strong>. Five minutes, vault clean, ideas wired in.
+          Voice captures pile up. Most apps stop there. ThoughtMic ships a dedicated review surface (keyboard-driven, two-pane) where every <code style="font-family: var(--font-mono); font-size: 0.92em; padding: 2px 6px; background: var(--bg-elev); border-radius: 4px;">#inbox</code> note gets one of four actions: <strong>Discard</strong>, <strong>Keep</strong>, <strong>Promote</strong> to a structured template, or <strong>Archive</strong>. Five minutes, vault clean, ideas wired in.
         </p>
         <p data-reveal style="font-size: var(--fs-body-sm); color: var(--fg-subtle); max-width: 56ch; margin: 0 auto;">
           Hit <code style="font-family: var(--font-mono); font-size: 0.95em; padding: 2px 6px; background: var(--bg-elev); border-radius: 4px;">⌥⇧ R</code> any time. The Collector's Fallacy doesn't get to win.
@@ -370,12 +422,12 @@ checkout flow involves moving…
           <div class="privacy__panel privacy__panel--cloud">
             <p class="privacy__label">Opt-in only</p>
             <ul class="privacy__list">
-              <li><strong>Rephrasing text</strong> (Pro) — transcript only, never audio or vault. <em>ZDR enabled.</em></li>
-              <li><strong>Template extraction</strong> (Pro) — transcript only. Independent toggle.</li>
-              <li><strong>License check</strong> — key sent once/day</li>
-              <li><strong>Telemetry</strong> — aggregate counts, no content. <em>One-click off.</em></li>
-              <li><strong>Crash reports</strong> — opt-in, no PII</li>
-              <li><strong>Model downloads</strong> — one-time from Hugging Face</li>
+              <li><strong>Rephrasing text</strong> (Pro): transcript only, never audio or vault. <em>ZDR enabled.</em></li>
+              <li><strong>Template extraction</strong> (Pro): transcript only. Independent toggle.</li>
+              <li><strong>License check</strong>: key sent once/day</li>
+              <li><strong>Telemetry</strong>: aggregate counts, no content. <em>One-click off.</em></li>
+              <li><strong>Crash reports</strong>: opt-in, no PII</li>
+              <li><strong>Model downloads</strong>: one-time from Hugging Face</li>
             </ul>
           </div>
         </div>
@@ -395,7 +447,7 @@ checkout flow involves moving…
           Grab the free Obsidian starter vault.
         </h2>
         <p data-reveal style="font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); max-width: 58ch; margin: 0 auto 28px;">
-          A vault built for voice-first note-taking — voice-memo template, daily-note scaffolding, a tag taxonomy that survives the way you actually think out loud, and the folder structure we use ourselves. Works whether or not you ever install ThoughtMic.
+          A vault built for voice-first note-taking: voice-memo template, daily-note scaffolding, a tag taxonomy that survives the way you actually think out loud, and the folder structure we use ourselves. Works whether or not you ever install ThoughtMic.
         </p>
         <a class="btn btn--ghost" href="/starter-vault">
           Get the vault <span class="btn__chev" aria-hidden="true">→</span>
@@ -473,7 +525,7 @@ checkout flow involves moving…
         </div>
 
         <p class="hero__microcopy" style="text-align: center; margin-top: 24px;">
-          Launch prices above. Join the waitlist to be first in line — no credit card, unsubscribe any time.
+          Launch prices above. Join the waitlist to be first in line. No credit card, unsubscribe any time.
         </p>
       </div>
     </section>
@@ -489,13 +541,13 @@ checkout flow involves moving…
           <a href="/vs/superwhisper" class="resources__card" data-reveal>
             <p class="resources__label">Compare to alternatives</p>
             <p class="resources__head">Side-by-side honest comparisons</p>
-            <p class="resources__body">vs SuperWhisper, Wispr Flow, Onit, VoiceInk, and Nik Danilov's Whisper plugin — what each is good at, where each falls short, when to pick which.</p>
+            <p class="resources__body">vs SuperWhisper, Wispr Flow, Onit, VoiceInk, and Nik Danilov's Whisper plugin. What each is good at, where each falls short, when to pick which.</p>
             <span class="resources__cta">Read 5 comparisons →</span>
           </a>
           <a href="/guides/voice-notes-for-obsidian" class="resources__card" data-reveal>
             <p class="resources__label">Read our guides</p>
             <p class="resources__head">Workflow guides for voice + PKM</p>
-            <p class="resources__body">Voice notes for Obsidian, local Whisper on Mac, MCP for personal notes — practical guides written for sophisticated readers, not marketing copy.</p>
+            <p class="resources__body">Voice notes for Obsidian, local Whisper on Mac, MCP for personal notes. Practical guides written for sophisticated readers, not marketing copy.</p>
             <span class="resources__cta">Read 3 guides →</span>
           </a>
         </div>
@@ -524,7 +576,7 @@ checkout flow involves moving…
       </svg>
         <h2 class="finalcta__title" data-reveal>Be first in line when ThoughtMic ships.</h2>
         <p class="finalcta__sub">
-          We'll email you the day the app is ready — with your download link and, for the first 50 signups, your Founder's Deal code.
+          We'll email you the day the app is ready, with your download link and, for the first 50 signups, your Founder's Deal code.
         </p>
 
         <form class="waitlist-form" action="https://app.kit.com/forms/9359921/subscriptions" method="post">
