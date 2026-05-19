@@ -36,29 +36,32 @@
 }
 
 /* =========================================================
-   Nav logo waveform animation
-   Ports the Mac app's 8-frame, 100ms-per-frame menu-bar
-   recording animation (MenuBarManager.swift) to CSS keyframes.
-   The 6 outer waveform bars in the inline SVG are targeted by
-   their `x` attribute. The center forest-green bar (x=492)
-   stays static — brand accent, not part of the waveform.
-   On-load: 2 cycles (1.6s total) then settle.
-   On-hover: re-triggered with infinite (matches the app's
-   "while recording" mode).
+   Nav logo entrance animation
+   Matches the Mac app's onboarding BrandMark.swift `barRise`
+   keyframe: each waveform bar scales from 0.05 to 1.0 over
+   0.7s ease-out with 80ms staggered delays. Runs once on page
+   load. On hover, re-triggers via animation-name swap.
+   Reduce Motion: bars rendered at full scale, no animation.
+
+   All 7 bars (including the green center bar at x=492) animate
+   together, in the same staggered-rise pattern. Bars targeted
+   by their unique `x` attribute so no per-instance class names
+   are needed.
    ========================================================= */
-@keyframes nav-mark-pulse {
-  0%, 100% { transform: scaleY(1); }
-  50%      { transform: scaleY(0.45); }
+@keyframes nav-mark-rise {
+  from { transform: scaleY(0.05); }
+  to   { transform: scaleY(1); }
 }
 
-@keyframes nav-mark-pulse-hover {
-  0%, 100% { transform: scaleY(1); }
-  50%      { transform: scaleY(0.40); }
+@keyframes nav-mark-rise-hover {
+  from { transform: scaleY(0.05); }
+  to   { transform: scaleY(1); }
 }
 
 .nav__mark rect[x="312"],
 .nav__mark rect[x="372"],
 .nav__mark rect[x="432"],
+.nav__mark rect[x="492"],
 .nav__mark rect[x="552"],
 .nav__mark rect[x="612"],
 .nav__mark rect[x="672"] {
@@ -66,32 +69,36 @@
   transform-origin: center;
 }
 
-/* On-load: each bar runs 2 cycles, staggered 50ms across bars */
-.nav__mark rect[x="312"] { animation: nav-mark-pulse 800ms ease-in-out   0ms 2; }
-.nav__mark rect[x="372"] { animation: nav-mark-pulse 800ms ease-in-out  50ms 2; }
-.nav__mark rect[x="432"] { animation: nav-mark-pulse 800ms ease-in-out 100ms 2; }
-.nav__mark rect[x="552"] { animation: nav-mark-pulse 800ms ease-in-out 150ms 2; }
-.nav__mark rect[x="612"] { animation: nav-mark-pulse 800ms ease-in-out 200ms 2; }
-.nav__mark rect[x="672"] { animation: nav-mark-pulse 800ms ease-in-out 250ms 2; }
+/* On-load entrance: scaleY 0.05 → 1.0, 0.7s ease-out, 80ms stagger */
+.nav__mark rect[x="312"] { animation: nav-mark-rise 0.7s ease-out   0ms 1 both; }
+.nav__mark rect[x="372"] { animation: nav-mark-rise 0.7s ease-out  80ms 1 both; }
+.nav__mark rect[x="432"] { animation: nav-mark-rise 0.7s ease-out 160ms 1 both; }
+.nav__mark rect[x="492"] { animation: nav-mark-rise 0.7s ease-out 240ms 1 both; }
+.nav__mark rect[x="552"] { animation: nav-mark-rise 0.7s ease-out 320ms 1 both; }
+.nav__mark rect[x="612"] { animation: nav-mark-rise 0.7s ease-out 400ms 1 both; }
+.nav__mark rect[x="672"] { animation: nav-mark-rise 0.7s ease-out 480ms 1 both; }
 
-/* On-hover: re-trigger with infinite (animation-name swap restarts the timeline) */
-.nav__wordmark:hover .nav__mark rect[x="312"] { animation: nav-mark-pulse-hover 800ms ease-in-out   0ms infinite; }
-.nav__wordmark:hover .nav__mark rect[x="372"] { animation: nav-mark-pulse-hover 800ms ease-in-out  50ms infinite; }
-.nav__wordmark:hover .nav__mark rect[x="432"] { animation: nav-mark-pulse-hover 800ms ease-in-out 100ms infinite; }
-.nav__wordmark:hover .nav__mark rect[x="552"] { animation: nav-mark-pulse-hover 800ms ease-in-out 150ms infinite; }
-.nav__wordmark:hover .nav__mark rect[x="612"] { animation: nav-mark-pulse-hover 800ms ease-in-out 200ms infinite; }
-.nav__wordmark:hover .nav__mark rect[x="672"] { animation: nav-mark-pulse-hover 800ms ease-in-out 250ms infinite; }
+/* On hover: re-trigger via animation-name swap (restarts the timeline) */
+.nav__wordmark:hover .nav__mark rect[x="312"] { animation: nav-mark-rise-hover 0.7s ease-out   0ms 1 both; }
+.nav__wordmark:hover .nav__mark rect[x="372"] { animation: nav-mark-rise-hover 0.7s ease-out  80ms 1 both; }
+.nav__wordmark:hover .nav__mark rect[x="432"] { animation: nav-mark-rise-hover 0.7s ease-out 160ms 1 both; }
+.nav__wordmark:hover .nav__mark rect[x="492"] { animation: nav-mark-rise-hover 0.7s ease-out 240ms 1 both; }
+.nav__wordmark:hover .nav__mark rect[x="552"] { animation: nav-mark-rise-hover 0.7s ease-out 320ms 1 both; }
+.nav__wordmark:hover .nav__mark rect[x="612"] { animation: nav-mark-rise-hover 0.7s ease-out 400ms 1 both; }
+.nav__wordmark:hover .nav__mark rect[x="672"] { animation: nav-mark-rise-hover 0.7s ease-out 480ms 1 both; }
 
 @media (prefers-reduced-motion: reduce) {
   .nav__mark rect[x="312"],
   .nav__mark rect[x="372"],
   .nav__mark rect[x="432"],
+  .nav__mark rect[x="492"],
   .nav__mark rect[x="552"],
   .nav__mark rect[x="612"],
   .nav__mark rect[x="672"],
   .nav__wordmark:hover .nav__mark rect[x="312"],
   .nav__wordmark:hover .nav__mark rect[x="372"],
   .nav__wordmark:hover .nav__mark rect[x="432"],
+  .nav__wordmark:hover .nav__mark rect[x="492"],
   .nav__wordmark:hover .nav__mark rect[x="552"],
   .nav__wordmark:hover .nav__mark rect[x="612"],
   .nav__wordmark:hover .nav__mark rect[x="672"] {
