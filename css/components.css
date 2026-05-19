@@ -535,47 +535,49 @@
   color: var(--fg-subtle);
 }
 
+/* Hero card-rec waveform = the ThoughtMic brand mark (7 bars).
+   Reuses the nav-mark-rise keyframe + the same 80ms stagger across
+   all 7 bars (including the forest-green center bar at x=492).
+   Animation re-triggers each time card 1 becomes the front card in
+   the deck cycle, so the card feels alive on every cycle return. */
 .card-rec__waveform {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 3px;
-  height: 56px;
-  padding: 10px 16px 6px;
+  display: block;
+  width: 100px;
+  height: auto;
+  margin: 8px auto 4px;
+  color: var(--fg);
 }
 
-.card-rec__bar {
-  flex: 0 0 4px;
-  width: 4px;
-  height: 18%;
-  background: var(--accent);
-  border-radius: 2px;
-  transform-origin: center bottom;
-  transition: height 140ms var(--ease);
-  opacity: 0.7;
+.card-rec__waveform rect[x="312"],
+.card-rec__waveform rect[x="372"],
+.card-rec__waveform rect[x="432"],
+.card-rec__waveform rect[x="492"],
+.card-rec__waveform rect[x="552"],
+.card-rec__waveform rect[x="612"],
+.card-rec__waveform rect[x="672"] {
+  transform-box: fill-box;
+  transform-origin: center;
 }
 
-/* Waveform animates only when card 1 is the front card. */
-.js .deck[data-front="1"] .card-rec__bar {
-  animation: wave-bounce 900ms var(--ease) infinite;
-}
+.js .deck[data-front="1"] .card-rec__waveform rect[x="312"] { animation: nav-mark-rise 0.7s ease-out   0ms 1 both; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="372"] { animation: nav-mark-rise 0.7s ease-out  80ms 1 both; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="432"] { animation: nav-mark-rise 0.7s ease-out 160ms 1 both; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="492"] { animation: nav-mark-rise 0.7s ease-out 240ms 1 both; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="552"] { animation: nav-mark-rise 0.7s ease-out 320ms 1 both; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="612"] { animation: nav-mark-rise 0.7s ease-out 400ms 1 both; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="672"] { animation: nav-mark-rise 0.7s ease-out 480ms 1 both; }
 
-.js .deck[data-front="1"] .card-rec__bar:nth-child(1)  { animation-delay:    0ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(2)  { animation-delay:   60ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(3)  { animation-delay:  120ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(4)  { animation-delay:  180ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(5)  { animation-delay:  240ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(6)  { animation-delay:  300ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(7)  { animation-delay:  360ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(8)  { animation-delay:  420ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(9)  { animation-delay:  380ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(10) { animation-delay:  320ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(11) { animation-delay:  260ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(12) { animation-delay:  200ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(13) { animation-delay:  140ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(14) { animation-delay:   80ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(15) { animation-delay:   40ms; }
-.js .deck[data-front="1"] .card-rec__bar:nth-child(16) { animation-delay:    0ms; }
+@media (prefers-reduced-motion: reduce) {
+  .js .deck[data-front="1"] .card-rec__waveform rect[x="312"],
+  .js .deck[data-front="1"] .card-rec__waveform rect[x="372"],
+  .js .deck[data-front="1"] .card-rec__waveform rect[x="432"],
+  .js .deck[data-front="1"] .card-rec__waveform rect[x="492"],
+  .js .deck[data-front="1"] .card-rec__waveform rect[x="552"],
+  .js .deck[data-front="1"] .card-rec__waveform rect[x="612"],
+  .js .deck[data-front="1"] .card-rec__waveform rect[x="672"] {
+    animation: none;
+  }
+}
 
 .card-rec__transcript {
   font-family: var(--font-mono);
@@ -754,11 +756,6 @@
 .card-vault__body .h2 { color: #e8b4b4; font-weight: 600; }
 
 /* --- Card motion keyframes --- */
-@keyframes wave-bounce {
-  0%, 100% { height: 18%; }
-  50%      { height: 90%; }
-}
-
 @keyframes rec-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(255, 95, 87, 0.55); }
   50%      { box-shadow: 0 0 0 5px rgba(255, 95, 87, 0); }
