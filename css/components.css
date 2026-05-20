@@ -36,21 +36,24 @@
 }
 
 /* =========================================================
-   Nav logo entrance animation
-   Matches the Mac app's onboarding BrandMark.swift `barRise`
-   keyframe: each waveform bar scales from 0.05 to 1.0 over
-   0.7s ease-out with 80ms staggered delays. Runs once on page
-   load. On hover, re-triggers via animation-name swap.
-   Reduce Motion: bars rendered at full scale, no animation.
+   Brand-mark waveform — continuous pulse animation
+   Used by both the nav logo (.nav__mark) and the hero card
+   "01 · YOU SPOKE" mini-icon (.card-rec__waveform), so the
+   nav and hero waveform read as the same brand object in
+   motion. All 7 bars including the forest-green center bar
+   pulse continuously (800ms cycle, 50ms stagger across bars
+   for a left-to-right wave). Reads as an "alive" dictation
+   waveform rather than a one-shot entrance.
 
-   All 7 bars (including the green center bar at x=492) animate
-   together, in the same staggered-rise pattern. Bars targeted
-   by their unique `x` attribute so no per-instance class names
-   are needed.
+   The previous one-shot entrance + JS-driven hover replay
+   was abandoned because (a) the static-after-entrance state
+   looked dead in a header that's visible the whole session
+   and (b) on the hero card the static state contradicted the
+   REC indicator.
    ========================================================= */
-@keyframes nav-mark-rise {
-  from { transform: scaleY(0.05); }
-  to   { transform: scaleY(1); }
+@keyframes brand-mark-pulse {
+  0%, 100% { transform: scaleY(1); }
+  50%      { transform: scaleY(0.55); }
 }
 
 .nav__mark rect[x="312"],
@@ -62,19 +65,16 @@
 .nav__mark rect[x="672"] {
   transform-box: fill-box;
   transform-origin: center;
+  animation: brand-mark-pulse 800ms ease-in-out infinite;
 }
 
-/* On-load entrance: scaleY 0.05 → 1.0, 0.7s ease-out, 80ms stagger.
-   Hover replay is handled by js/nav-mark.js (with debouncing) because
-   CSS :hover triggers re-animation on BOTH mouseenter and mouseleave,
-   which causes janky mid-animation restarts on rapid mouse toggles. */
-.nav__mark rect[x="312"] { animation: nav-mark-rise 0.7s ease-out   0ms 1 both; }
-.nav__mark rect[x="372"] { animation: nav-mark-rise 0.7s ease-out  80ms 1 both; }
-.nav__mark rect[x="432"] { animation: nav-mark-rise 0.7s ease-out 160ms 1 both; }
-.nav__mark rect[x="492"] { animation: nav-mark-rise 0.7s ease-out 240ms 1 both; }
-.nav__mark rect[x="552"] { animation: nav-mark-rise 0.7s ease-out 320ms 1 both; }
-.nav__mark rect[x="612"] { animation: nav-mark-rise 0.7s ease-out 400ms 1 both; }
-.nav__mark rect[x="672"] { animation: nav-mark-rise 0.7s ease-out 480ms 1 both; }
+.nav__mark rect[x="312"] { animation-delay:   0ms; }
+.nav__mark rect[x="372"] { animation-delay:  50ms; }
+.nav__mark rect[x="432"] { animation-delay: 100ms; }
+.nav__mark rect[x="492"] { animation-delay: 150ms; }
+.nav__mark rect[x="552"] { animation-delay: 200ms; }
+.nav__mark rect[x="612"] { animation-delay: 250ms; }
+.nav__mark rect[x="672"] { animation-delay: 300ms; }
 
 @media (prefers-reduced-motion: reduce) {
   .nav__mark rect[x="312"],
@@ -536,10 +536,9 @@
 }
 
 /* Hero card-rec waveform = the ThoughtMic brand mark (7 bars).
-   Reuses the nav-mark-rise keyframe + the same 80ms stagger across
-   all 7 bars (including the forest-green center bar at x=492).
-   Animation re-triggers each time card 1 becomes the front card in
-   the deck cycle, so the card feels alive on every cycle return. */
+   Shares the brand-mark-pulse keyframe with the nav logo so both
+   move identically. Gated on .deck[data-front="1"] so the pulse
+   only runs while card 1 is the front card in the deck cycle. */
 .card-rec__waveform {
   display: block;
   width: 100px;
@@ -559,13 +558,13 @@
   transform-origin: center;
 }
 
-.js .deck[data-front="1"] .card-rec__waveform rect[x="312"] { animation: nav-mark-rise 0.7s ease-out   0ms 1 both; }
-.js .deck[data-front="1"] .card-rec__waveform rect[x="372"] { animation: nav-mark-rise 0.7s ease-out  80ms 1 both; }
-.js .deck[data-front="1"] .card-rec__waveform rect[x="432"] { animation: nav-mark-rise 0.7s ease-out 160ms 1 both; }
-.js .deck[data-front="1"] .card-rec__waveform rect[x="492"] { animation: nav-mark-rise 0.7s ease-out 240ms 1 both; }
-.js .deck[data-front="1"] .card-rec__waveform rect[x="552"] { animation: nav-mark-rise 0.7s ease-out 320ms 1 both; }
-.js .deck[data-front="1"] .card-rec__waveform rect[x="612"] { animation: nav-mark-rise 0.7s ease-out 400ms 1 both; }
-.js .deck[data-front="1"] .card-rec__waveform rect[x="672"] { animation: nav-mark-rise 0.7s ease-out 480ms 1 both; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="312"] { animation: brand-mark-pulse 800ms ease-in-out   0ms infinite; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="372"] { animation: brand-mark-pulse 800ms ease-in-out  50ms infinite; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="432"] { animation: brand-mark-pulse 800ms ease-in-out 100ms infinite; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="492"] { animation: brand-mark-pulse 800ms ease-in-out 150ms infinite; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="552"] { animation: brand-mark-pulse 800ms ease-in-out 200ms infinite; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="612"] { animation: brand-mark-pulse 800ms ease-in-out 250ms infinite; }
+.js .deck[data-front="1"] .card-rec__waveform rect[x="672"] { animation: brand-mark-pulse 800ms ease-in-out 300ms infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   .js .deck[data-front="1"] .card-rec__waveform rect[x="312"],
