@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ThoughtMic: Messaging System (locked 2026-05-20)</title>
+<style>
+  :root {
+    --bg: #f6f3ec;
+    --bg-elev: #ffffff;
+    --bg-page: #ebe5d5;
+    --text-primary: #1c1c1e;
+    --text-muted: #5a5a60;
+    --text-subtle: #8e8e93;
+    --accent: #2c5f3d;
+    --accent-soft: #c6dcc9;
+    --border: #d6cfbc;
+    --warn: #b8631c;
+    --danger: #a8323a;
+    --code-bg: #1c1c1e;
+    --code-text: #f6f3ec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.55;
+    font-size: 15px;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  nav.sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    padding: 32px 20px;
+    border-right: 1px solid var(--border);
+    background: var(--bg-page);
+    overflow-y: auto;
+  }
+  nav.sidebar h3 {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin: 24px 0 8px;
+  }
+  nav.sidebar h3:first-child { margin-top: 0; }
+  nav.sidebar a {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  nav.sidebar a:hover { background: var(--accent-soft); }
+  main { padding: 40px 56px 96px; max-width: 940px; }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 36px;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: 24px;
+    margin: 56px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 17px; margin: 28px 0 12px; }
+  h4 { font-size: 14px; margin: 20px 0 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 17px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 99px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .badge.muted { background: var(--border); color: var(--text-muted); }
+  .badge.warn { background: rgba(184, 99, 28, 0.16); color: var(--warn); }
+  .badge.locked { background: var(--accent); color: white; }
+  .copy-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 18px 0;
+  }
+  .copy-card h3 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .copy-meta { color: var(--text-muted); font-size: 13px; margin-bottom: 12px; }
+  .locked-text {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--text-primary);
+    background: var(--bg-page);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 8px 0 12px;
+  }
+  .locked-text.long {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+  .rationale {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+  .surface-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13.5px;
+  }
+  .surface-table th, .surface-table td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    background: var(--bg-elev);
+    vertical-align: top;
+  }
+  .surface-table th { background: var(--bg-page); font-weight: 600; }
+  .surface-table td.surface { font-weight: 600; }
+  .surface-table td.length { white-space: nowrap; }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 16px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    line-height: 1.55;
+    margin: 12px 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  code:not(pre code) {
+    background: var(--bg-page);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px;
+  }
+  .wikilink {
+    font-family: "SF Mono", Menlo, monospace;
+    color: var(--accent);
+    background: rgba(198, 220, 201, 0.4);
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-style: normal;
+  }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+  .callout {
+    background: var(--bg-page);
+    border-left: 3px solid var(--accent);
+    padding: 14px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  .callout.warn { border-left-color: var(--warn); }
+  .kickoff-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .kickoff-link-text { flex: 1; }
+  .kickoff-link-text strong { display: block; margin-bottom: 4px; }
+  .kickoff-link a.open-btn {
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .dont-list li { margin: 8px 0; }
+  .dont-list li strong { color: var(--danger); }
+  .footer-meta {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-subtle);
+    font-size: 12.5px;
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <h3>Overview</h3>
+  <a href="#summary">Summary</a>
+  <a href="#principle">One source, four lengths</a>
+
+  <h3>Locked copy</h3>
+  <a href="#tagline">Primary tagline</a>
+  <a href="#supporting-taglines">Supporting taglines</a>
+  <a href="#sub-hero">Sub-hero</a>
+  <a href="#depth-line">Secondary depth line</a>
+  <a href="#medium">Medium form</a>
+  <a href="#long">Long form</a>
+
+  <h3>Surfaces</h3>
+  <a href="#surface-map">Where each length goes</a>
+  <a href="#hero-h1">Hero H1 (reference)</a>
+  <a href="#shortcut">Shortcut placement</a>
+  <a href="#depth-visual">Depth-line visual</a>
+  <a href="#onboarding">Onboarding (Pxc) mapping</a>
+
+  <h3>Guardrails</h3>
+  <a href="#dont-say">Things we will NOT say</a>
+
+  <h3>Links</h3>
+  <a href="#cross-refs">Cross-references</a>
+</nav>
+
+<main>
+
+<h1>Messaging System</h1>
+<div class="subtitle">
+  Locked 2026-05-20 · Branch <code>feat/messaging-system-doc</code> · Source of truth for the homepage, <code>/for-ai-work/</code>, <code>/values/</code>, onboarding cards, blog, outreach.
+</div>
+
+<div class="callout">
+  <strong>Why this doc exists.</strong> If thoughtmic.com, onboarding cards (Pxc), blog posts, and outreach DMs each describe ThoughtMic slightly differently, the result feels like multiple products. This doc defines the core promise once in four lengths so every surface stays consistent. Edit one length, you know which others to update.
+</div>
+
+<section id="summary">
+<h2>Summary</h2>
+<p>
+  The product has one promise stated four ways. Short forms compress; long forms expand. All four are derivatives of the same source idea: <strong>spoken thoughts become structured, connected memory in your vault.</strong>
+</p>
+<ul>
+  <li><strong>Tagline</strong> (primary, brand mark): 7 words. OG cards, footer signature, app icon page.</li>
+  <li><strong>Supporting taglines</strong> (functional + pain hook): for evaluation surfaces and attention-grabbing copy.</li>
+  <li><strong>Sub-hero</strong>: 18 words. Homepage and <code>/for-ai-work/</code> hero.</li>
+  <li><strong>Secondary depth line</strong>: 15 words. Below sub-hero. Unpacks what "structured note" means.</li>
+  <li><strong>Medium form</strong>: ~50 words. App store, blog opener, About-style sections.</li>
+  <li><strong>Long form</strong>: ~90 words. <code>/for-ai-work/</code> page body, deep-dive blog posts.</li>
+</ul>
+</section>
+
+<section id="principle">
+<h2>One source, four lengths</h2>
+<p>
+  Every surface picks the right length for its space and audience. The taglines do brand-level work. The sub-hero and depth line do homepage hero work. The medium and long forms do explanation work. <strong>None contradict each other.</strong> They scale the same promise.
+</p>
+<p>
+  When this messaging changes in the future, edit the locked copy in this doc first. Then propagate to the surfaces that reference it. Never edit a surface in isolation.
+</p>
+</section>
+
+<section id="tagline">
+<h2>Primary tagline <span class="badge locked">Locked</span></h2>
+
+<div class="copy-card">
+  <h3>T-A</h3>
+  <div class="copy-meta">7 words · use everywhere ThoughtMic appears as a brand mark</div>
+  <p class="locked-text">Make your spoken thoughts your memory.</p>
+  <div class="rationale">
+    Imperative verb <em>(Make)</em> signals there's a product doing work. The framing positions spoken thought as memory material, which is the actual product thesis. Calm, declarative, slightly philosophical. Works at every size without losing meaning. Doesn't pin us to a specific feature, so we can change implementation without changing brand.
+  </div>
+</div>
+</section>
+
+<section id="supporting-taglines">
+<h2>Supporting taglines <span class="badge locked">Locked</span></h2>
+
+<p>Two supporting taglines exist for specific surfaces where T-A doesn't do the right job. Both are locked. Neither replaces T-A as the brand tagline.</p>
+
+<div class="copy-card">
+  <h3>T-B <span class="badge muted">Functional descriptor</span></h3>
+  <div class="copy-meta">6 words · use where the visitor needs to know what the product does in an evaluation context</div>
+  <p class="locked-text">Turn spoken thoughts into searchable memory.</p>
+  <div class="rationale">
+    Names input ("spoken thoughts"), output ("searchable memory"), and action ("turn into"). Reads as product description. Lives on app store subtitle, <code>/for-ai-work/</code> intro, comparison pages (<code>/vs/wispr-flow/</code>), blog author bylines.
+  </div>
+</div>
+
+<div class="copy-card">
+  <h3>T-E <span class="badge muted">Pain hook</span></h3>
+  <div class="copy-meta">7 words · use where you need to grab attention from someone who hasn't decided to care yet</div>
+  <p class="locked-text">Catch what you say before you forget.</p>
+  <div class="rationale">
+    Direct pain framing. Reads like advice from a friend rather than a brand promise. Lives in paid ad headlines, outreach DM openers, blog post titles, email subject lines. Slightly more informal than T-A; not for hero-level brand placement.
+  </div>
+</div>
+</section>
+
+<section id="sub-hero">
+<h2>Sub-hero <span class="badge locked">Locked</span></h2>
+
+<div class="copy-card">
+  <h3>The dual-output promise</h3>
+  <div class="copy-meta">18 words · sits below the hero H1 on thoughtmic.com and on <code>/for-ai-work/</code></div>
+  <p class="locked-text">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault.</p>
+  <div class="rationale">
+    Two sentences. Benefit-first opener ("without typing") resonates with the audience pain of typing fatigue. Parallel "land at" / "land in" carries the dual output without spelling it out as "two places." No habit claims, no competitor names, no AI-bland phrases. The shortcut <code>⌥ Space</code> deliberately lives elsewhere on the page (see <a href="#shortcut">Shortcut placement</a>) so the sub-hero stays focused on PROMISE not implementation.
+  </div>
+</div>
+</section>
+
+<section id="depth-line">
+<h2>Secondary depth line <span class="badge locked">Locked</span></h2>
+
+<div class="copy-card">
+  <h3>D1</h3>
+  <div class="copy-meta">15 words · sits directly below the sub-hero, smaller weight</div>
+  <p class="locked-text">Auto-titled, tagged, and connected to thoughts you've already saved with <span class="wikilink">[[wikilinks]]</span>. Your graph grows itself.</p>
+  <div class="rationale">
+    Unpacks what "structured note" means in one beat. The <code>[[wikilinks]]</code> glyph is brand-distinctive (mirrors the locked logo brackets) and Obsidian users get the syntax instantly. "Connected to thoughts you've already saved" makes the existing-graph value explicit. "Your graph grows itself" echoes the existing pillar #3 copy on the live homepage, so this line REINFORCES rather than DUPLICATES the page below. See <a href="#depth-visual">visual treatment</a> for sizing and weight.
+  </div>
+</div>
+</section>
+
+<section id="medium">
+<h2>Medium form <span class="badge locked">Locked</span></h2>
+
+<div class="copy-card">
+  <h3>~50 words</h3>
+  <div class="copy-meta">App store subtitle area, About page intro, blog opener, social bio</div>
+  <p class="locked-text long">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault. Auto-titled, tagged, and connected to thoughts you've already saved with <span class="wikilink">[[wikilinks]]</span>. The vault becomes searchable memory you can query from Claude, Cursor, or any MCP client.</p>
+  <div class="rationale">
+    First two sentences are the locked sub-hero verbatim. Third sentence is the locked D1 depth line verbatim. Fourth sentence is the bridge: explicitly names the AI-memory wedge and the MCP clients. 48 words total. Three derivations from locked source plus one new bridge line; no drift risk.
+  </div>
+</div>
+</section>
+
+<section id="long">
+<h2>Long form <span class="badge locked">Locked</span></h2>
+
+<div class="copy-card">
+  <h3>~90 words</h3>
+  <div class="copy-meta"><code>/for-ai-work/</code> page body, deep-dive blog posts, About page body</div>
+  <p class="locked-text long">ThoughtMic is a local voice layer for your Markdown vault. Hold <code>⌥ Space</code> anywhere on your Mac and speak. Your words appear where you're typing (IDE, Slack, email, browser) so you keep working at speed. At the same time, a structured Markdown note lands in your Obsidian vault: title generated from the thought, tags suggested from your existing library, wikilinks resolved against notes you already have. Your spoken thoughts become memory you can query from Claude, Cursor, or any MCP client. The graph grows itself.</p>
+  <div class="rationale">
+    First sentence categorizes the product (local voice layer). Second sentence introduces the shortcut explicitly because this is the only length where naming the shortcut is appropriate (deeper-funnel reader). Sentences 3 and 4 expand the dual-output promise with concrete examples of WHERE the cursor lands (IDE, Slack, email, browser) and WHAT the vault note actually contains (title, tags, wikilinks). Closing sentence makes the AI-memory wedge explicit. 86 words.
+  </div>
+</div>
+</section>
+
+<section id="surface-map">
+<h2>Where each length goes</h2>
+<p>Every surface picks the right length once and references this doc as the source. No surface invents its own version.</p>
+
+<table class="surface-table">
+  <thead>
+    <tr>
+      <th>Surface</th>
+      <th>Length(s) to use</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="surface">Homepage hero (thoughtmic.com)</td>
+      <td class="length">Hero H1 (existing, see below) + Sub-hero + D1</td>
+      <td>Existing hero deck cards carry the visual dual-output story. Compat strip below stays.</td>
+    </tr>
+    <tr>
+      <td class="surface">Homepage callout (between #review and #privacy)</td>
+      <td class="length">Custom 2-line teaser pointing to <code>/for-ai-work/</code></td>
+      <td>Not from the locked set. See positioning-architecture.html L3.</td>
+    </tr>
+    <tr>
+      <td class="surface">/for-ai-work/ page hero</td>
+      <td class="length">Custom H1 + Long form body</td>
+      <td>H1 names the AI-augmented use case directly.</td>
+    </tr>
+    <tr>
+      <td class="surface">/values/ page</td>
+      <td class="length">Custom H1 + the seven commitments (see positioning-architecture.html L4)</td>
+      <td>Not from the locked length set. Values are a separate locked artifact.</td>
+    </tr>
+    <tr>
+      <td class="surface">App store listing</td>
+      <td class="length">T-B subtitle + Medium form description</td>
+      <td>T-A is the brand tagline above; T-B explains what it DOES; medium expands.</td>
+    </tr>
+    <tr>
+      <td class="surface">OG cards (og:title across the site)</td>
+      <td class="length">T-A</td>
+      <td>Brand mark, consistent across all pages.</td>
+    </tr>
+    <tr>
+      <td class="surface">Footer signature</td>
+      <td class="length">T-A</td>
+      <td>Same.</td>
+    </tr>
+    <tr>
+      <td class="surface">Comparison pages (/vs/*)</td>
+      <td class="length">T-B + Medium form</td>
+      <td>Functional context. T-A is too philosophical for comparison-shopping.</td>
+    </tr>
+    <tr>
+      <td class="surface">Pillar pages, guides</td>
+      <td class="length">Sub-hero + D1 in intro; Medium in body</td>
+      <td>Reuse hero language so visitors carry context across pages.</td>
+    </tr>
+    <tr>
+      <td class="surface">Onboarding cards (Pxc, Swift app)</td>
+      <td class="length">Per <a href="#onboarding">onboarding mapping</a> below</td>
+      <td>Pxc consumes from this doc.</td>
+    </tr>
+    <tr>
+      <td class="surface">Blog post intros</td>
+      <td class="length">Medium form (or Long if post is about ThoughtMic specifically)</td>
+      <td>Author byline can use T-B as a short descriptor.</td>
+    </tr>
+    <tr>
+      <td class="surface">Paid ads (Reddit, X banner)</td>
+      <td class="length">T-E headline + Sub-hero body</td>
+      <td>T-E grabs, sub-hero converts.</td>
+    </tr>
+    <tr>
+      <td class="surface">Outreach DMs, email subjects</td>
+      <td class="length">T-E hook</td>
+      <td>Adapt freely. T-E is the seed, the actual DM is yours.</td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+<section id="hero-h1">
+<h2>Hero H1 (locked, reference only)</h2>
+<div class="copy-card">
+  <p class="locked-text">The fastest path from spoken thought to a real note.</p>
+  <div class="rationale">
+    Currently live on thoughtmic.com. Not part of this messaging refresh. Stays locked. Mentioned here so the surface map is complete: hero H1 sits ABOVE the locked sub-hero on the homepage and on <code>/for-ai-work/</code> (with a different H1:see <a href="#surface-map">surface map</a>).
+  </div>
+</div>
+</section>
+
+<section id="shortcut">
+<h2>Shortcut placement (<code>⌥ Space</code>)</h2>
+<p>
+  The sub-hero deliberately does not include <code>⌥ Space</code>. The shortcut is implementation detail; the sub-hero is promise. The shortcut lives in three other places on the homepage:
+</p>
+<ol>
+  <li><strong>Hero deck card 01 label.</strong> Add <code>⌥ Space</code> next to "You spoke" so the visual story includes it from card one.</li>
+  <li><strong>Microcopy strip below the sub-hero / D1.</strong> A small line: <em>"Activates with <code>⌥ Space</code> anywhere on your Mac."</em> Lives in the same compat-strip area as the existing "Lands in Obsidian / Logseq" line. Same weight, same color.</li>
+  <li><strong>Demo video poster overlay.</strong> The keystroke gets a captioned overlay on the demo poster image.</li>
+</ol>
+<p>
+  In the long form copy (above), the shortcut IS named in sentence two. That's intentional: long form is for deeper-funnel readers who want to know "how do I use this." They get the answer there.
+</p>
+</section>
+
+<section id="depth-visual">
+<h2>Visual treatment for the depth line (D1)</h2>
+<p>
+  D1 sits directly below the sub-hero and ABOVE the existing hero deck cards. It is supporting detail, not a competing headline. Treatment:
+</p>
+<ul>
+  <li><strong>Size.</strong> 16-18px on desktop. Smaller than sub-hero (~22-24px) but not microscopic.</li>
+  <li><strong>Weight.</strong> Regular (400). Not bold.</li>
+  <li><strong>Color.</strong> Muted text color (lower contrast than the sub-hero, e.g. <code>--fg-muted</code>).</li>
+  <li><strong>Spacing.</strong> ~12-16px gap above (small distance from sub-hero, treated as a continuation). ~32-40px gap below (clear break before deck cards begin).</li>
+  <li><strong>The <span class="wikilink">[[wikilinks]]</span> glyph.</strong> Render in monospace font with a subtle forest tint (<code>--accent</code>) and a very soft background (<code>--accent-soft</code> at ~40% opacity). This is the only place on the homepage where the bracket notation is visually styled. Reinforces brand without shouting.</li>
+</ul>
+</section>
+
+<section id="onboarding">
+<h2>Onboarding card mapping (Pxc consumption)</h2>
+
+<div class="callout">
+  <strong>For the Pxc Swift session.</strong> Pxc was originally going to generate 3 candidate Welcome card subtitles. Skip that step. Use the locked messaging below instead. The Pxc session continues with KnowledgeGraph card video, ReviewDemo card video, and fallback player infrastructure as planned.
+</div>
+
+<table class="surface-table">
+  <thead>
+    <tr>
+      <th>Onboarding card</th>
+      <th>Use this length</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="surface">Card 1:Welcome</td>
+      <td class="length">T-A (as eyebrow or H1 framing) + Sub-hero (as subtitle body)</td>
+      <td>The Pxc verification gate originally asked for "3 candidate subtitles." Replace with the locked sub-hero verbatim. Optionally use T-A above the H1 as a small caption.</td>
+    </tr>
+    <tr>
+      <td class="surface">Card 2-10:existing cards</td>
+      <td class="length">No change in this work</td>
+      <td>Pxc handles structural rework (KnowledgeGraph, ReviewDemo) without changing those cards' copy.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  If Pxc finds that a non-Welcome card has copy drift from the locked messaging, surface it here for a follow-up edit. Do not edit non-Welcome card copy mid-Pxc; that's out of scope.
+</p>
+</section>
+
+<section id="dont-say">
+<h2>Things we will NOT say</h2>
+<p>Negative guardrails. These apply across every surface: website, onboarding, blog, outreach, ads.</p>
+
+<ul class="dont-list">
+  <li><strong>No em-dashes (—) or en-dashes (–).</strong> Use periods, commas, colons, parentheses, or two short sentences. Em-dashes read as an AI tell. Audit copy before merging.</li>
+  <li><strong>No "AI-powered" / "AI-driven" / "powered by AI".</strong> If we have to lead with "AI" as a marketing adjective, we're a wrapper. We're a voice layer that uses AI as a utility. Say what we do, not what powers us.</li>
+  <li><strong>No "revolutionary" / "game-changing" / "magical" / "delightful".</strong> Hollow superlatives. We claim what we deliver, not how it feels.</li>
+  <li><strong>No naming competitors defensively.</strong> Wispr Flow, Superwhisper, Mem, Reflect. Comparison pages (<code>/vs/*</code>) name them once. Brand-level copy does not.</li>
+  <li><strong>No cloud provider names.</strong> No Cerebras, Groq, Fireworks, OpenAI, Anthropic in user-facing copy outside the values page commitment #4 (which generically names "the cloud" without specifying the provider). Provider can change; brand cannot read like a provider press release.</li>
+  <li><strong>No unvalidated habit claims.</strong> Do NOT say "your daily routine," "your weekly review habit," "every morning you...". Until real users have demonstrated those habits, they are hypotheses. The current live sub-hero copy violates this with "ready for inbox review"; P3 of the implementation work fixes this.</li>
+  <li><strong>No promises about downstream graph value users will feel.</strong> "Discover patterns in your thinking." "Surface forgotten ideas." "Build connections you didn't know you had." All hypothesis until validated. Wait for v1.1 to write that copy from real user behavior.</li>
+  <li><strong>No "simply" or "just".</strong> "Just press Option-Space." "Simply capture your thoughts." Minimizes the user's effort patronizingly.</li>
+  <li><strong>No "second brain" as a primary descriptor.</strong> Tiago Forte's book and Obsidian's community already own the framing. We can REFERENCE it ("your second brain" in passing) but not LEAD with it.</li>
+  <li><strong>No "transform your workflow" / "10x your productivity".</strong> Productivity-marketing slop.</li>
+  <li><strong>No "We use AI to ___" framing.</strong> Inverts the agency. Better: "AI does ___ for you." User stays the subject.</li>
+</ul>
+</section>
+
+<section id="cross-refs">
+<h2>Cross-references</h2>
+
+<div class="kickoff-link">
+  <div class="kickoff-link-text">
+    <strong>Positioning architecture</strong>
+    The layered messaging architecture that produced this messaging system. Read for L1-L4 layer rationale, validation-gap discipline, and risks/cuts.
+  </div>
+  <a class="open-btn" href="../positioning-architecture.html">Open</a>
+</div>
+
+<div class="kickoff-link">
+  <div class="kickoff-link-text">
+    <strong>Implementation kickoff</strong>
+    Verbatim prompt for a fresh session to execute P1 (<code>/for-ai-work/</code> page + homepage callout + nav), P2 (<code>/values/</code> page), and P3 (sub-hero edit using locked copy from this doc).
+  </div>
+  <a class="open-btn" href="IMPL-KICKOFF.md">Open</a>
+</div>
+
+<h3>Memory references</h3>
+<ul>
+  <li><code>project_ai_memory_wedge_2026_05_19.md</code>: origin of the AI-augmented persona and the dual-output insight that drove sub-hero revision</li>
+  <li><code>project_validation_gap_2026_05_19.md</code>: why we removed "ready for inbox review" and other habit claims from the locked copy</li>
+  <li><code>feedback_positioning_not_dictation.md</code>: the "voice-to-structured-context" framing that the locked tagline T-A inherits</li>
+  <li><code>feedback_no_em_dashes.md</code>: backs the first guardrail in <a href="#dont-say">Things we will NOT say</a></li>
+  <li><code>feedback_sprint_html_with_kickoff_docs.md</code>: the dual-doc pattern that produced this file</li>
+  <li><code>project_thoughtmic_branding.md</code>: the Variant C2 brand lock; <code>[[wikilinks]]</code> visual treatment in D1 references the logo brackets</li>
+  <li><code>project_design_tokens.md</code>: source of truth for any new colors / spacing introduced when implementing the visual treatment in <a href="#depth-visual">depth-line visual</a></li>
+</ul>
+</section>
+
+<div class="footer-meta">
+  Authored 2026-05-20. Branch <code>feat/messaging-system-doc</code> off <code>origin/main</code>. Locked decisions: T-A (primary tagline), T-B + T-E (supporting taglines), sub-hero (18 words), D1 (15 words secondary depth), medium (~50 words), long (~90 words). Implementation gated on a separate IMPL-KICKOFF session for P1 + P2 + P3.
+</div>
+
+</main>
+</div>
+</body>
+</html>

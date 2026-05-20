@@ -305,6 +305,10 @@
   <strong>What this doc is.</strong> A layered messaging architecture for thoughtmic.com proposed during the 2026-05-19 positioning conversation. Read this end-to-end before approving any <code>index.html</code> changes. Once layers are locked, the verbatim implementation prompt lives in <code>docs/positioning/IMPL-KICKOFF.md</code>.
 </div>
 
+<div class="callout">
+  <strong>Locked copy lives in <code>positioning/messaging-system.html</code> (2026-05-20).</strong> This architecture doc is the historical record of the layered approach and the deliberation behind it. The actual chosen strings (tagline, sub-hero, depth line, medium, long forms) are locked in the messaging system doc and are the source of truth for any implementation work. If a Layer 2-4 candidate option below differs from the locked copy, the messaging system wins.
+</div>
+
 <section id="summary">
 <h2>Summary</h2>
 <p>
@@ -424,10 +428,18 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
   </div>
 
   <div class="option recommended">
-    <div class="option-label"><span class="badge rec">Recommended</span> Option A: tighten with same payload</div>
-    <p class="option-copy">The local voice layer for your Markdown vault. Press ⌥ Space, speak, and your thoughts land as structured Markdown in your vault. Yours to keep, yours to query.</p>
+    <div class="option-label"><span class="badge rec">Locked 2026-05-20</span> Final sub-hero</div>
+    <p class="option-copy">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault.</p>
     <p class="option-rationale">
-      Cuts "titled, tagged, linked" (those are pillar-card content). "Yours to keep, yours to query" foreshadows both the values page and the MCP capability section without naming Claude in the sub-hero. Compat strip still names Claude / Cursor / MCP below.
+      18 words. Two sentences. Benefit-first opener. Parallel "land at" / "land in" carries the dual output without spelling it out as "two places." Shortcut <code>⌥ Space</code> deliberately moved to deck card 01 + microcopy strip + demo poster (see <code>positioning/messaging-system.html</code> for shortcut placement). Pairs with the locked secondary depth line D1 directly below.
+    </p>
+  </div>
+
+  <div class="option">
+    <div class="option-label">Secondary depth line (D1) <span class="badge rec">Locked</span></div>
+    <p class="option-copy">Auto-titled, tagged, and connected to thoughts you've already saved with [[wikilinks]]. Your graph grows itself.</p>
+    <p class="option-rationale">
+      15 words. Sits directly below the sub-hero, smaller weight. Unpacks what "structured note" means in one beat. <code>[[wikilinks]]</code> glyph mirrors the locked logo brackets; "graph grows itself" echoes pillar #3 phrasing.
     </p>
   </div>
 
@@ -568,22 +580,10 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
   </thead>
   <tbody>
     <tr>
-      <td class="phase">P1</td>
-      <td>New dedicated page <code>/for-ai-work/index.html</code> + small homepage callout between <code>#review</code> and <code>#privacy</code> + nav link. Review section position untouched.</td>
-      <td>Low. One new file, one new section, one new nav link. Existing copy untouched.</td>
-      <td>User approval of the page + callout copy in this doc.</td>
-    </tr>
-    <tr>
-      <td class="phase">P2</td>
-      <td><code>/values/index.html</code> new page with the seven commitments. Nav + footer links. Match style of <code>/privacy/</code>.</td>
-      <td>Low-medium. New file. No conflicts with existing styling work. Header / footer touched in one place to add the link.</td>
-      <td>P1 merged or in parallel (no shared files).</td>
-    </tr>
-    <tr>
-      <td class="phase">P3</td>
-      <td>Sub-hero tighten (Layer 2 Option A). Single-line copy edit in <code>index.html</code>. Drops "ready for inbox review" habit claim.</td>
-      <td>Low. One line. But it's the second-most-read line on the homepage, so review carefully.</td>
-      <td>P1 + P2 deployed and showed no audience confusion in ~7 days.</td>
+      <td class="phase">P1 + P2 + P3 <span class="badge muted">bundled</span></td>
+      <td>One impl session ships all three: P1 (<code>/for-ai-work/index.html</code> + homepage callout + nav), P2 (<code>/values/index.html</code> + nav + footer), P3 (sub-hero replaced with locked copy + secondary depth line D1 added + <code>⌥ Space</code> microcopy strip relocated). All copy from <code>positioning/messaging-system.html</code> verbatim.</td>
+      <td>Low. Three independent additions plus one in-place sub-hero swap. Existing pillars / review / privacy untouched.</td>
+      <td>Messaging system doc approved (this PR). Fresh session paste-prompt fires the impl.</td>
     </tr>
     <tr>
       <td class="phase">P4 <span class="badge muted">defer</span></td>
@@ -679,7 +679,7 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
 </section>
 
 <div class="footer-meta">
-  Authored 2026-05-19. Revised 2026-05-20 to address founder feedback (L3 dedicated page, L4 cloud-provider obfuscation, commitment #6 rewrite, SEO follow-up callout). Branch <code>feat/positioning-copy-draft</code> off <code>origin/main</code>. Reviewer: solo founder. Implementation gated on doc approval.
+  Authored 2026-05-19. Revised 2026-05-20 twice: first for L3 dedicated page + L4 cloud-provider obfuscation + commitment #6 + SEO follow-up. Second for locked sub-hero (Capture thoughts without typing...), locked D1 depth line, P3 bundled with P1+P2. Final copy locked in <code>positioning/messaging-system.html</code>. Branch <code>feat/messaging-system-doc</code> off latest <code>origin/main</code>. Reviewer: solo founder. Implementation gated on a separate fresh-session paste of <code>docs/positioning/IMPL-KICKOFF.md</code>.
 </div>
 
 </main>
