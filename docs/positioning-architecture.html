@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ThoughtMic: Homepage Positioning Architecture</title>
+<style>
+  :root {
+    --bg: #f6f3ec;
+    --bg-elev: #ffffff;
+    --bg-page: #ebe5d5;
+    --text-primary: #1c1c1e;
+    --text-muted: #5a5a60;
+    --text-subtle: #8e8e93;
+    --accent: #2c5f3d;
+    --accent-soft: #c6dcc9;
+    --border: #d6cfbc;
+    --warn: #b8631c;
+    --danger: #a8323a;
+    --code-bg: #1c1c1e;
+    --code-text: #f6f3ec;
+    --code-keyword: #c6dcc9;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.55;
+    font-size: 15px;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  nav.sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    padding: 32px 20px;
+    border-right: 1px solid var(--border);
+    background: var(--bg-page);
+    overflow-y: auto;
+  }
+  nav.sidebar h3 {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin: 24px 0 8px;
+  }
+  nav.sidebar h3:first-child { margin-top: 0; }
+  nav.sidebar a {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  nav.sidebar a:hover { background: var(--accent-soft); }
+  main { padding: 40px 56px 96px; max-width: 940px; }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 36px;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: 24px;
+    margin: 56px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 17px; margin: 28px 0 12px; }
+  h4 { font-size: 14px; margin: 20px 0 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 17px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 99px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .badge.warn { background: rgba(184, 99, 28, 0.16); color: var(--warn); }
+  .badge.danger { background: rgba(168, 50, 58, 0.14); color: var(--danger); }
+  .badge.muted { background: var(--border); color: var(--text-muted); }
+  .badge.rec { background: var(--accent); color: white; }
+  .layer-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+  .layer-card h3 { margin-top: 0; display: flex; align-items: center; gap: 12px; }
+  .layer-meta { color: var(--text-muted); font-size: 13px; margin-bottom: 16px; }
+  .layer-meta strong { color: var(--text-primary); }
+  .option {
+    background: var(--bg-page);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    border-left: 3px solid var(--border);
+  }
+  .option.recommended { border-left-color: var(--accent); background: rgba(198, 220, 201, 0.25); }
+  .option-label {
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .option-copy {
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--text-primary);
+    margin: 8px 0;
+  }
+  .option-rationale {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+  pre {
+    background: var(--code-bg);
+    color: var(--code-text);
+    padding: 18px 20px;
+    border-radius: 8px;
+    overflow-x: auto;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    line-height: 1.55;
+    margin: 12px 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .kickoff-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .kickoff-link-text { flex: 1; }
+  .kickoff-link-text strong { display: block; margin-bottom: 4px; }
+  .kickoff-link-text code {
+    background: var(--bg-elev);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 12.5px;
+    color: var(--accent);
+  }
+  .kickoff-link a.open-btn {
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .kickoff-link a.open-btn:hover { opacity: 0.9; }
+  code:not(pre code) {
+    background: var(--bg-page);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px;
+  }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+  .callout {
+    background: var(--bg-page);
+    border-left: 3px solid var(--warn);
+    padding: 14px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  .callout-danger { border-left-color: var(--danger); }
+  .callout-info { border-left-color: var(--accent); }
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 18px 0;
+  }
+  .persona {
+    background: var(--bg-page);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 13.5px;
+  }
+  .persona-label {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .seq-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 13.5px;
+  }
+  .seq-table th, .seq-table td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    background: var(--bg-elev);
+    vertical-align: top;
+  }
+  .seq-table th { background: var(--bg-page); font-weight: 600; }
+  .seq-table td.phase { font-weight: 600; white-space: nowrap; }
+  .commitment {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin: 12px 0;
+  }
+  .commitment strong {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+  .commitment p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+  .footer-meta {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-subtle);
+    font-size: 12.5px;
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <h3>Plan</h3>
+  <a href="#summary">Summary</a>
+  <a href="#current-state">Current site state</a>
+  <a href="#personas">Personas served</a>
+
+  <h3>Layered architecture</h3>
+  <a href="#layer-1">L1. Hero</a>
+  <a href="#layer-2">L2. Sub-hero</a>
+  <a href="#layer-3">L3. Capability sections</a>
+  <a href="#layer-4">L4. Values page</a>
+
+  <h3>Execution</h3>
+  <a href="#sequencing">Implementation sequencing</a>
+  <a href="#risks">Risks &amp; cuts</a>
+  <a href="#kickoff">Implementation kickoff</a>
+
+  <h3>Reference</h3>
+  <a href="#guardrails">Guardrails</a>
+  <a href="#memory-links">Memory links</a>
+</nav>
+
+<main>
+
+<h1>Homepage Positioning Architecture</h1>
+<div class="subtitle">
+  Drafted 2026-05-19 · Branch <code>feat/positioning-copy-draft</code> · <span class="badge">Plan, not implementation</span>
+</div>
+
+<div class="callout callout-info">
+  <strong>What this doc is.</strong> A layered messaging architecture for thoughtmic.com proposed during the 2026-05-19 positioning conversation. Read this end-to-end before approving any <code>index.html</code> changes. Once layers are locked, the verbatim implementation prompt lives in <code>docs/positioning/IMPL-KICKOFF.md</code>.
+</div>
+
+<section id="summary">
+<h2>Summary</h2>
+<p>
+  The current homepage is closer to right than it looks. The hero already does "voice-to-vault" without leading with AI. The compat strip already names <strong>Claude</strong> and <strong>MCP</strong>. The privacy section is strong. The three pillars are Obsidian-friendly.
+</p>
+<p>
+  The gaps are three:
+</p>
+<ol>
+  <li>No dedicated section for the <strong>AI-augmented work</strong> persona (the founder's own use case, surfaced 2026-05-19, see <code>project_ai_memory_wedge_2026_05_19.md</code>).</li>
+  <li>No <code>/values</code> page articulating the seven "we will" commitments that turn AI from a product anxiety into a bounded utility promise.</li>
+  <li>The current copy makes some claims about downstream value (graph growth, MCP querying) that aren't yet validated by real users, see <code>project_validation_gap_2026_05_19.md</code>. A few sentences need tightening to land "this is what the product does" instead of "this is what users will eventually feel."</li>
+</ol>
+<p>
+  This plan does <strong>not</strong> propose a pivot. It proposes a layered addition: keep the Obsidian-native hero, add a self-selecting capability section for AI-augmented work, and ship a values page that names the AI-as-utility stance directly.
+</p>
+</section>
+
+<section id="current-state">
+<h2>Current site state (live as of 2026-05-19)</h2>
+
+<h4>Hero (live copy)</h4>
+<pre>The fastest path from spoken thought to a real note.
+
+The local voice layer for your Markdown vault.
+Press ⌥ Space anywhere on your Mac, speak, and your thoughts
+land as titled, tagged, linked notes, ready for inbox review
+and queryable from Claude.
+
+Lands in Obsidian · Logseq · any Markdown folder.
+Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
+
+<h4>Capability pillars (live)</h4>
+<ul>
+  <li><strong>System-wide capture.</strong> Dictate in Slack, VS Code, Mail, your browser. Text at your cursor, note in your vault, no app switching.</li>
+  <li><strong>100% on-device.</strong> Whisper Large V3 Turbo runs locally with Metal acceleration. Your voice never touches the internet.</li>
+  <li><strong>Vault-native writes.</strong> Auto-generated titles. Auto-suggested tags. Auto-linked backlinks. Your knowledge graph grows itself.</li>
+</ul>
+
+<h4>Missing</h4>
+<ul>
+  <li>No <code>/values</code> page</li>
+  <li>No section addressing the AI-augmented work use case (developers thinking out loud with Claude, Codex, Cursor, Gemini)</li>
+  <li>No explicit "AI as utility, not product" stance disclosed anywhere</li>
+</ul>
+</section>
+
+<section id="personas">
+<h2>Personas served</h2>
+<div class="persona-grid">
+  <div class="persona">
+    <div class="persona-label">P1. AI-augmented worker</div>
+    The founder. Developers using Claude / Codex / Cursor / Gemini daily. Speaks reasoning to AI assistants, loses it to chat history. Needs portable cross-provider memory in their own filesystem. <strong>Sharpest wedge.</strong>
+  </div>
+  <div class="persona">
+    <div class="persona-label">P2. Obsidian power user</div>
+    Already in Obsidian. Types diligently. Wants voice as a faster input path that respects their vault, tags, and links. Allergic to AI as the experience but accepts AI as a utility.
+  </div>
+  <div class="persona">
+    <div class="persona-label">P3. Voice-first knowledge worker</div>
+    Wants to speak instead of type. Cares less about graph theory, more about "did the note land cleanly." Receives the hero pitch as designed.
+  </div>
+</div>
+<p>
+  Demoted from prior framing: <strong>students replacing manual notes</strong>. Voice-replacing-typing is commodity territory; not differentiated; don't target.
+</p>
+</section>
+
+<section id="layer-1">
+<h2>Layer 1: Hero <span class="badge muted">Keep with minor refinement</span></h2>
+
+<div class="layer-card">
+  <div class="layer-meta">
+    <strong>Job to be done:</strong> Headline a PKM skeptic would screenshot without hesitation. Says the act, not the technology. Broad, Obsidian-safe, no AI mention.
+  </div>
+
+  <div class="option recommended">
+    <div class="option-label"><span class="badge rec">Recommended</span> Option A: keep current</div>
+    <p class="option-copy">The fastest path from spoken thought to a real note.</p>
+    <p class="option-rationale">
+      Already polished. Verb-shaped value prop. Doesn't ask the reader to adopt anything. Hero-eyebrow ("Launching summer 2026 · macOS") and CTAs stay. <strong>No change recommended.</strong>
+    </p>
+  </div>
+
+  <div class="option">
+    <div class="option-label">Option B: sharper, declarative</div>
+    <p class="option-copy">Speak. Get a real note. In your vault.</p>
+    <p class="option-rationale">
+      Tighter, more rhythmic. Risk: drops the "fastest" claim that's the strongest single-word differentiator vs Wispr Flow. Keep in reserve as a future A/B test, not a v1 swap.
+    </p>
+  </div>
+
+  <div class="option">
+    <div class="option-label">Option C: emotional anchor</div>
+    <p class="option-copy">Your thoughts, captured before you forget them.</p>
+    <p class="option-rationale">
+      Wider appeal but loses the "in your vault" Obsidian signal. Better as a paid-ad headline than a homepage hero.
+    </p>
+  </div>
+</div>
+</section>
+
+<section id="layer-2">
+<h2>Layer 2: Sub-hero <span class="badge warn">Tighten</span></h2>
+
+<div class="layer-card">
+  <div class="layer-meta">
+    <strong>Job to be done:</strong> Name the utility plainly. Acknowledge AI ingredients without making them the headline. Keep the "queryable from Claude" hook because it does double duty (P1 sees AI memory, P2 sees integration).
+  </div>
+
+  <div class="option">
+    <div class="option-label">Current</div>
+    <p class="option-copy">The local voice layer for your Markdown vault. Press ⌥ Space anywhere on your Mac, speak, and your thoughts land as titled, tagged, linked notes, ready for inbox review and queryable from Claude.</p>
+    <p class="option-rationale">
+      Wordy. "Titled, tagged, linked notes, ready for inbox review and queryable from Claude" is doing four jobs in one comma run.
+    </p>
+  </div>
+
+  <div class="option recommended">
+    <div class="option-label"><span class="badge rec">Recommended</span> Option A: tighten with same payload</div>
+    <p class="option-copy">The local voice layer for your Markdown vault. Press ⌥ Space, speak, and your thoughts land as structured Markdown in your vault. Yours to keep, yours to query.</p>
+    <p class="option-rationale">
+      Cuts "titled, tagged, linked" (those are pillar-card content). "Yours to keep, yours to query" foreshadows both the values page and the MCP capability section without naming Claude in the sub-hero. Compat strip still names Claude / Cursor / MCP below.
+    </p>
+  </div>
+
+  <div class="option">
+    <div class="option-label">Option B: lead with portability</div>
+    <p class="option-copy">Press ⌥ Space, speak, and your thoughts land as Markdown in your vault. They never leave your Mac. They're yours forever.</p>
+    <p class="option-rationale">
+      Stronger trust claim earlier, but pushes "voice layer for your Markdown vault" later. Loses the category-defining noun phrase.
+    </p>
+  </div>
+
+  <div class="callout">
+    <strong>Validation-gap note.</strong> Current sub-hero implies "ready for inbox review" as a default user reflex. Inbox review is a feature, but it being a habit users adopt is hypothesis. Soften wording until real users confirm.
+  </div>
+</div>
+</section>
+
+<section id="layer-3">
+<h2>Layer 3: Capability sections <span class="badge">Add one new section</span></h2>
+
+<div class="layer-card">
+  <div class="layer-meta">
+    <strong>Job to be done:</strong> Existing three pillars (System-wide capture / 100% on-device / Vault-native writes) speak to P2 and P3. They stay. Add <strong>one new section</strong> after them addressing P1 directly. Audience self-selects: P1 reads the new section and lights up; P2 / P3 scroll past without alienation.
+  </div>
+
+  <h3>Existing pillars: keep as-is</h3>
+  <p>Live copy is already audience-fit for Obsidian power users. No changes recommended in v1 of this work.</p>
+
+  <h3>New section: "For developers thinking out loud" <span class="badge rec">New</span></h3>
+
+  <div class="option recommended">
+    <div class="option-label"><span class="badge rec">Recommended</span> Title + section copy</div>
+    <p class="option-copy" style="font-weight: 600; font-size: 18px;">Your AI conversations are your reasoning. They shouldn't live in someone else's database.</p>
+    <p class="option-copy" style="margin-top: 12px;">
+      You spend hours a day talking through ideas with Claude, Codex, Cursor, Gemini. Each chat closes and your reasoning is gone, scattered across providers, unsearchable in your own life.
+    </p>
+    <p class="option-copy">
+      Hold ⌥ Space, speak the thought, and it lands as Markdown in your vault before the AI replies. Query it back through MCP from any compatible client. Whatever assistant you use this year or next, your thinking stays portable, searchable, and yours.
+    </p>
+    <p class="option-rationale">
+      Names the problem in language P1 already feels. Doesn't promise downstream graph value (validation gap). Says exactly what the product does today.
+    </p>
+  </div>
+
+  <h4>Supporting bullets (under the section copy)</h4>
+  <ul>
+    <li><strong>Cross-provider memory.</strong> Works with any MCP client. Claude Desktop today, the next thing tomorrow.</li>
+    <li><strong>Captured at the speed of thought.</strong> Sub-3-second capture; the thought is in your vault before you've finished talking.</li>
+    <li><strong>Stays on your filesystem.</strong> No cloud lock-in. Cancel ThoughtMic and your notes don't leave.</li>
+  </ul>
+
+  <h4>Placement</h4>
+  <p>
+    Insert as a new <code>&lt;section&gt;</code> in <code>index.html</code> between the existing pillars section (<code>#features</code>) and the existing review section (<code>#review</code>). New anchor: <code>#ai-augmented</code>. Add a nav link "For AI-augmented work" or similar.
+  </p>
+</div>
+</section>
+
+<section id="layer-4">
+<h2>Layer 4: Values page <span class="badge">New page at /values</span></h2>
+
+<div class="layer-card">
+  <div class="layer-meta">
+    <strong>Job to be done:</strong> Concrete <strong>commitments</strong>, not predictions. Says how we will behave. Doesn't require validation of user outcomes. Reflect's <code>/our-values</code> page is the closest reference. Trust foundation for both P1 and P2.
+  </div>
+
+  <h4>The seven commitments</h4>
+
+  <div class="commitment">
+    <strong>1. Your spoken thoughts belong to you.</strong>
+    <p>They live in your vault as Markdown files on your machine. Not in OpenAI's chat history, not in Anthropic's logs, not in our cloud. Yours.</p>
+  </div>
+
+  <div class="commitment">
+    <strong>2. Memory across every AI you use.</strong>
+    <p>Whichever assistant you use today or next year, your captured thinking stays portable. MCP is the standard; we serve it locally so any compatible client can read your vault.</p>
+  </div>
+
+  <div class="commitment">
+    <strong>3. We will never lock your thoughts into a proprietary format.</strong>
+    <p>You'd own these files even if ThoughtMic disappeared tomorrow. That's the test we hold ourselves to.</p>
+  </div>
+
+  <div class="commitment">
+    <strong>4. We use AI as a utility, never as the product.</strong>
+    <p>Whisper runs locally on your Mac. Cerebras handles the rephrase step at sub-second speed. AI does narrow jobs you trigger. It doesn't chat with you, doesn't summarize your vault unprompted, doesn't own your data layer.</p>
+  </div>
+
+  <div class="commitment">
+    <strong>5. We will be searchable, by you and by any AI you authorize.</strong>
+    <p>Through MCP, in your own time, on your own terms. Not as an upsell. Not behind a flag.</p>
+  </div>
+
+  <div class="commitment">
+    <strong>6. We will not require a subscription to own your own memory.</strong>
+    <p>$99 lifetime exists because tools that hold your memory hostage are an anti-pattern. 200 slots, first 50 at $49.</p>
+  </div>
+
+  <div class="commitment">
+    <strong>7. We will not build lock-in integrations.</strong>
+    <p>Granola, Otter, Zoom, Notion, Linear can have their own value. We connect through Markdown and MCP. If you leave us, you leave with everything.</p>
+  </div>
+
+  <h4>Page treatment</h4>
+  <p>
+    New file: <code>/values/index.html</code>. Match the visual style of <code>/privacy/index.html</code> (existing in the repo). Link from main nav (between Privacy and Pricing) and from the footer. Set <code>&lt;title&gt;</code> to "Our values · ThoughtMic" and <code>og:title</code> matching.
+  </p>
+</div>
+</section>
+
+<section id="sequencing">
+<h2>Implementation sequencing</h2>
+
+<table class="seq-table">
+  <thead>
+    <tr>
+      <th style="width: 12%;">Phase</th>
+      <th style="width: 38%;">What ships</th>
+      <th style="width: 25%;">Risk / blast radius</th>
+      <th style="width: 25%;">Gate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="phase">P1</td>
+      <td>New section: "Your AI conversations are your reasoning" (Layer 3 new section). Inserted between <code>#features</code> and <code>#review</code> in <code>index.html</code>. New nav link. No other changes.</td>
+      <td>Low. Pure addition. Existing copy untouched. Easy to revert.</td>
+      <td>User approval of the section copy in this doc.</td>
+    </tr>
+    <tr>
+      <td class="phase">P2</td>
+      <td><code>/values/index.html</code> new page with the seven commitments. Nav + footer links. Match style of <code>/privacy/</code>.</td>
+      <td>Low-medium. New file. No conflicts with existing styling work. Header/footer touched in one place to add the link.</td>
+      <td>P1 merged or in parallel (no shared files).</td>
+    </tr>
+    <tr>
+      <td class="phase">P3</td>
+      <td>Sub-hero tighten (Layer 2 Option A). Single-line copy edit in <code>index.html</code>.</td>
+      <td>Low. One line. But it's the second-most-read line on the homepage, so review carefully.</td>
+      <td>P1 + P2 deployed and showed no audience confusion in ~7 days.</td>
+    </tr>
+    <tr>
+      <td class="phase">P4 <span class="badge muted">defer</span></td>
+      <td>Blog post: "Why ThoughtMic uses AI without being an AI tool". Standalone position piece for HN / Obsidian Discord.</td>
+      <td>Medium. Public stake-out. Worth doing well, not fast.</td>
+      <td>Post-launch. Not v1 launch-blocking.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout callout-info">
+  <strong>Branching:</strong> All P1 through P3 work continues on <code>feat/positioning-copy-draft</code> in this repo, off <code>main</code>. Does not touch files in <code>feat/p9-logo-animation</code> (logo SVG, animation CSS). Merge order: positioning branch first or logo-animation branch first, both safe.
+</div>
+</section>
+
+<section id="risks">
+<h2>Risks &amp; cuts</h2>
+<ul>
+  <li><strong>Risk:</strong> New AI-augmented section feels confusing alongside existing pillars. <strong>Cut:</strong> drop the section, ship only <code>/values</code> for v1.</li>
+  <li><strong>Risk:</strong> Sub-hero refinement loses SEO copy that's already ranking. <strong>Mitigation:</strong> P3 is the lowest-priority phase; defer until P1 / P2 land safely and SEO impact can be checked.</li>
+  <li><strong>Risk:</strong> Values page reads preachy. <strong>Mitigation:</strong> review the seven commitments after a 24-hour cool-off; cut to five if any feel forced.</li>
+  <li><strong>Risk:</strong> Validation gap still exists when launch ships 2026-06-16. <strong>Mitigation:</strong> recruit 3-5 real P2 users in next 4 weeks (separate workstream); use their language to revise <code>/values</code> in v1.1.</li>
+  <li><strong>Cut order if time slips:</strong> P4 (blog post) → P3 (sub-hero tighten) → P1 (AI section) → P2 (values page). Values page is the most load-bearing for trust; ship it even if everything else cuts.</li>
+</ul>
+</section>
+
+<section id="kickoff">
+<h2>Implementation kickoff</h2>
+
+<p>
+  Once the architecture above is locked, the verbatim prompt for a fresh implementation session lives in the kickoff doc below. The HTML is the plan; the kickoff owns the prompt; do not duplicate the prompt body here.
+</p>
+
+<div class="kickoff-link">
+  <div class="kickoff-link-text">
+    <strong>Implementation kickoff</strong>
+    Copy the verbatim prompt from the bottom of <code>docs/positioning/IMPL-KICKOFF.md</code> into a fresh session to execute P1 and P2.
+  </div>
+  <a class="open-btn" href="positioning/IMPL-KICKOFF.md">Open kickoff</a>
+</div>
+</section>
+
+<section id="guardrails">
+<h2>Guardrails (stored conventions to honor)</h2>
+<ul>
+  <li><strong>No em-dashes in product copy.</strong> Audit every candidate line before merging.</li>
+  <li><strong>DesignTokens are the source of truth</strong> for any new colors / spacing / radii. Reference <code>/css/tokens.css</code> in the website repo; cross-check with <code>ThoughtMic/UI/DesignTokens.swift</code> in the app repo.</li>
+  <li><strong>Brand: locked Variant C2</strong> (ink wikilink brackets + 7-bar voice waveform with forest center accent). Do not introduce new visual marks.</li>
+  <li><strong>Opaque sticky nav</strong> in base state; do not switch to transparent during scroll.</li>
+  <li><strong>Tight section spacing.</strong> <code>--section-y</code> ≤ 72px desktop on text-light sections.</li>
+  <li><strong>Scroll-padding-top</strong> should be nav-height + ~24px so anchor links land with air.</li>
+  <li><strong>Capture-half claims only.</strong> Do not claim downstream graph payoff, MCP query insights, or Friday review habit-formation until validated by real users.</li>
+</ul>
+</section>
+
+<section id="memory-links">
+<h2>Memory references</h2>
+<ul>
+  <li><code>feedback_sprint_html_with_kickoff_docs.md</code>:the dual-doc pattern this plan uses</li>
+  <li><code>project_ai_memory_wedge_2026_05_19.md</code>:origin of the layered approach and persona ranking</li>
+  <li><code>project_validation_gap_2026_05_19.md</code>:why downstream-value claims need to wait</li>
+  <li><code>feedback_positioning_not_dictation.md</code>:keep "voice-to-structured-context" / "fastest path"</li>
+  <li><code>feedback_no_em_dashes.md</code>:avoid em-dashes throughout</li>
+  <li><code>project_thoughtmic_branding.md</code>:Variant C2 brand lock</li>
+  <li><code>project_design_tokens.md</code>:DesignTokens canonical source</li>
+  <li><code>feedback_opaque_sticky_nav.md</code>:sticky header behavior</li>
+  <li><code>feedback_tight_section_spacing.md</code>:section-y ≤ 72px</li>
+  <li><code>project_pricing_ladder.md</code>:pricing claims in commitment #6</li>
+  <li><code>project_no_integrations_principle.md</code>:backs commitment #7</li>
+</ul>
+</section>
+
+<div class="footer-meta">
+  Authored 2026-05-19. Branch <code>feat/positioning-copy-draft</code> off <code>origin/main</code>. Reviewer: solo founder. Implementation gated on doc approval.
+</div>
+
+</main>
+</div>
+</body>
+</html>
