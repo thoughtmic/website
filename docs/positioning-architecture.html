@@ -286,6 +286,7 @@
   <h3>Execution</h3>
   <a href="#sequencing">Implementation sequencing</a>
   <a href="#risks">Risks &amp; cuts</a>
+  <a href="#seo-followup">SEO follow-up</a>
   <a href="#kickoff">Implementation kickoff</a>
 
   <h3>Reference</h3>
@@ -438,27 +439,27 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
     </p>
   </div>
 
-  <div class="callout">
-    <strong>Validation-gap note.</strong> Current sub-hero implies "ready for inbox review" as a default user reflex. Inbox review is a feature, but it being a habit users adopt is hypothesis. Soften wording until real users confirm.
+  <div class="callout callout-info">
+    <strong>Validation-gap note (resolved 2026-05-20).</strong> Recommended Option A drops "ready for inbox review" wording. Habit claim removed; only describes what the product can do (capture to Markdown, MCP query). Keep verifying as real-user data comes in.
   </div>
 </div>
 </section>
 
 <section id="layer-3">
-<h2>Layer 3: Capability sections <span class="badge">Add one new section</span></h2>
+<h2>Layer 3: Capability sections <span class="badge">Dedicated page + small homepage callout</span></h2>
 
 <div class="layer-card">
   <div class="layer-meta">
-    <strong>Job to be done:</strong> Existing three pillars (System-wide capture / 100% on-device / Vault-native writes) speak to P2 and P3. They stay. Add <strong>one new section</strong> after them addressing P1 directly. Audience self-selects: P1 reads the new section and lights up; P2 / P3 scroll past without alienation.
+    <strong>Job to be done:</strong> P2 + P3 are already served by the existing three pillars and the review section. P1 (AI-augmented worker) needs its own pitch but inserting it inline pushes the high-value review section further down the page. <strong>Move P1 content to a dedicated page</strong> and link from a small homepage callout + nav. Three benefits: review stays prominent, homepage stays scannable, the dedicated page becomes its own SEO surface.
   </div>
 
-  <h3>Existing pillars: keep as-is</h3>
-  <p>Live copy is already audience-fit for Obsidian power users. No changes recommended in v1 of this work.</p>
+  <h3>Existing pillars + review section: keep as-is</h3>
+  <p>Live copy is already audience-fit for Obsidian power users. No changes to pillars (<code>#features</code>) or to the "weekly review window" section (<code>#review</code>). Both stay in their current high-prominence slots.</p>
 
-  <h3>New section: "For developers thinking out loud" <span class="badge rec">New</span></h3>
+  <h3>New dedicated page: <code>/for-ai-work/</code> <span class="badge rec">New page</span></h3>
 
   <div class="option recommended">
-    <div class="option-label"><span class="badge rec">Recommended</span> Title + section copy</div>
+    <div class="option-label"><span class="badge rec">Recommended</span> Page title + body copy</div>
     <p class="option-copy" style="font-weight: 600; font-size: 18px;">Your AI conversations are your reasoning. They shouldn't live in someone else's database.</p>
     <p class="option-copy" style="margin-top: 12px;">
       You spend hours a day talking through ideas with Claude, Codex, Cursor, Gemini. Each chat closes and your reasoning is gone, scattered across providers, unsearchable in your own life.
@@ -467,20 +468,36 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
       Hold ⌥ Space, speak the thought, and it lands as Markdown in your vault before the AI replies. Query it back through MCP from any compatible client. Whatever assistant you use this year or next, your thinking stays portable, searchable, and yours.
     </p>
     <p class="option-rationale">
-      Names the problem in language P1 already feels. Doesn't promise downstream graph value (validation gap). Says exactly what the product does today.
+      Same copy as before, now living on a dedicated audience-segment page rather than crammed inline. Names the problem in language P1 already feels. Doesn't promise downstream graph value (validation gap). Says exactly what the product does today.
     </p>
   </div>
 
-  <h4>Supporting bullets (under the section copy)</h4>
+  <h4>Supporting bullets (on the dedicated page)</h4>
   <ul>
     <li><strong>Cross-provider memory.</strong> Works with any MCP client. Claude Desktop today, the next thing tomorrow.</li>
     <li><strong>Captured at the speed of thought.</strong> Sub-3-second capture; the thought is in your vault before you've finished talking.</li>
     <li><strong>Stays on your filesystem.</strong> No cloud lock-in. Cancel ThoughtMic and your notes don't leave.</li>
   </ul>
 
-  <h4>Placement</h4>
+  <h3>Homepage callout (between <code>#review</code> and <code>#privacy</code>)</h3>
+  <div class="option recommended">
+    <div class="option-label"><span class="badge rec">Recommended</span> Small callout copy</div>
+    <p class="option-copy">
+      <strong>Building with Claude, Cursor, or Codex?</strong> Your reasoning belongs in your vault, not in their chat history. <a href="#" style="color: var(--accent); font-weight: 600;">See how ThoughtMic captures AI-augmented work →</a>
+    </p>
+    <p class="option-rationale">
+      Two lines, single CTA, links to <code>/for-ai-work/</code>. P1 sees the hook and clicks through. P2 / P3 read it as a "by the way" and keep scrolling. Doesn't compete with the review section above it. Section uses tight vertical spacing (padding-block ~ 56px).
+    </p>
+  </div>
+
+  <h4>Nav update</h4>
   <p>
-    Insert as a new <code>&lt;section&gt;</code> in <code>index.html</code> between the existing pillars section (<code>#features</code>) and the existing review section (<code>#review</code>). New anchor: <code>#ai-augmented</code>. Add a nav link "For AI-augmented work" or similar.
+    Add "For AI work" link to <code>.nav__links</code> in <code>index.html</code>, between "Privacy" and "Pricing". Points to <code>/for-ai-work/</code>. Three discoverability points total: nav, homepage callout, direct URL.
+  </p>
+
+  <h4>Page treatment</h4>
+  <p>
+    New file: <code>/for-ai-work/index.html</code>. Match the visual style of <code>/privacy/index.html</code> (existing in the repo) so it inherits header, footer, container, type. Title: "For AI-augmented work · ThoughtMic". Canonical: <code>https://thoughtmic.com/for-ai-work/</code>.
   </p>
 </div>
 </section>
@@ -512,7 +529,7 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
 
   <div class="commitment">
     <strong>4. We use AI as a utility, never as the product.</strong>
-    <p>Whisper runs locally on your Mac. Cerebras handles the rephrase step at sub-second speed. AI does narrow jobs you trigger. It doesn't chat with you, doesn't summarize your vault unprompted, doesn't own your data layer.</p>
+    <p>Speech transcription runs locally on your Mac. Rephrase runs in the cloud, on the text you spoke, in milliseconds. AI does the narrow jobs you trigger. It doesn't read your vault. It doesn't chat with you. It doesn't own your data layer.</p>
   </div>
 
   <div class="commitment">
@@ -521,8 +538,8 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
   </div>
 
   <div class="commitment">
-    <strong>6. We will not require a subscription to own your own memory.</strong>
-    <p>$99 lifetime exists because tools that hold your memory hostage are an anti-pattern. 200 slots, first 50 at $49.</p>
+    <strong>6. Your notes outlive your subscription.</strong>
+    <p>Cancel ThoughtMic anytime. Your Markdown files stay where they are, fully readable and editable in any editor that opens text. The product can end; your notes don't.</p>
   </div>
 
   <div class="commitment">
@@ -552,19 +569,19 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
   <tbody>
     <tr>
       <td class="phase">P1</td>
-      <td>New section: "Your AI conversations are your reasoning" (Layer 3 new section). Inserted between <code>#features</code> and <code>#review</code> in <code>index.html</code>. New nav link. No other changes.</td>
-      <td>Low. Pure addition. Existing copy untouched. Easy to revert.</td>
-      <td>User approval of the section copy in this doc.</td>
+      <td>New dedicated page <code>/for-ai-work/index.html</code> + small homepage callout between <code>#review</code> and <code>#privacy</code> + nav link. Review section position untouched.</td>
+      <td>Low. One new file, one new section, one new nav link. Existing copy untouched.</td>
+      <td>User approval of the page + callout copy in this doc.</td>
     </tr>
     <tr>
       <td class="phase">P2</td>
       <td><code>/values/index.html</code> new page with the seven commitments. Nav + footer links. Match style of <code>/privacy/</code>.</td>
-      <td>Low-medium. New file. No conflicts with existing styling work. Header/footer touched in one place to add the link.</td>
+      <td>Low-medium. New file. No conflicts with existing styling work. Header / footer touched in one place to add the link.</td>
       <td>P1 merged or in parallel (no shared files).</td>
     </tr>
     <tr>
       <td class="phase">P3</td>
-      <td>Sub-hero tighten (Layer 2 Option A). Single-line copy edit in <code>index.html</code>.</td>
+      <td>Sub-hero tighten (Layer 2 Option A). Single-line copy edit in <code>index.html</code>. Drops "ready for inbox review" habit claim.</td>
       <td>Low. One line. But it's the second-most-read line on the homepage, so review carefully.</td>
       <td>P1 + P2 deployed and showed no audience confusion in ~7 days.</td>
     </tr>
@@ -573,6 +590,12 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
       <td>Blog post: "Why ThoughtMic uses AI without being an AI tool". Standalone position piece for HN / Obsidian Discord.</td>
       <td>Medium. Public stake-out. Worth doing well, not fast.</td>
       <td>Post-launch. Not v1 launch-blocking.</td>
+    </tr>
+    <tr>
+      <td class="phase">SEO <span class="badge muted">separate PR</span></td>
+      <td>Organization + logo schema on homepage, sitemap audit, internal linking from homepage to <code>/vs/*</code>, <code>/guides/*</code>, <code>/values/</code>, <code>/for-ai-work/</code>, <code>/privacy/</code>. Search Console verification + submission.</td>
+      <td>Low (additive structured data + sitemap). High value (Knowledge Graph + subpages indexed).</td>
+      <td>This PR merges first. SEO PR follows on branch <code>feat/seo-organization-schema-internal-linking</code>.</td>
     </tr>
   </tbody>
 </table>
@@ -585,12 +608,28 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
 <section id="risks">
 <h2>Risks &amp; cuts</h2>
 <ul>
-  <li><strong>Risk:</strong> New AI-augmented section feels confusing alongside existing pillars. <strong>Cut:</strong> drop the section, ship only <code>/values</code> for v1.</li>
-  <li><strong>Risk:</strong> Sub-hero refinement loses SEO copy that's already ranking. <strong>Mitigation:</strong> P3 is the lowest-priority phase; defer until P1 / P2 land safely and SEO impact can be checked.</li>
+  <li><strong>Risk:</strong> The new <code>/for-ai-work/</code> page reads as scope creep. <strong>Cut:</strong> drop the page; keep only the homepage callout that hints at the use case; let the values page do the trust work.</li>
+  <li><strong>Risk:</strong> Sub-hero refinement loses SEO copy that's already ranking. <strong>Mitigation:</strong> P3 is the lowest-priority phase; defer until P1 / P2 land and SEO impact can be checked against Search Console data.</li>
   <li><strong>Risk:</strong> Values page reads preachy. <strong>Mitigation:</strong> review the seven commitments after a 24-hour cool-off; cut to five if any feel forced.</li>
   <li><strong>Risk:</strong> Validation gap still exists when launch ships 2026-06-16. <strong>Mitigation:</strong> recruit 3-5 real P2 users in next 4 weeks (separate workstream); use their language to revise <code>/values</code> in v1.1.</li>
-  <li><strong>Cut order if time slips:</strong> P4 (blog post) → P3 (sub-hero tighten) → P1 (AI section) → P2 (values page). Values page is the most load-bearing for trust; ship it even if everything else cuts.</li>
+  <li><strong>Risk:</strong> Google still shows "Did you mean: thoughtmix" at launch. <strong>Mitigation:</strong> SEO follow-up PR (Organization schema + Knowledge Graph submission); brand-name recognition is a months-long backlinks problem and won't fully resolve before launch.</li>
+  <li><strong>Cut order if time slips:</strong> P4 (blog post) then P3 (sub-hero tighten) then P1 (AI work page + callout) then P2 (values page). Values page is the most load-bearing for trust; ship it even if everything else cuts.</li>
 </ul>
+</section>
+
+<section id="seo-followup">
+<h2>SEO follow-up workstream <span class="badge muted">Separate PR after this one</span></h2>
+<p>
+  Search "thoughtmic" on Google as of 2026-05-20 returns only the homepage, no subpages, no favicon, with "Did you mean: thoughtmix" as a typo suggestion. Three distinct problems require separate fixes:
+</p>
+<ol>
+  <li><strong>Brand-name recognition.</strong> Google doesn't know "thoughtmic" is a brand yet. Fix is Knowledge Graph submission + consistent backlinks from credible sources. Months-long; backlinks accumulate over launch + post-launch outreach.</li>
+  <li><strong>Subpages not indexed / linked.</strong> The new pages from this PR (<code>/values/</code>, <code>/for-ai-work/</code>) add two more indexable surfaces. The SEO PR adds internal links from the homepage to <code>/vs/*</code>, <code>/guides/*</code>, <code>/values/</code>, <code>/for-ai-work/</code>, <code>/privacy/</code>; verifies <code>sitemap.xml</code> has them all; submits sitemap in Google Search Console.</li>
+  <li><strong>No favicon / logo in search.</strong> Add <code>Organization</code> + <code>logo</code> schema to <code>index.html</code> (separate from existing <code>SoftwareApplication</code>). Add <code>BreadcrumbList</code> on subpages.</li>
+</ol>
+<p>
+  This is a separate PR (proposed branch: <code>feat/seo-organization-schema-internal-linking</code>) so it doesn't gate on positioning copy approval. It can run in parallel once the positioning PR merges.
+</p>
 </section>
 
 <section id="kickoff">
@@ -640,7 +679,7 @@ Queryable from Claude Desktop &amp; Cursor via local MCP.</pre>
 </section>
 
 <div class="footer-meta">
-  Authored 2026-05-19. Branch <code>feat/positioning-copy-draft</code> off <code>origin/main</code>. Reviewer: solo founder. Implementation gated on doc approval.
+  Authored 2026-05-19. Revised 2026-05-20 to address founder feedback (L3 dedicated page, L4 cloud-provider obfuscation, commitment #6 rewrite, SEO follow-up callout). Branch <code>feat/positioning-copy-draft</code> off <code>origin/main</code>. Reviewer: solo founder. Implementation gated on doc approval.
 </div>
 
 </main>
