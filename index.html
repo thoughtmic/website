@@ -151,10 +151,14 @@
         <div class="hero__copy" data-reveal>
           <span class="hero__eyebrow">Launching summer 2026 · macOS</span>
           <h1 class="hero__title">The fastest path from spoken thought to a real note.</h1>
-          <p class="hero__sub">
-            The local voice layer for your Markdown vault.
-            Press <kbd>⌥ Space</kbd> anywhere on your Mac, speak, and your thoughts
-            land as titled, tagged, linked notes, ready for inbox review and queryable from Claude.
+          <p class="hero__sub" style="margin-bottom: 14px;">
+            Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault.
+          </p>
+          <p class="hero__depth" data-reveal style="font-size: 17px; line-height: 1.55; font-weight: 400; color: var(--fg-muted); max-width: 56ch; margin: 0 0 8px;">
+            Auto-titled, tagged, and connected to thoughts you've already saved with <span style="font-family: var(--font-mono); color: var(--accent); background: rgba(232, 239, 233, 0.55); padding: 1px 5px; border-radius: 4px; font-size: 0.92em; font-weight: 500;">[[wikilinks]]</span>. Your graph grows itself.
+          </p>
+          <p class="hero__shortcut" style="font-size: var(--fs-body-sm); color: var(--fg-muted); line-height: 1.5; margin: 0 0 36px;">
+            Activates with <kbd style="display: inline-block; font-family: var(--font-mono); font-size: 0.88em; background: var(--bg-elev); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; color: var(--fg); white-space: nowrap;">⌥ Space</kbd> anywhere on your Mac.
           </p>
           <div class="hero__ctas">
             <a class="btn btn--primary btn--lg" href="#waitlist">Join the waitlist</a>
@@ -175,7 +179,7 @@
 
             <article class="deck__card deck__card--1 card-rec">
               <header class="card-rec__header">
-                <span class="card-step">01 · You spoke</span>
+                <span class="card-step">01 · You spoke <kbd style="display: inline-block; font-family: var(--font-mono); font-size: 0.82em; background: var(--bg); border: 1px solid var(--border); border-radius: 3px; padding: 0 4px; margin-left: 4px; color: var(--fg); font-weight: 500; text-transform: none; letter-spacing: 0;">⌥ Space</kbd></span>
                 <span class="card-rec__reclabel">
                   <span class="card-rec__recdot" aria-hidden="true"></span>
                   REC
@@ -258,6 +262,9 @@ checkout flow involves moving…
       <div class="container">
         <h2 class="how__title" data-reveal>30 seconds from thought to linked vault note.</h2>
         <p class="how__dek" data-reveal>Speak once. Use it twice: polished text at your cursor, and a connected note in your vault.</p>
+        <!-- TODO(positioning P3): add a "⌥ Space" keystroke caption overlay to the demo poster image
+             per messaging-system.html#shortcut item 3. Out of scope for this session
+             because it requires a new /assets/demo-poster.jpg with the caption baked in. -->
         <div class="how__stage" data-autoplay-in-view>
           <video
             class="how__video"
