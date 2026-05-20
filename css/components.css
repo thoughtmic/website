@@ -65,7 +65,11 @@
 .nav__mark rect[x="672"] {
   transform-box: fill-box;
   transform-origin: center;
-  animation: brand-mark-pulse 800ms ease-in-out infinite;
+  /* Brief on-load pulse, then settle. 3 iterations × 800ms = 2.4s
+     (last bar finishes at ~2.7s due to 300ms stagger). After that
+     the bars hold at scaleY(1) so the sticky nav stops competing
+     for peripheral attention while the user reads. */
+  animation: brand-mark-pulse 800ms ease-in-out 3 forwards;
 }
 
 .nav__mark rect[x="312"] { animation-delay:   0ms; }
