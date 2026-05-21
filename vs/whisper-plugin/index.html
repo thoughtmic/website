@@ -489,7 +489,7 @@
         "name": "What about the OpenAI API cost: is it that bad?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Honestly, no. Most plugin users spend a few dollars a month on the OpenAI Whisper API; it's not a deal-breaker. The bigger questions are whether you want audio leaving your machine at all, and whether you want to manage an API key. ThoughtMic uses local Whisper Large V3 Turbo with Metal acceleration, so there's no API key, no per-minute cost, no audio leaving the device."
+          "text": "Honestly, no. Most plugin users spend a few dollars a month on the OpenAI Whisper API; it's not a deal-breaker. The bigger questions are whether you want audio leaving your machine at all, and whether you want to manage an API key. ThoughtMic uses local speech-to-text with Metal acceleration, so there's no API key, no per-minute cost, no audio leaving the device."
         }
       },
       {
@@ -632,7 +632,7 @@
               <tr>
                 <th scope="row">Transcription engine</th>
                 <td>OpenAI Whisper API (cloud)</td>
-                <td>Whisper Large V3 Turbo (local, Metal-accelerated)</td>
+                <td>Local speech-to-text, Metal-accelerated</td>
               </tr>
               <tr>
                 <th scope="row">API key required</th>
@@ -705,7 +705,7 @@
           <article class="honest__col honest__col--ours">
             <h3>Where ThoughtMic adds something different</h3>
             <ul>
-              <li><strong>Local Whisper, no API key.</strong> Whisper Large V3 Turbo runs on-device with Metal acceleration. No OpenAI key to manage, no audio leaving your machine, no per-minute cost.</li>
+              <li><strong>Local transcription, no API key.</strong> Speech-to-text runs on-device with Metal acceleration. No API key to manage, no audio leaving your machine, no per-minute cost.</li>
               <li><strong>System-wide capture.</strong> Press the hotkey in Slack, Mail, your IDE, a browser: text lands at the cursor anywhere on macOS. The plugin only runs inside Obsidian; that's what plugins do by definition.</li>
               <li><strong>Auto-titles, auto-tags, auto-backlinks.</strong> Spoken thoughts land as structured notes with titles generated from content, tags suggested from your existing taxonomy, and backlinks resolved against notes you already have. The plugin's job ends at "text in current note": different scope.</li>
               <li><strong>Inbox review surface.</strong> A dedicated keyboard-driven review for your <code>#inbox</code> notes. Discard, keep, promote, archive in five minutes. <code>⌥⇧ R</code> to open it.</li>
@@ -732,7 +732,7 @@
 
         <h3 class="deep__h3">1. Local Whisper, no API key</h3>
         <p>
-          The plugin uses OpenAI's Whisper API: you bring your own key, your audio uploads to OpenAI for transcription, and you pay per minute (a few dollars a month for typical use, not a huge issue for most people). ThoughtMic ships Whisper Large V3 Turbo and runs it locally on Apple Silicon with Metal acceleration. No API key. No upload. No per-minute cost. If you'd rather not have audio leave your machine (for privacy, for principle, or just to skip key management) that's the difference.
+          The plugin uses OpenAI's Whisper API: you bring your own key, your audio uploads to OpenAI for transcription, and you pay per minute (a few dollars a month for typical use, not a huge issue for most people). ThoughtMic ships local speech-to-text and runs it on Apple Silicon with Metal acceleration. No API key. No upload. No per-minute cost. If you'd rather not have audio leave your machine (for privacy, for principle, or to skip key management) that's the difference.
         </p>
 
         <h3 class="deep__h3">2. System-wide capture, not just inside Obsidian</h3>
@@ -747,7 +747,7 @@
 
         <h3 class="deep__h3">A note on transcription quality and speed</h3>
         <p>
-          Whisper is Whisper. The plugin uses OpenAI's hosted version; ThoughtMic uses the same architecture (Whisper Large V3 Turbo) running locally. Quality is essentially identical for clean audio. Latency is comparable on M-series Macs (~700–1500ms end-to-end), with the plugin sometimes faster on a great connection because OpenAI's hosted inference is heavily optimized, and ThoughtMic sometimes faster on a flaky one because there's no network round-trip. Neither is the streaming sub-300ms experience of cloud-streaming dictation tools, and getting there means giving up local-first.
+          The plugin uses OpenAI's hosted Whisper; ThoughtMic runs an open-source transcription model locally. Quality is essentially identical for clean audio. Latency is comparable on M-series Macs (~700-1500ms end-to-end), with the plugin sometimes faster on a great connection because OpenAI's hosted inference is heavily optimized, and ThoughtMic sometimes faster on a flaky one because there's no network round-trip. Neither is the streaming sub-300ms experience of cloud-streaming dictation tools, and getting there means giving up local-first.
         </p>
 
         <blockquote>
@@ -778,7 +778,7 @@
         <details>
           <summary>What about the OpenAI API cost: is it that bad?</summary>
           <div class="faq__answer">
-            <p>Honestly, no. Most plugin users spend a few dollars a month on the OpenAI Whisper API; it's not a deal-breaker, and we'd be misleading you if we pretended otherwise. The bigger questions are whether you want audio leaving your machine at all, and whether you want to manage an API key in the first place. ThoughtMic uses local Whisper Large V3 Turbo with Metal acceleration, so there's no API key, no per-minute cost, and no audio leaving the device; but that's about privacy posture and convenience, not about the dollar amount.</p>
+            <p>Honestly, no. Most plugin users spend a few dollars a month on the OpenAI Whisper API; it's not a deal-breaker, and we'd be misleading you if we pretended otherwise. The bigger questions are whether you want audio leaving your machine at all, and whether you want to manage an API key in the first place. ThoughtMic uses local speech-to-text with Metal acceleration, so there's no API key, no per-minute cost, and no audio leaving the device; but that's about privacy posture and convenience, not about the dollar amount.</p>
           </div>
         </details>
 

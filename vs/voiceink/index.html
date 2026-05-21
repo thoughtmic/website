@@ -489,7 +489,7 @@
         "name": "Can I trust a proprietary app's privacy claims?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Fair question. Two things to check: (1) Run Little Snitch. Voice and vault stay local; the only outbound call is the optional text-only rephrase to Groq Zero Data Retention. You can verify this on your own machine. (2) Every telemetry event is documented at /privacy/telemetry/ (aggregate counts only, no content, one-click off). Closed source is a real downside. Verifiable network behavior is how we partly answer for it."
+          "text": "Fair question. Two things to check: (1) Run Little Snitch. Voice and vault stay local; the only outbound call is the optional text-only rephrase to a Zero-Data-Retention provider. You can verify this on your own machine. (2) Every telemetry event is documented at /privacy/telemetry/ (aggregate counts only, no content, one-click off). Closed source is a real downside. Verifiable network behavior is how we partly answer for it."
         }
       },
       {
@@ -505,7 +505,7 @@
         "name": "What about whisper.cpp specifically: what does ThoughtMic use?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ThoughtMic ships Whisper Large V3 Turbo running locally with Metal acceleration. VoiceInk historically uses whisper.cpp and has added Parakeet V3 support. Transcription quality is in the same range; both are batch-style with end-to-end latency in the 700–1500ms range on M-series Macs. Neither is streaming-fast; that requires cloud."
+          "text": "ThoughtMic ships local speech-to-text with Metal acceleration. VoiceInk historically uses whisper.cpp and has added Parakeet V3 support. Transcription quality is in the same range; both are batch-style with end-to-end latency in the 700–1500ms range on M-series Macs. Neither is streaming-fast; that requires cloud."
         }
       },
       {
@@ -632,7 +632,7 @@
               <tr>
                 <th scope="row">Transcription engine</th>
                 <td>Whisper / Parakeet (local)</td>
-                <td>Whisper Large V3 Turbo (local, Metal-accelerated)</td>
+                <td>Local speech-to-text, Metal-accelerated</td>
               </tr>
               <tr>
                 <th scope="row">Privacy</th>
@@ -739,7 +739,7 @@
           What you give up with proprietary: source-level audit, the right to fork, and a guarantee against the company disappearing. Those are not small things, and we're not going to pretend they are. The PKM-buyer who picks ThoughtMic is making a trade: paying for depth (vault enrichment, review surface, MCP, ongoing development) at the cost of source-level verifiability.
         </p>
         <p>
-          What we offer in partial answer: <strong>verifiable network behavior</strong>. Run Little Snitch. Watch the connections. Voice and vault never leave your machine. The only outbound call is the optional text-only rephrase to Groq Zero Data Retention, and you can disable it in one click. Every telemetry event we send is documented at <a href="/privacy/telemetry">/privacy/telemetry/</a> (aggregate counts, no content, one-click off). Closed source means you can't read the code. It doesn't mean you can't verify what the code does on the wire.
+          What we offer in partial answer: <strong>verifiable network behavior</strong>. Run Little Snitch. Watch the connections. Voice and vault never leave your machine. The only outbound call is the optional text-only rephrase to a Zero-Data-Retention provider, and you can disable it in one click. Every telemetry event we send is documented at <a href="/privacy/telemetry">/privacy/telemetry/</a> (aggregate counts, no content, one-click off). Closed source means you can't read the code. It doesn't mean you can't verify what the code does on the wire.
         </p>
 
         <h3 class="deep__h3">Why "vault-native" matters</h3>
@@ -793,7 +793,7 @@
           <summary>Can I trust a proprietary app's privacy claims?</summary>
           <div class="faq__answer">
             <p>Fair question. Two ways to verify without reading our source:</p>
-            <p>(1) <strong>Run Little Snitch.</strong> Voice and vault stay local; the only outbound call is the optional text-only rephrase to Groq Zero Data Retention. You can confirm this on your own machine in a few minutes, no marketing claim required.</p>
+            <p>(1) <strong>Run Little Snitch.</strong> Voice and vault stay local; the only outbound call is the optional text-only rephrase to a Zero-Data-Retention provider. You can confirm this on your own machine in a few minutes, no marketing claim required.</p>
             <p>(2) <strong>Read the telemetry disclosure.</strong> Every event we send is documented at <a href="/privacy/telemetry">/privacy/telemetry/</a>. Aggregate counts only, no content, one-click off. We don't bury anything in a privacy policy.</p>
             <p>Closed source is a real downside. Verifiable network behavior is how we partly answer for it.</p>
           </div>
@@ -809,7 +809,7 @@
         <details>
           <summary>What about whisper.cpp specifically: what does ThoughtMic use?</summary>
           <div class="faq__answer">
-            <p>ThoughtMic ships Whisper Large V3 Turbo running locally with Metal acceleration. VoiceInk historically uses whisper.cpp and has added Parakeet V3 support for quicker transcription on short utterances. Transcription quality is in the same range; both are batch-style (record-then-transcribe) with end-to-end latency in the 700–1500ms range on M-series Macs.</p>
+            <p>ThoughtMic ships local speech-to-text with Metal acceleration. VoiceInk historically uses whisper.cpp and has added Parakeet V3 support for quicker transcription on short utterances. Transcription quality is in the same range; both are batch-style (record-then-transcribe) with end-to-end latency in the 700–1500ms range on M-series Macs.</p>
             <p>Neither is a streaming-fast experience; that requires sending audio to the cloud, which both apps avoid by design.</p>
           </div>
         </details>

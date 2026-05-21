@@ -627,7 +627,7 @@
               <tr>
                 <th scope="row">Transcription engine</th>
                 <td>Whisper (local)</td>
-                <td>Whisper Large V3 Turbo (local, Metal-accelerated)</td>
+                <td>Local speech-to-text, Metal-accelerated</td>
               </tr>
               <tr>
                 <th scope="row">Privacy</th>
@@ -747,7 +747,7 @@
 
         <h3 class="deep__h3">A note on transcription speed and quality</h3>
         <p>
-          Both apps run Whisper locally. Transcription quality is essentially identical; they share the same underlying model architecture. Latency varies by model size and hardware; ThoughtMic ships Whisper Large V3 Turbo with Metal acceleration, end-to-end in the 700–1500ms range on M-series Macs. If you want sub-300ms streaming, the only path right now is cloud-based dictation, and you'd be giving up the local-first guarantee both ThoughtMic and Onit hold to.
+          Both apps run open-source speech-to-text locally. Transcription quality is essentially identical. ThoughtMic ships local speech-to-text with Metal acceleration, end-to-end in the 700-1500ms range on M-series Macs. If you want sub-300ms streaming, the only path right now is cloud-based dictation, and you'd be giving up the local-first guarantee both ThoughtMic and Onit hold to.
         </p>
 
         <blockquote>
