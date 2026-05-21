@@ -92,7 +92,7 @@
       "url": "https://s3vlabs.com"
     },
     "featureList": [
-      "100% local voice transcription with Whisper Large V3 Turbo",
+      "100% local voice transcription",
       "Direct write into Obsidian, Logseq, Foam, or any Markdown vault",
       "Auto-generated titles, tags, and backlinks",
       "Inbox review surface for #inbox notes",
@@ -134,6 +134,8 @@
         <ul class="nav__links">
           <li><a class="nav__link" href="#features">Features</a></li>
           <li><a class="nav__link" href="#privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/for-ai-work/">For AI work</a></li>
+          <li><a class="nav__link" href="/values/">Values</a></li>
           <li><a class="nav__link" href="#pricing">Pricing</a></li>
           <li><a class="nav__link nav__link--cta btn btn--primary" href="#waitlist">Join waitlist</a></li>
         </ul>
@@ -149,10 +151,14 @@
         <div class="hero__copy" data-reveal>
           <span class="hero__eyebrow">Launching summer 2026 · macOS</span>
           <h1 class="hero__title">The fastest path from spoken thought to a real note.</h1>
-          <p class="hero__sub">
-            The local voice layer for your Markdown vault.
-            Press <kbd>⌥ Space</kbd> anywhere on your Mac, speak, and your thoughts
-            land as titled, tagged, linked notes, ready for inbox review and queryable from Claude.
+          <p class="hero__sub" style="margin-bottom: 14px;">
+            Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault.
+          </p>
+          <p class="hero__depth" data-reveal style="font-size: 17px; line-height: 1.55; font-weight: 400; color: var(--fg-muted); max-width: 56ch; margin: 0 0 8px;">
+            Auto-titled, tagged, and connected to thoughts you've already saved with <span style="font-family: var(--font-mono); color: var(--accent); background: rgba(232, 239, 233, 0.55); padding: 1px 5px; border-radius: 4px; font-size: 0.92em; font-weight: 500;">[[wikilinks]]</span>. Your graph grows itself.
+          </p>
+          <p class="hero__shortcut" style="font-size: var(--fs-body-sm); color: var(--fg-muted); line-height: 1.5; margin: 0 0 36px;">
+            Activates with <kbd style="display: inline-block; font-family: var(--font-mono); font-size: 0.88em; background: var(--bg-elev); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; padding: 1px 6px; color: var(--fg); white-space: nowrap;">⌥ Space</kbd> anywhere on your Mac.
           </p>
           <div class="hero__ctas">
             <a class="btn btn--primary btn--lg" href="#waitlist">Join the waitlist</a>
@@ -352,7 +358,7 @@ checkout flow involves moving…
             </svg>
             <h3 class="pillar__title">100% on-device</h3>
             <p class="pillar__body">
-              Whisper Large V3 Turbo runs locally with Metal acceleration. Your
+              Speech-to-text runs locally with Metal acceleration. Your
               voice never touches the internet.
             </p>
           </article>
@@ -387,6 +393,18 @@ checkout flow involves moving…
         <p data-reveal style="font-size: var(--fs-body-sm); color: var(--fg-subtle); max-width: 56ch; margin: 0 auto;">
           Hit <code style="font-family: var(--font-mono); font-size: 0.95em; padding: 2px 6px; background: var(--bg-elev); border-radius: 4px;">⌥⇧ R</code> any time. The Collector's Fallacy doesn't get to win.
         </p>
+      </div>
+    </section>
+
+    <!-- ============================= AI-WORK CALLOUT ============================= -->
+    <section class="ai-callout" id="ai-callout" style="padding-block: 56px; background: var(--bg-elev); border-block: 1px solid var(--border);">
+      <div class="container" style="max-width: 720px; margin: 0 auto; text-align: center;">
+        <p data-reveal style="font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg); margin: 0 0 var(--space-3);">
+          Building with Claude, Cursor, or Codex? Your reasoning belongs in your vault, not in their chat history.
+        </p>
+        <a data-reveal href="/for-ai-work/" style="color: var(--accent); font-weight: 600; text-decoration: none; border-bottom: 1px solid rgba(69, 114, 97, 0.3); padding-bottom: 1px;">
+          See how ThoughtMic captures AI-augmented work →
+        </a>
       </div>
     </section>
 
@@ -509,7 +527,7 @@ checkout flow involves moving…
             <ul class="plan__list">
               <li>Everything in Free, unlimited</li>
               <li>9 writing modes</li>
-              <li>Cloud rephrasing (Llama 3.3 70B)</li>
+              <li>Cloud rephrasing</li>
               <li>Smart titles, tags &amp; backlinks</li>
               <li>Priority support</li>
             </ul>
@@ -643,6 +661,7 @@ checkout flow involves moving…
           <li><a href="/#features">Features</a></li>
           <li><a href="/#privacy">Privacy</a></li>
           <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/values/">Values</a></li>
           <li><a href="/starter-vault">Starter vault</a></li>
           <li><a href="/licenses">Licenses</a> · <a href="/terms">Terms</a></li>
           <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
