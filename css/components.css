@@ -1830,3 +1830,22 @@
     transform: translateY(-7px) rotate(-45deg);
   }
 }
+
+/* ----- Nav page-link indicator (↗)
+   Visually distinguishes nav items that take the user to a separate
+   page (For AI work, Values) from items that scroll within the
+   homepage (Features, Privacy, Pricing).
+   ----- */
+.nav__link-ext {
+  display: inline-block;
+  margin-left: 2px;
+  font-size: 0.85em;
+  color: var(--fg-subtle);
+  vertical-align: 1px;
+  transition: transform var(--dur-micro) var(--ease),
+              color var(--dur-micro) var(--ease);
+}
+.nav__link:hover .nav__link-ext {
+  color: var(--accent);
+  transform: translate(1px, -1px);
+}
