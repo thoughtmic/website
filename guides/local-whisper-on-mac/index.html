@@ -499,7 +499,8 @@
         <span class="nav__wordmark-text">ThoughtMic</span>
       </a>
       <nav aria-label="Primary">
-        <ul class="nav__links">
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu"><span class="nav__toggle-bar" aria-hidden="true"></span><span class="nav__toggle-bar" aria-hidden="true"></span><span class="nav__toggle-bar" aria-hidden="true"></span></button>
+          <ul class="nav__links" id="primary-nav">
           <li><a class="nav__link" href="/#features">Features</a></li>
           <li><a class="nav__link" href="/#privacy">Privacy</a></li>
           <li><a class="nav__link" href="/#pricing">Pricing</a></li>
@@ -920,5 +921,6 @@
 
   <script defer src="/js/reveal.js"></script>
   <script defer src="/js/waitlist-form.js"></script>
+  <script defer src="/js/nav.js"></script>
 </body>
 </html>
