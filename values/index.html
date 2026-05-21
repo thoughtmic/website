@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our values · ThoughtMic</title>
+  <meta name="description" content="Seven commitments we made before we launched. They are not predictions about users. They are promises about us.">
+  <meta name="theme-color" content="#f6f3ec">
+  <link rel="canonical" href="https://thoughtmic.com/values/">
+  <meta property="og:title" content="Our values · ThoughtMic">
+  <meta property="og:description" content="Seven commitments we made before we launched. They are not predictions about users. They are promises about us.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://thoughtmic.com/values/">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/og-image.png">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    .doc {
+      padding-block: var(--space-6) var(--space-7);
+    }
+    .doc__container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+    }
+    .doc__hero { margin-bottom: var(--space-6); }
+    .doc__eyebrow {
+      display: inline-block;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .doc__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 56px;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      margin-bottom: var(--space-3);
+      font-variation-settings: "opsz" 48, "SOFT" -5, "wght" 500;
+    }
+    .doc__lede {
+      font-size: var(--fs-body);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      max-width: 60ch;
+    }
+
+    .commitments {
+      display: grid;
+      gap: var(--space-3);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      counter-reset: commitment;
+    }
+    .commitment {
+      background: var(--bg-elev);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      position: relative;
+      counter-increment: commitment;
+    }
+    .commitment::before {
+      content: counter(commitment, decimal-leading-zero);
+      position: absolute;
+      top: var(--space-4);
+      right: var(--space-4);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      opacity: 0.5;
+      letter-spacing: 0.05em;
+    }
+    .commitment__lead {
+      font-family: var(--font-body);
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.005em;
+      color: var(--fg);
+      margin: 0 0 var(--space-2);
+      padding-right: var(--space-5);
+    }
+    .commitment__body {
+      font-size: var(--fs-body-sm);
+      color: var(--fg-muted);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    @media (max-width: 640px) {
+      .doc__title { font-size: 40px; }
+    }
+  </style>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="224 224 576 576" width="76" height="76" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="224" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="224" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="224" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="748" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="652" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="652" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="312" y="482" width="40" height="60"  rx="20" ry="20"/>
+          <rect x="372" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="432" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="552" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="612" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="672" y="482" width="40" height="60"  rx="20" ry="20"/>
+        </g>
+        <rect x="492" y="372" width="40" height="280" rx="20" ry="20" fill="#457261"/>
+      </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul class="nav__links">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/for-ai-work/">For AI work</a></li>
+          <li><a class="nav__link" href="/values/" aria-current="page">Values</a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="/#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="doc">
+    <div class="doc__container">
+
+      <div class="doc__hero">
+        <span class="doc__eyebrow">Values</span>
+        <h1 class="doc__title">Our values</h1>
+        <p class="doc__lede">Five commitments we made before we launched. They are not predictions about users. They are promises about us.</p>
+      </div>
+
+      <ol class="commitments">
+        <li class="commitment">
+          <p class="commitment__lead">Memory across every AI you use.</p>
+          <p class="commitment__body">Whichever assistant you use today or next year, your captured thinking stays portable. MCP is the standard; we serve it locally so any compatible client can read your vault.</p>
+        </li>
+        <li class="commitment">
+          <p class="commitment__lead">We will never lock your thoughts into a proprietary format.</p>
+          <p class="commitment__body">You'd own these files even if ThoughtMic disappeared tomorrow. That's the test we hold ourselves to.</p>
+        </li>
+        <li class="commitment">
+          <p class="commitment__lead">We use AI as a utility, never as the product.</p>
+          <p class="commitment__body">Speech transcription runs locally on your Mac. Rephrase runs in the cloud, on the text you spoke, in milliseconds. AI does the narrow jobs you trigger. It doesn't read your vault. It doesn't chat with you. It doesn't own your data layer.</p>
+        </li>
+        <li class="commitment">
+          <p class="commitment__lead">We will be searchable, by you and by any AI you authorize.</p>
+          <p class="commitment__body">Through MCP, in your own time, on your own terms. Not as an upsell. Not behind a flag.</p>
+        </li>
+        <li class="commitment">
+          <p class="commitment__lead">We will not build lock-in integrations.</p>
+          <p class="commitment__body">Granola, Otter, Zoom, Notion, Linear can have their own value. We connect through Markdown and MCP. If you leave us, you leave with everything.</p>
+        </li>
+      </ol>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__col footer__col--brand">
+        <a href="/" class="footer__brand" aria-label="ThoughtMic home">
+          <svg viewBox="224 224 576 576" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="224" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="224" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="224" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="748" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="652" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="652" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="312" y="482" width="40" height="60"  rx="20" ry="20"/>
+          <rect x="372" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="432" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="552" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="612" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="672" y="482" width="40" height="60"  rx="20" ry="20"/>
+        </g>
+        <rect x="492" y="372" width="40" height="280" rx="20" ry="20" fill="#457261"/>
+      </svg>
+          <span class="footer__brand-text">ThoughtMic</span>
+        </a>
+        <p class="footer__tagline">Built for people who think out loud.</p>
+        <ul class="footer__list">
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/values/">Values</a></li>
+          <li><a href="/starter-vault">Starter vault</a></li>
+          <li><a href="/licenses">Licenses</a> · <a href="/terms">Terms</a></li>
+          <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+        </ul>
+        <p class="footer__copy">© 2026 ThoughtMic</p>
+      </div>
+      <div class="footer__col">
+        <p class="footer__heading">Compare</p>
+        <ul class="footer__list">
+          <li><a href="/vs/superwhisper">vs SuperWhisper</a></li>
+          <li><a href="/vs/wispr-flow">vs Wispr Flow</a></li>
+          <li><a href="/vs/onit">vs Onit</a></li>
+          <li><a href="/vs/voiceink">vs VoiceInk</a></li>
+          <li><a href="/vs/whisper-plugin">vs Whisper plugin</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <p class="footer__heading">Guides</p>
+        <ul class="footer__list">
+          <li><a href="/guides/voice-notes-for-obsidian">Voice notes for Obsidian</a></li>
+          <li><a href="/guides/local-whisper-on-mac">Local Whisper on Mac</a></li>
+          <li><a href="/guides/mcp-for-personal-notes">MCP for personal notes</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

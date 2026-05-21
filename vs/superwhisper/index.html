@@ -481,7 +481,7 @@
         "name": "Does ThoughtMic transcribe as well as SuperWhisper?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Both run Whisper locally on Apple Silicon. Transcription quality is essentially identical; they share the same underlying model architecture. ThoughtMic ships Whisper Large V3 Turbo with Metal acceleration."
+          "text": "Both run open-source speech-to-text locally on Apple Silicon. Transcription quality is essentially identical. ThoughtMic ships local speech-to-text with Metal acceleration."
         }
       },
       {
@@ -505,7 +505,7 @@
         "name": "What about privacy: is one more private than the other?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Both are local-first by default. SuperWhisper offers cloud transcription as an opt-in for some use cases. ThoughtMic keeps voice and vault entirely on-device; the only optional cloud call is text-only rephrasing through Groq Zero Data Retention, never audio."
+          "text": "Both are local-first by default. SuperWhisper offers cloud transcription as an opt-in for some use cases. ThoughtMic keeps voice and vault entirely on-device; the only optional cloud call is text-only rephrasing through a Zero-Data-Retention provider, never audio."
         }
       }
     ]
@@ -619,7 +619,7 @@
               <tr>
                 <th scope="row">Transcription engine</th>
                 <td>Whisper (local)</td>
-                <td>Whisper Large V3 Turbo (local, Metal-accelerated)</td>
+                <td>Local speech-to-text, Metal-accelerated</td>
               </tr>
               <tr>
                 <th scope="row">Privacy</th>
@@ -758,7 +758,7 @@
         <details>
           <summary>Does ThoughtMic transcribe as well as SuperWhisper?</summary>
           <div class="faq__answer">
-            <p>Both run Whisper locally on Apple Silicon. Transcription quality is essentially identical; they share the same underlying model architecture. ThoughtMic ships Whisper Large V3 Turbo with Metal acceleration. If you can dictate cleanly into one, you can dictate cleanly into the other.</p>
+            <p>Both run open-source speech-to-text locally on Apple Silicon. Transcription quality is essentially identical. ThoughtMic ships local speech-to-text with Metal acceleration. If you can dictate cleanly into one, you can dictate cleanly into the other.</p>
           </div>
         </details>
 
@@ -779,7 +779,7 @@
         <details>
           <summary>What about privacy: is one more private than the other?</summary>
           <div class="faq__answer">
-            <p>Both are local-first by default. SuperWhisper offers cloud transcription as an opt-in for some use cases. ThoughtMic keeps voice and vault entirely on-device; the only optional cloud call is text-only rephrasing through Groq Zero Data Retention, never audio. <a href="/privacy">Full privacy disclosure here.</a></p>
+            <p>Both are local-first by default. SuperWhisper offers cloud transcription as an opt-in for some use cases. ThoughtMic keeps voice and vault entirely on-device; the only optional cloud call is text-only rephrasing through a Zero-Data-Retention provider, never audio. <a href="/privacy">Full privacy disclosure here.</a></p>
           </div>
         </details>
 

@@ -473,7 +473,7 @@
         "name": "What's actually sent to Wispr's servers?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Per Wispr's published policies: your audio stream (for transcription) and, if you enable their Context feature, screenshots of your active app for grounding. They state they don't train on your data and offer enterprise controls. ThoughtMic sends nothing by default; audio and vault stay on-device. The only optional cloud call is text-only rephrasing through Groq Zero Data Retention, never audio, never screenshots."
+          "text": "Per Wispr's published policies: your audio stream (for transcription) and, if you enable their Context feature, screenshots of your active app for grounding. They state they don't train on your data and offer enterprise controls. ThoughtMic sends nothing by default; audio and vault stay on-device. The only optional cloud call is text-only rephrasing through a Zero-Data-Retention provider, never audio, never screenshots."
         }
       },
       {
@@ -497,7 +497,7 @@
         "name": "Does ThoughtMic's accuracy match Wispr's?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Both produce high-quality transcription. Wispr's screen-context feature can give them an edge on jargon, names, and acronyms that appear on your active screen. ThoughtMic ships Whisper Large V3 Turbo locally and will surface vault-aware corrections in v1.1. For everyday speech, the gap is small. For domain-heavy speech with on-screen context, Wispr's screen grounding is a real advantage, at the cost of sending screenshots to their servers."
+          "text": "Both produce high-quality transcription. Wispr's screen-context feature can give them an edge on jargon, names, and acronyms that appear on your active screen. ThoughtMic ships local speech-to-text and will surface vault-aware corrections in v1.1. For everyday speech, the gap is small. For domain-heavy speech with on-screen context, Wispr's screen grounding is a real advantage, at the cost of sending screenshots to their servers."
         }
       }
     ]
@@ -611,7 +611,7 @@
               <tr>
                 <th scope="row">Transcription engine</th>
                 <td>Proprietary cloud</td>
-                <td>Whisper Large V3 Turbo (local, Metal-accelerated)</td>
+                <td>Local speech-to-text, Metal-accelerated</td>
               </tr>
               <tr>
                 <th scope="row">Privacy</th>
@@ -715,7 +715,7 @@
 
         <h3 class="deep__h3">On privacy: the trade you don't have to make if you stay local</h3>
         <p>
-          When you dictate into Wispr, your audio leaves your machine and is processed on their servers. If you enable their Context feature, screenshots of your active app go too. Wispr publishes reasonable policies (they say they don't train on your data, and they offer enterprise controls) and for many users that's an acceptable trade. For some users, especially those keeping a personal knowledge vault for years of life context, it isn't. <strong>ThoughtMic's stance: voice and vault never leave your Mac.</strong> The only optional cloud call we make is text-only rephrasing through Groq Zero Data Retention: never audio, never screenshots, opt-in.
+          When you dictate into Wispr, your audio leaves your machine and is processed on their servers. If you enable their Context feature, screenshots of your active app go too. Wispr publishes reasonable policies (they say they don't train on your data, and they offer enterprise controls) and for many users that's an acceptable trade. For some users, especially those keeping a personal knowledge vault for years of life context, it isn't. <strong>ThoughtMic's stance: voice and vault never leave your Mac.</strong> The only optional cloud call we make is text-only rephrasing through a Zero-Data-Retention provider: never audio, never screenshots, opt-in.
         </p>
 
         <h3 class="deep__h3">Why "vault-native" matters</h3>
@@ -748,7 +748,7 @@
           <summary>What's actually sent to Wispr's servers?</summary>
           <div class="faq__answer">
             <p>Per Wispr's published policies: your audio stream (for transcription) and, if you enable their Context feature, screenshots of your active app for grounding. They state they don't train on your data and offer enterprise controls. That's a reasonable posture for a cloud dictation product.</p>
-            <p>ThoughtMic sends nothing by default; audio and vault stay on-device. The only optional cloud call is text-only rephrasing through Groq Zero Data Retention (never audio, never screenshots), and you can disable it. <a href="/privacy">Full privacy disclosure here.</a></p>
+            <p>ThoughtMic sends nothing by default; audio and vault stay on-device. The only optional cloud call is text-only rephrasing through a Zero-Data-Retention provider (never audio, never screenshots), and you can disable it. <a href="/privacy">Full privacy disclosure here.</a></p>
           </div>
         </details>
 
@@ -770,7 +770,7 @@
         <details>
           <summary>Does ThoughtMic's accuracy match Wispr's?</summary>
           <div class="faq__answer">
-            <p>Both produce high-quality transcription. Wispr's screen-context feature can give them an edge on jargon, names, and acronyms that appear on your active screen. ThoughtMic ships Whisper Large V3 Turbo locally and will surface vault-aware corrections in v1.1.</p>
+            <p>Both produce high-quality transcription. Wispr's screen-context feature can give them an edge on jargon, names, and acronyms that appear on your active screen. ThoughtMic ships local speech-to-text and will surface vault-aware corrections in v1.1.</p>
             <p>For everyday speech, the gap is small. For domain-heavy speech with on-screen context, Wispr's screen grounding is a real advantage, at the cost of sending screenshots to their servers.</p>
           </div>
         </details>

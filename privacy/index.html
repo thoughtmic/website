@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ThoughtMic: Privacy</title>
-  <meta name="description" content="Your voice and your vault never leave your Mac. Rephrasing uses Groq Zero Data Retention. Here's exactly what stays local, what goes to the cloud, and what never gets sent.">
+  <meta name="description" content="Your voice and your vault never leave your Mac. Optional rephrasing routes text-only through a Cerebras AI, Fireworks AI, Groq cascade, all configured to not retain your prompts. Here's exactly what stays local, what goes to the cloud, and what never gets sent.">
   <meta name="theme-color" content="#f6f3ec">
   <link rel="canonical" href="https://thoughtmic.com/privacy">
 
@@ -238,7 +238,7 @@
       <div class="doc__hero">
         <span class="doc__eyebrow">Privacy · Plain English</span>
         <h1 class="doc__title">Privacy is not a feature. It's the whole product.</h1>
-        <p class="doc__lede">Your voice and your vault never leave your Mac. When you use Pro rephrasing, only the transcript text is sent to a Zero-Data-Retention provider. Here's exactly what stays local, what goes to the cloud, and what is never sent.</p>
+        <p class="doc__lede">Your voice and your vault never leave your Mac. When you use Pro rephrasing, only the transcript text is sent through a three-provider cascade configured to not retain your prompts. Here's exactly what stays local, what goes to the cloud, and what is never sent.</p>
       </div>
 
       <div class="tldr">
@@ -246,7 +246,7 @@
         <ul>
           <li>Voice audio is transcribed on-device and discarded. It never touches the internet.</li>
           <li>Your vault (files, folders, tags, links) never leaves your Mac.</li>
-          <li>Rephrasing (Pro, optional) sends only the transcript text to Groq with Zero Data Retention.</li>
+          <li>Rephrasing (Pro, optional) sends only the transcript text to a Cerebras AI, Fireworks AI, Groq cascade, all configured to not retain your prompts.</li>
           <li>Both providers are contractually prohibited from training on your data.</li>
           <li>Telemetry is anonymous, opt-out, and <a href="/privacy/telemetry">every event is documented in full</a>.</li>
         </ul>
@@ -283,7 +283,7 @@
           </div>
         </div>
 
-        <p>Rephrasing uses Groq as the primary provider and Fireworks as a fallback if Groq is down. Both run Llama 3.3 70B. Groq has Zero Data Retention enabled on our organization. Fireworks does not log prompts or generations on open-source models by default. Both are contractually prohibited from training on your data. Both process data in memory and discard it after the response is returned.</p>
+        <p>Rephrasing uses a three-provider cascade: <strong>Cerebras AI</strong> as the primary provider, <strong>Fireworks AI</strong> as the fallback, and <strong>Groq</strong> as the final fallback if both are unavailable. Cerebras's privacy policy states they do not retain inputs and outputs associated with their inference Services. Fireworks does not log prompts or generations on open-weights models by default. Groq has Zero Data Retention enabled on our organization. All three providers are contractually prohibited from training on your data. All three process data in memory and discard it after the response is returned.</p>
       </section>
 
       <section>
