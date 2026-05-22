@@ -215,10 +215,11 @@
     (function () {
       var PADDLE_SCRIPT_URL = "https://sandbox-cdn.paddle.com/paddle/v2/paddle.js";
       var PADDLE_ENV = "sandbox";
-      // TODO(Paddle): replace with sandbox client-side token from Paddle Dashboard
-      // > Developer Tools > Authentication > Client-side tokens. Sandbox token only
-      // works with sandbox-cdn.paddle.com; live token only works with cdn.paddle.com.
-      var PADDLE_CLIENT_TOKEN = "TODO_PADDLE_CLIENT_TOKEN";
+      // Sandbox client-side token. Safe to embed in HTML by design (this token
+      // only authorizes opening Paddle Checkout sessions; it cannot read account
+      // data or move funds). Sandbox token only works with sandbox-cdn.paddle.com;
+      // swap for the live client-side token at live-cutover time.
+      var PADDLE_CLIENT_TOKEN = "test_d193a02b8344b5fc70f3f2acdf3";
       var WORKER_BASE = "https://thoughtmic-worker.thoughtmic.workers.dev";
       var PRICE_IDS = {
         monthly:  "pri_01ks6a69fpgq4m7zxtep4mtkfe",
