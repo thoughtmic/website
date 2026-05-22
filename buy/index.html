@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThoughtMic: Checkout</title>
+  <meta name="description" content="Opening secure checkout for ThoughtMic Pro.">
+  <meta name="theme-color" content="#f6f3ec">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://thoughtmic.com/buy">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thoughtmic.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Buy", "item": "https://thoughtmic.com/buy" }
+    ]
+  }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    .doc { padding-block: var(--space-6) var(--space-7); }
+    .doc__container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+      text-align: center;
+    }
+    .doc__eyebrow {
+      display: inline-block;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .doc__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      margin-bottom: var(--space-3);
+      font-variation-settings: "opsz" 40, "SOFT" -5, "wght" 500;
+    }
+    .doc__lede {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      max-width: 50ch;
+      margin: 0 auto;
+    }
+    .spinner {
+      width: 32px;
+      height: 32px;
+      margin: var(--space-4) auto;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .state { margin-top: var(--space-4); }
+    .state[hidden] { display: none; }
+    .state__actions {
+      display: flex;
+      gap: var(--space-3);
+      justify-content: center;
+      margin-top: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .doc a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(69, 114, 97, 0.3);
+      transition: border-color var(--dur-micro) var(--ease);
+    }
+    .doc a:hover { border-bottom-color: var(--accent); }
+    @media (max-width: 640px) {
+      .doc__title { font-size: 30px; }
+    }
+  </style>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="224 224 576 576" width="76" height="76" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="224" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="224" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="224" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="748" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="652" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="652" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="312" y="482" width="40" height="60"  rx="20" ry="20"/>
+          <rect x="372" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="432" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="552" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="612" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="672" y="482" width="40" height="60"  rx="20" ry="20"/>
+        </g>
+        <rect x="492" y="372" width="40" height="280" rx="20" ry="20" fill="#457261"/>
+      </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu"><span class="nav__toggle-bar" aria-hidden="true"></span><span class="nav__toggle-bar" aria-hidden="true"></span><span class="nav__toggle-bar" aria-hidden="true"></span></button>
+          <ul class="nav__links" id="primary-nav">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/for-ai-work/">For AI work <span class="nav__link-ext" aria-hidden="true">↗</span></a></li>
+          <li><a class="nav__link" href="/values/">Values <span class="nav__link-ext" aria-hidden="true">↗</span></a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="/#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="doc">
+    <div class="doc__container">
+      <span class="doc__eyebrow">Checkout</span>
+      <h1 class="doc__title">Opening secure checkout</h1>
+
+      <div id="state-loading" class="state">
+        <div class="spinner" aria-hidden="true"></div>
+        <p class="doc__lede">Preparing your ThoughtMic Pro purchase. This takes a couple of seconds.</p>
+      </div>
+
+      <div id="state-invalid" class="state" hidden>
+        <p class="doc__lede">Invalid plan. Choose monthly, annual, or lifetime on our pricing page.</p>
+        <div class="state__actions">
+          <a class="btn btn--primary" href="/#pricing">See pricing</a>
+        </div>
+      </div>
+
+      <div id="state-error" class="state" hidden>
+        <p class="doc__lede" id="error-message">Something went wrong opening checkout. Try again, or email us and we'll sort it out.</p>
+        <div class="state__actions">
+          <button type="button" class="btn btn--primary" id="retry-btn">Try again</button>
+          <a class="btn btn--ghost" href="mailto:sales@thoughtmic.com">Email sales</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__col footer__col--brand">
+        <a href="/" class="footer__brand" aria-label="ThoughtMic home">
+          <svg viewBox="224 224 576 576" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="224" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="224" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="224" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="748" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="652" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="652" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="312" y="482" width="40" height="60"  rx="20" ry="20"/>
+          <rect x="372" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="432" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="552" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="612" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="672" y="482" width="40" height="60"  rx="20" ry="20"/>
+        </g>
+        <rect x="492" y="372" width="40" height="280" rx="20" ry="20" fill="#457261"/>
+      </svg>
+          <span class="footer__brand-text">ThoughtMic</span>
+        </a>
+        <p class="footer__tagline">Built for people who think out loud.</p>
+        <ul class="footer__list">
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#privacy">Privacy</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/starter-vault">Starter vault</a></li>
+          <li><a href="/licenses">Licenses</a> · <a href="/terms">Terms</a> · <a href="/refund">Refund</a></li>
+          <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+        </ul>
+        <p class="footer__copy">© 2026 ThoughtMic</p>
+      </div>
+    </div>
+  </footer>
+
+  <!--
+    TODO(Paddle, live cutover): when switching from sandbox to live, change:
+      1. PADDLE_SCRIPT_URL: swap sandbox-cdn.paddle.com for cdn.paddle.com
+      2. PADDLE_CLIENT_TOKEN: swap sandbox client-side token for the live one
+      3. PADDLE_ENV: change 'sandbox' to 'production'
+      4. PRICE_IDS: swap each sandbox pri_* id for its live counterpart
+    Generate the client-side token in Paddle Dashboard > Developer Tools >
+    Authentication > Client-side tokens. Sandbox tokens only work against
+    sandbox-cdn.paddle.com; live tokens only work against cdn.paddle.com.
+  -->
+  <script>
+    (function () {
+      var PADDLE_SCRIPT_URL = "https://sandbox-cdn.paddle.com/paddle/v2/paddle.js";
+      var PADDLE_ENV = "sandbox";
+      // TODO(Paddle): replace with sandbox client-side token from Paddle Dashboard
+      // > Developer Tools > Authentication > Client-side tokens. Sandbox token only
+      // works with sandbox-cdn.paddle.com; live token only works with cdn.paddle.com.
+      var PADDLE_CLIENT_TOKEN = "TODO_PADDLE_CLIENT_TOKEN";
+      var WORKER_BASE = "https://thoughtmic-worker.thoughtmic.workers.dev";
+      var PRICE_IDS = {
+        monthly:  "pri_01ks6a69fpgq4m7zxtep4mtkfe",
+        annual:   "pri_01ks6ae45k36f98jebqptsyh7a",
+        lifetime: "pri_01ks6c01rx254x6bptb62kwxcq"
+      };
+
+      var stateLoading = document.getElementById("state-loading");
+      var stateInvalid = document.getElementById("state-invalid");
+      var stateError   = document.getElementById("state-error");
+      var retryBtn     = document.getElementById("retry-btn");
+      var errorMessage = document.getElementById("error-message");
+
+      function showOnly(el) {
+        [stateLoading, stateInvalid, stateError].forEach(function (s) {
+          s.hidden = (s !== el);
+        });
+      }
+      function showError(msg) {
+        if (msg) errorMessage.textContent = msg;
+        showOnly(stateError);
+      }
+
+      function loadPaddleScript() {
+        return new Promise(function (resolve, reject) {
+          var s = document.createElement("script");
+          s.src = PADDLE_SCRIPT_URL;
+          s.async = true;
+          s.onload = function () { resolve(); };
+          s.onerror = function () { reject(new Error("Paddle.js failed to load")); };
+          document.head.appendChild(s);
+        });
+      }
+
+      function preMintLicense() {
+        return fetch(WORKER_BASE + "/api/checkout-init", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: "{}"
+        }).then(function (res) {
+          if (!res.ok) throw new Error("checkout-init " + res.status);
+          return res.json();
+        }).then(function (data) {
+          if (!data || typeof data.licenseKey !== "string" || data.licenseKey.indexOf("PDL_") !== 0) {
+            throw new Error("Invalid licenseKey in response");
+          }
+          return data.licenseKey;
+        });
+      }
+
+      function openCheckout(plan) {
+        var priceId = PRICE_IDS[plan];
+        showOnly(stateLoading);
+
+        return Promise.all([loadPaddleScript(), preMintLicense()])
+          .then(function (results) {
+            var licenseKey = results[1];
+            if (typeof Paddle === "undefined" || !Paddle.Initialize || !Paddle.Checkout) {
+              throw new Error("Paddle SDK not available");
+            }
+            Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN, environment: PADDLE_ENV });
+            Paddle.Checkout.open({
+              items: [{ priceId: priceId, quantity: 1 }],
+              customData: { license_key: licenseKey },
+              settings: {
+                successUrl: "https://thoughtmic.com/activate?key=" + encodeURIComponent(licenseKey)
+              }
+            });
+          })
+          .catch(function () {
+            showError("Something went wrong opening checkout. Try again, or email sales@thoughtmic.com and we'll sort it out.");
+          });
+      }
+
+      var params = new URLSearchParams(window.location.search);
+      var plan = (params.get("plan") || "").toLowerCase();
+
+      if (!PRICE_IDS.hasOwnProperty(plan)) {
+        showOnly(stateInvalid);
+        return;
+      }
+
+      retryBtn.addEventListener("click", function () { openCheckout(plan); });
+      openCheckout(plan);
+    })();
+  </script>
+  <script defer src="/js/nav.js"></script>
+</body>
+</html>
