@@ -289,8 +289,10 @@
               }
             });
           })
-          .catch(function () {
-            showError("Something went wrong opening checkout. Try again, or email sales@thoughtmic.com and we'll sort it out.");
+          .catch(function (err) {
+            var detail = err && err.message ? err.message : String(err);
+            console.error("openCheckout failed:", err);
+            showError("Something went wrong opening checkout (" + detail + "). Try again, or email sales@thoughtmic.com and we'll sort it out.");
           });
       }
 
