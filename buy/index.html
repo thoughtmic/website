@@ -280,7 +280,12 @@
             if (typeof Paddle === "undefined" || !Paddle.Initialize || !Paddle.Checkout) {
               throw new Error("Paddle SDK not available");
             }
-            Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN, environment: PADDLE_ENV });
+            // Paddle Billing v2: environment is set via Paddle.Environment.set,
+            // NOT via the Initialize options object. Initialize accepts only `token`.
+            if (PADDLE_ENV === "sandbox" && Paddle.Environment && Paddle.Environment.set) {
+              Paddle.Environment.set("sandbox");
+            }
+            Paddle.Initialize({ token: PADDLE_CLIENT_TOKEN });
             Paddle.Checkout.open({
               items: [{ priceId: priceId, quantity: 1 }],
               customData: { license_key: licenseKey },
