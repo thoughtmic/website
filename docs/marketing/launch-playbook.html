@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ThoughtMic: Launch Playbook (locked 2026-05-23)</title>
+<style>
+  :root {
+    --bg: #f6f3ec;
+    --bg-elev: #ffffff;
+    --bg-page: #ebe5d5;
+    --text-primary: #1c1c1e;
+    --text-muted: #5a5a60;
+    --text-subtle: #8e8e93;
+    --accent: #2c5f3d;
+    --accent-soft: #c6dcc9;
+    --border: #d6cfbc;
+    --warn: #b8631c;
+    --danger: #a8323a;
+    --code-bg: #1c1c1e;
+    --code-text: #f6f3ec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.55;
+    font-size: 15px;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    max-width: 1340px;
+    margin: 0 auto;
+  }
+  nav.sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    padding: 32px 20px;
+    border-right: 1px solid var(--border);
+    background: var(--bg-page);
+    overflow-y: auto;
+  }
+  nav.sidebar h3 {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin: 24px 0 8px;
+  }
+  nav.sidebar h3:first-child { margin-top: 0; }
+  nav.sidebar a {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  nav.sidebar a:hover { background: var(--accent-soft); }
+  main { padding: 40px 56px 96px; max-width: 940px; }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 36px;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: 24px;
+    margin: 56px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 17px; margin: 28px 0 12px; }
+  h4 { font-size: 14px; margin: 20px 0 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 17px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 99px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .badge.warn { background: rgba(184, 99, 28, 0.16); color: var(--warn); }
+  .badge.locked { background: var(--accent); color: white; }
+  .badge.muted { background: var(--border); color: var(--text-muted); }
+  .badge.danger { background: rgba(168, 50, 58, 0.14); color: var(--danger); }
+  .platform-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .platform-card.tier-1 { border-left-color: var(--accent); }
+  .platform-card.tier-2 { border-left-color: var(--text-muted); }
+  .platform-card.tier-3 { border-left-color: var(--text-subtle); }
+  .platform-card h3 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px;
+    font-size: 13px;
+  }
+  .meta-table th, .meta-table td {
+    padding: 6px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .meta-table th { color: var(--text-muted); font-weight: 600; width: 28%; }
+  .copy-block {
+    background: var(--bg-page);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 10px 0;
+    white-space: pre-wrap;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--text-primary);
+  }
+  .copy-block.compact { font-size: 14px; }
+  .field-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin: 14px 0 4px;
+    font-weight: 600;
+  }
+  .source-attr {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+  }
+  .source-attr code {
+    background: var(--bg-page);
+    color: var(--accent);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 11.5px;
+  }
+  .callout {
+    background: var(--bg-page);
+    border-left: 3px solid var(--accent);
+    padding: 14px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  .callout.warn { border-left-color: var(--warn); }
+  .callout.danger { border-left-color: var(--danger); }
+  code:not(pre code) {
+    background: var(--bg-page);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px;
+  }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+  .footer-meta {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-subtle);
+    font-size: 12.5px;
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <h3>Overview</h3>
+  <a href="#summary">Summary</a>
+  <a href="#principle">Source-of-truth principle</a>
+
+  <h3>Copy library</h3>
+  <a href="#copy-taglines">Taglines</a>
+  <a href="#copy-short">Short descriptions</a>
+  <a href="#copy-medium">Medium description</a>
+  <a href="#copy-long">Long description</a>
+  <a href="#copy-founder">Founder one-liner</a>
+  <a href="#copy-launch-tweet">Launch tweet</a>
+
+  <h3>Pre-launch directories</h3>
+  <a href="#tier-1">Tier 1: high ROI</a>
+  <a href="#tier-2">Tier 2: nice to have</a>
+  <a href="#tier-3">Tier 3: paid or low ROI</a>
+
+  <h3>Launch day</h3>
+  <a href="#launch-schedule">Schedule</a>
+  <a href="#show-hn">Show HN</a>
+  <a href="#producthunt">ProductHunt</a>
+  <a href="#reddit">Reddit</a>
+  <a href="#launch-tweet">Twitter</a>
+  <a href="#indiehackers-ship">IH ship post</a>
+
+  <h3>Post-launch outreach</h3>
+  <a href="#newsletter-pitch">Newsletter pitches</a>
+  <a href="#podcast-pitch">Podcast pitches</a>
+  <a href="#press-pitch">Press / blogger pitches</a>
+
+  <h3>Guardrails</h3>
+  <a href="#dont-say">Things to NOT say</a>
+
+  <h3>Links</h3>
+  <a href="#cross-refs">Cross-references</a>
+</nav>
+
+<main>
+
+<h1>Launch Playbook</h1>
+<div class="subtitle">
+  Locked 2026-05-23 · Backlink, directory listing, and launch outreach plan. Source of truth for the launch arc.
+</div>
+
+<div class="callout">
+  <strong>Why this doc exists.</strong> Section C of the SEO checklist (backlink building) is the months-long lever that resolves <code>"Did you mean: thoughtmix"</code>. It can't be automated and it requires creating accounts on dozens of platforms. This doc captures every platform, every form field, and every pre-written copy block in one place so you can sit down for an afternoon and work through it linearly. All copy traces back to <a href="../positioning/messaging-system.html">messaging-system.html</a>. No invented positioning.
+</div>
+
+<section id="summary">
+<h2>Summary</h2>
+<p>
+  Three time horizons of backlink work:
+</p>
+<ul>
+  <li><strong>Pre-launch directories</strong>: ~7 platforms in tiers, each a high-domain-authority backlink. Spend an afternoon, done.</li>
+  <li><strong>Launch day</strong>: Show HN + ProductHunt + Reddit (multi-subreddit) + Twitter + IH ship post. Coordinated push in one morning.</li>
+  <li><strong>Post-launch outreach</strong>: newsletter pitches, podcast pitches, blogger pitches. Slower, runs for 30+ days after launch.</li>
+</ul>
+<p>
+  Every text field on every platform is pre-filled below. You create accounts where needed, then paste.
+</p>
+</section>
+
+<section id="principle">
+<h2>Source-of-truth principle</h2>
+<p>
+  Every copy block in this doc derives from a locked anchor in <a href="../positioning/messaging-system.html">messaging-system.html</a>. The taglines are T-A / T-B / T-E verbatim. The descriptions are sub-hero, medium form, or long form verbatim. The launch tweet is from <a href="x-prelaunch.html">x-prelaunch.html</a>. <strong>Never invent platform-specific positioning copy.</strong> If a platform asks for something the messaging system doesn't cover, derive it from the closest existing locked block.
+</p>
+</section>
+
+<section id="copy-taglines">
+<h2>Copy library: taglines</h2>
+<p>Three locked taglines for different platform contexts.</p>
+
+<div class="platform-card">
+  <h3>T-A (primary brand mark) <span class="badge">7 words</span></h3>
+  <div class="copy-block">Make your spoken thoughts your memory.</div>
+  <div class="source-attr">Source: <code>messaging-system.html#tagline</code>, verbatim. Use where the platform asks for a brand tagline, slogan, or motto.</div>
+</div>
+
+<div class="platform-card">
+  <h3>T-B (functional descriptor) <span class="badge">6 words</span></h3>
+  <div class="copy-block">Turn spoken thoughts into searchable memory.</div>
+  <div class="source-attr">Source: <code>messaging-system.html#supporting-taglines</code>, verbatim. Use where the platform asks for a "tagline" or "what does this do" in an evaluation context (alternative.to, SaaSHub, Crunchbase).</div>
+</div>
+
+<div class="platform-card">
+  <h3>T-E (pain hook) <span class="badge">7 words</span></h3>
+  <div class="copy-block">Catch what you say before you forget.</div>
+  <div class="source-attr">Source: <code>messaging-system.html#supporting-taglines</code>, verbatim. Use for ad headlines, outreach DM openers, blog post titles, podcast pitch subject lines.</div>
+</div>
+</section>
+
+<section id="copy-short">
+<h2>Copy library: short descriptions</h2>
+
+<div class="platform-card">
+  <h3>1-liner <span class="badge">~107 chars</span></h3>
+  <div class="copy-block">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault.</div>
+  <div class="source-attr">Source: <code>messaging-system.html#sub-hero</code>, verbatim. Use for app store subtitle slots (under 160 chars), Twitter card descriptions, "elevator pitch" fields.</div>
+</div>
+
+<div class="platform-card">
+  <h3>1-liner + context <span class="badge">~140 chars</span></h3>
+  <div class="copy-block">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault. Mac, summer 2026.</div>
+  <div class="source-attr">Source: sub-hero + minimum context. Use for X bio (already locked there) and any other ~150-char slot.</div>
+</div>
+</section>
+
+<section id="copy-medium">
+<h2>Copy library: medium description</h2>
+
+<div class="platform-card">
+  <h3>Medium form <span class="badge">~48 words / ~290 chars</span></h3>
+  <div class="copy-block">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault. Auto-titled, tagged, and connected to thoughts you've already saved with [[wikilinks]]. The vault becomes searchable memory you can query from Claude, Cursor, or any MCP client.</div>
+  <div class="source-attr">Source: <code>messaging-system.html#medium</code>, verbatim. Use for app store descriptions, ProductHunt long description, Crunchbase "about" field, IndieHackers product description.</div>
+</div>
+</section>
+
+<section id="copy-long">
+<h2>Copy library: long description</h2>
+
+<div class="platform-card">
+  <h3>Long form <span class="badge">~86 words / ~520 chars</span></h3>
+  <div class="copy-block">ThoughtMic is a local voice layer for your Markdown vault. Hold ⌥ Space anywhere on your Mac and speak. Your words appear where you're typing (IDE, Slack, email, browser) so you keep working at speed. At the same time, a structured Markdown note lands in your Obsidian vault: title generated from the thought, tags suggested from your existing library, wikilinks resolved against notes you already have. Your spoken thoughts become memory you can query from Claude, Cursor, or any MCP client. The graph grows itself.</div>
+  <div class="source-attr">Source: <code>messaging-system.html#long</code>, verbatim. Use for "about" sections that allow 500+ chars, Crunchbase company description, AngelList company description, longer-form directory listings.</div>
+</div>
+</section>
+
+<section id="copy-founder">
+<h2>Copy library: founder one-liner</h2>
+<p>For "about the maker" or "founder bio" fields. Adapt the personal pronoun as needed; the positioning claim stays.</p>
+
+<div class="platform-card">
+  <h3>Founder story snippet</h3>
+  <div class="copy-block">I built ThoughtMic because I think out loud with AI assistants all day, and every chat closes with my best reasoning trapped inside someone else's database. ThoughtMic captures spoken thoughts into a Markdown vault I own, queryable from Claude or any MCP client.</div>
+  <div class="source-attr">Source: founder voice + <code>/for-ai-work/</code> H1 ("Your AI conversations are your reasoning. They shouldn't live in someone else's database") + long-form last sentence. Use wherever a platform asks for "your story" or "why I built this."</div>
+</div>
+</section>
+
+<section id="copy-launch-tweet">
+<h2>Copy library: launch tweet</h2>
+
+<div class="platform-card">
+  <h3>Launch announcement tweet</h3>
+  <div class="copy-block">ThoughtMic is live.
+
+Local voice layer for your Markdown vault. Hold ⌥ Space, speak, and your thought lands at your cursor and in your vault.
+
+100% on-device transcription. No cloud lock-in.
+
+https://thoughtmic.com/</div>
+  <div class="source-attr">Source: <code>messaging-system.html#long</code> sentence 1 + a shortened version of sentence 2 + privacy pillar copy + URL. Use as the @thoughtmic launch-day tweet. Pin it for the launch week.</div>
+</div>
+
+<p>For follow-up tweets during launch day, see <a href="x-prelaunch.html">x-prelaunch.html</a> for the post structure pattern. Launch day adds three signals: HN traffic, PH traffic, Reddit traffic. Reply to anyone engaging with these tweets.</p>
+</section>
+
+<section id="tier-1">
+<h2>Tier 1: high-ROI pre-launch directories</h2>
+<p>Do these in the next afternoon. Each is a free account, a high-DA backlink, and a brand-mention surface that drives a small but real trickle of traffic.</p>
+
+<div class="platform-card tier-1">
+  <h3>alternative.to <span class="badge">Free</span> <span class="badge muted">~20 min</span></h3>
+  <table class="meta-table">
+    <tr><th>URL</th><td><code>https://alternativeto.net/add/</code></td></tr>
+    <tr><th>Account</th><td>Required. Email signup, free.</td></tr>
+    <tr><th>What they ask</th><td>Name, tagline (short), description (longer), URL, logo, category, platforms, license, screenshots, alternatives.</td></tr>
+  </table>
+
+  <div class="field-label">Name</div>
+  <div class="copy-block compact">ThoughtMic</div>
+
+  <div class="field-label">Tagline / Short description</div>
+  <div class="copy-block compact">Turn spoken thoughts into searchable memory.</div>
+
+  <div class="field-label">Description (longer)</div>
+  <div class="copy-block compact">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault. Auto-titled, tagged, and connected to thoughts you've already saved with [[wikilinks]]. The vault becomes searchable memory you can query from Claude, Cursor, or any MCP client.</div>
+
+  <div class="field-label">Website</div>
+  <div class="copy-block compact">https://thoughtmic.com/</div>
+
+  <div class="field-label">Category</div>
+  <div class="copy-block compact">Productivity → Note-Taking → Voice Notes</div>
+
+  <div class="field-label">Platforms</div>
+  <div class="copy-block compact">Mac (Apple Silicon, Intel; macOS 14+)</div>
+
+  <div class="field-label">Logo</div>
+  <div class="copy-block compact">Upload /brand/icon-512.png from the repo (downloadable from https://thoughtmic.com/brand/icon-512.png).</div>
+
+  <div class="field-label">Screenshots</div>
+  <div class="copy-block compact">Use og-image.png (https://thoughtmic.com/assets/og-image.png) for the cover. Add 2-3 from /assets/screenshots/ if available.</div>
+
+  <div class="field-label">Similar alternatives to list</div>
+  <div class="copy-block compact">Wispr Flow, SuperWhisper, VoiceInk, Onit, MacWhisper</div>
+</div>
+
+<div class="platform-card tier-1">
+  <h3>SaaSHub <span class="badge">Free</span> <span class="badge muted">~15 min</span></h3>
+  <table class="meta-table">
+    <tr><th>URL</th><td><code>https://www.saashub.com/submit</code></td></tr>
+    <tr><th>Account</th><td>Required. Email signup, free.</td></tr>
+    <tr><th>What they ask</th><td>Name, tagline, description, category, pricing, screenshots, alternatives, features list.</td></tr>
+  </table>
+
+  <div class="field-label">Tagline</div>
+  <div class="copy-block compact">Turn spoken thoughts into searchable memory.</div>
+
+  <div class="field-label">Description</div>
+  <div class="copy-block compact">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault. Auto-titled, tagged, and connected to thoughts you've already saved with [[wikilinks]]. The vault becomes searchable memory you can query from Claude, Cursor, or any MCP client.</div>
+
+  <div class="field-label">Categories / tags</div>
+  <div class="copy-block compact">Voice notes · Speech to text · Dictation · Note-taking · Personal knowledge management · Obsidian · Markdown · Mac apps</div>
+
+  <div class="field-label">Pricing</div>
+  <div class="copy-block compact">Free tier (2,000 words/week) · Pro $8/mo or $72/yr · Lifetime $99 (first 50 slots at $49)</div>
+
+  <div class="field-label">Features list (bullet points)</div>
+  <div class="copy-block compact">- Local voice transcription, on-device, with Metal acceleration
+- Direct write into Obsidian, Logseq, Foam, or any Markdown vault
+- Auto-generated titles, tags, and backlinks
+- Inbox review surface for #inbox notes
+- Local MCP server queryable from Claude Desktop and Cursor
+- Optional cloud rephrase, text-only, via Zero-Data-Retention providers</div>
+</div>
+
+<div class="platform-card tier-1">
+  <h3>IndieHackers Products <span class="badge">Free</span> <span class="badge muted">~20 min</span></h3>
+  <table class="meta-table">
+    <tr><th>URL</th><td><code>https://www.indiehackers.com/products</code> → "Add your product"</td></tr>
+    <tr><th>Account</th><td>Required. OAuth via Twitter/X (you have <code>@thoughtmic</code>), Google, or email.</td></tr>
+    <tr><th>What they ask</th><td>Name, tagline, description, website, founder story, revenue (optional), launched-on date.</td></tr>
+  </table>
+
+  <div class="field-label">Tagline</div>
+  <div class="copy-block compact">Turn spoken thoughts into searchable memory.</div>
+
+  <div class="field-label">Description</div>
+  <div class="copy-block compact">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault. Auto-titled, tagged, and connected to thoughts you've already saved with [[wikilinks]]. The vault becomes searchable memory you can query from Claude, Cursor, or any MCP client.</div>
+
+  <div class="field-label">Founder story</div>
+  <div class="copy-block compact">I built ThoughtMic because I think out loud with AI assistants all day, and every chat closes with my best reasoning trapped inside someone else's database. ThoughtMic captures spoken thoughts into a Markdown vault I own, queryable from Claude or any MCP client.</div>
+
+  <div class="field-label">Launched on</div>
+  <div class="copy-block compact">Pre-launch (summer 2026). Set status to "Coming Soon" or "In Development" until launch day.</div>
+
+  <p style="font-size: 13.5px; color: var(--text-muted); margin-top: 12px;"><strong>After launch:</strong> come back to the IH product page and post a "ship" milestone with the launch announcement. Add revenue updates monthly once you have any.</p>
+</div>
+
+<div class="platform-card tier-1">
+  <h3>ProductHunt (Coming Soon page) <span class="badge">Free</span> <span class="badge muted">~25 min</span></h3>
+  <table class="meta-table">
+    <tr><th>URL</th><td><code>https://www.producthunt.com/products/new</code></td></tr>
+    <tr><th>Account</th><td>Required. OAuth via Twitter/X, Google, or LinkedIn.</td></tr>
+    <tr><th>What they ask</th><td>Name, tagline (60 chars), description (260 chars), website, gallery (1-8 images), category, makers, launch date.</td></tr>
+    <tr><th>Tagline limit</th><td><strong>60 characters</strong>, ProductHunt enforces this.</td></tr>
+    <tr><th>Description limit</th><td><strong>260 characters</strong>, ProductHunt enforces this.</td></tr>
+  </table>
+
+  <div class="field-label">Tagline (60 char max — be ruthless)</div>
+  <div class="copy-block compact">Turn spoken thoughts into searchable memory.</div>
+  <p style="font-size: 12.5px; color: var(--text-muted);">44 chars. Uses T-B verbatim.</p>
+
+  <div class="field-label">Description (260 char max)</div>
+  <div class="copy-block compact">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault. Auto-titled, tagged, connected with [[wikilinks]]. Queryable from Claude, Cursor, or any MCP client. Mac.</div>
+  <p style="font-size: 12.5px; color: var(--text-muted);">~205 chars. Sub-hero verbatim + condensed D1 + condensed bridge. Fits under 260.</p>
+
+  <div class="field-label">Gallery images (1-8 required)</div>
+  <div class="copy-block compact">1. og-image.png (cover, hero shot)
+2. Hero deck card 01 (recording state) — screenshot from homepage
+3. Hero deck card 02 (text at cursor) — screenshot
+4. Hero deck card 03 (vault note with [[wikilinks]]) — screenshot
+5. Demo video poster — screenshot
+6. Pricing card — screenshot
+7. Privacy page — screenshot
+8. /for-ai-work/ page — screenshot
+
+Generate these by visiting the live site at 1280px width and screenshotting each section. PH prefers 1270 x 760px or larger.</div>
+
+  <div class="field-label">Topics (pick 4-5)</div>
+  <div class="copy-block compact">Mac · Productivity · Note-Taking · Voice Assistant · Developer Tools</div>
+
+  <div class="field-label">Launch date</div>
+  <div class="copy-block compact">Set "Launching" date to your planned launch day. Schedule for midnight PT to claim the full 24-hour PH cycle.</div>
+
+  <div class="callout warn" style="margin-top: 16px;">
+    <strong>Coming Soon page first.</strong> PH lets you publish a Coming Soon page weeks/months before launch. Visitors can subscribe to be notified when you ship. Build this list NOW; it converts into upvoters on launch day. The Coming Soon page also gives you a thoughtmic.com → producthunt.com backlink that exists before launch.
+  </div>
+</div>
+</section>
+
+<section id="tier-2">
+<h2>Tier 2: nice-to-have directories</h2>
+<p>Worth doing if you have spare time. Lower ROI than Tier 1 but still positive.</p>
+
+<div class="platform-card tier-2">
+  <h3>Slant <span class="badge">Free</span> <span class="badge muted">~15 min</span></h3>
+  <table class="meta-table">
+    <tr><th>URL</th><td><code>https://www.slant.co</code></td></tr>
+    <tr><th>Account</th><td>Required. Email or social signup.</td></tr>
+    <tr><th>How it works</th><td>Slant is community Q&A, not direct submission. You add ThoughtMic as an answer to existing questions like "What are the best voice dictation apps for Mac?" or "What are the best Obsidian voice plugins?"</td></tr>
+  </table>
+
+  <div class="field-label">Approach</div>
+  <div class="copy-block compact">1. Search Slant for "voice dictation Mac" and "Obsidian voice notes" and "MCP tools"
+2. For each relevant question, add ThoughtMic as a "Pro" option
+3. Use T-B as the one-liner, sub-hero as the longer description
+4. Add 3-5 pros (from the messaging system) and 1-2 honest cons (e.g., "Mac-only, no Windows/Linux yet")</div>
+</div>
+
+<div class="platform-card tier-2">
+  <h3>Crunchbase <span class="badge">Free tier</span> <span class="badge muted">~30 min</span></h3>
+  <table class="meta-table">
+    <tr><th>URL</th><td><code>https://www.crunchbase.com/companies/get-listed</code></td></tr>
+    <tr><th>Account</th><td>Required. Some features are paid.</td></tr>
+    <tr><th>What they ask</th><td>Company name, founded date, HQ, description, website, social profiles, founders, categories.</td></tr>
+  </table>
+
+  <div class="field-label">Company name</div>
+  <div class="copy-block compact">ThoughtMic (operated by S3V Labs LLC)</div>
+
+  <div class="field-label">Founded</div>
+  <div class="copy-block compact">2026</div>
+
+  <div class="field-label">Headquarters</div>
+  <div class="copy-block compact">Texas, USA (S3V Labs LLC is registered in Texas)</div>
+
+  <div class="field-label">Website</div>
+  <div class="copy-block compact">https://thoughtmic.com/</div>
+
+  <div class="field-label">Description</div>
+  <div class="copy-block compact">ThoughtMic is a local voice layer for your Markdown vault. Hold ⌥ Space anywhere on your Mac and speak. Your words appear where you're typing (IDE, Slack, email, browser) so you keep working at speed. At the same time, a structured Markdown note lands in your Obsidian vault: title generated from the thought, tags suggested from your existing library, wikilinks resolved against notes you already have. Your spoken thoughts become memory you can query from Claude, Cursor, or any MCP client.</div>
+
+  <div class="field-label">Categories</div>
+  <div class="copy-block compact">Software · Productivity · Note-Taking · Voice Recognition · AI · Personal Knowledge Management</div>
+
+  <div class="field-label">Social profiles</div>
+  <div class="copy-block compact">Twitter: https://x.com/thoughtmic
+GitHub: https://github.com/thoughtmic
+Website: https://thoughtmic.com/</div>
+</div>
+
+<div class="platform-card tier-2">
+  <h3>Wellfound (formerly AngelList) <span class="badge">Free</span> <span class="badge muted">~30 min</span></h3>
+  <table class="meta-table">
+    <tr><th>URL</th><td><code>https://wellfound.com</code></td></tr>
+    <tr><th>Account</th><td>Required. Free for founders.</td></tr>
+    <tr><th>Best for</th><td>Investor discovery + tech hiring brand. Less direct SEO impact, but a credible profile here helps if you ever fundraise or hire.</td></tr>
+  </table>
+
+  <div class="field-label">Approach</div>
+  <div class="copy-block compact">Create S3V Labs LLC as the company. Use the Crunchbase copy above. Add the founder profile linked to it. Tagline: T-B. Description: long form. Stage: "Pre-launch" or "Building".</div>
+</div>
+</section>
+
+<section id="tier-3">
+<h2>Tier 3: skip or revisit later</h2>
+
+<div class="platform-card tier-3">
+  <h3>BetaList <span class="badge danger">Paid</span></h3>
+  <p>BetaList charges ~$129 for a featured listing. Free submissions exist but are deprioritized. Skip unless you have specific budget for this; ROI is unclear vs other directories.</p>
+</div>
+
+<div class="platform-card tier-3">
+  <h3>BetaPage <span class="badge">Free</span></h3>
+  <p>Smaller audience than BetaList. Free submission, but lower curation = lower-quality traffic. Skip unless you've finished everything else.</p>
+</div>
+
+<div class="platform-card tier-3">
+  <h3>Mac-specific directories (MacUpdate, MacGenius)</h3>
+  <p>Many of these are dormant or pay-to-play. Skip for now. Revisit if you find specific evidence one is actively driving Mac-app discovery.</p>
+</div>
+</section>
+
+<section id="launch-schedule">
+<h2>Launch day schedule</h2>
+<p>All times in Eastern. Adjust if you have a different launch-day timezone preference, but PT and ET are the two windows that matter for HN / PH.</p>
+
+<table class="meta-table" style="font-size: 13.5px;">
+  <thead>
+    <tr>
+      <th style="width: 18%;">Time (ET)</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><th>3:00 AM</th><td>ProductHunt launch goes live (midnight PT). Auto-publishes if scheduled in advance.</td></tr>
+    <tr><th>5:00 AM</th><td>Subscribers from Coming Soon page get notified by PH. First wave of upvotes lands.</td></tr>
+    <tr><th>7:30 AM</th><td>Post Show HN. Title format: "Show HN: ThoughtMic – Local voice layer for your Markdown vault"</td></tr>
+    <tr><th>8:00 AM</th><td>Tweet launch announcement from <code>@thoughtmic</code> AND your personal account. Quote-tweet the @thoughtmic post from personal. Pin both.</td></tr>
+    <tr><th>8:30 AM</th><td>Post in r/ObsidianMD. (First Reddit subreddit; gauge reception before posting more.)</td></tr>
+    <tr><th>9:00 AM</th><td>Post in r/PKMS.</td></tr>
+    <tr><th>9:30 AM</th><td>LinkedIn announcement (if you maintain a LinkedIn presence).</td></tr>
+    <tr><th>10:00 AM</th><td>Post in r/macapps.</td></tr>
+    <tr><th>11:00 AM</th><td>IndieHackers ship post.</td></tr>
+    <tr><th>12:00 PM</th><td>Post in r/Mac. (Largest but most generic subreddit; do last.)</td></tr>
+    <tr><th>Throughout</th><td>Reply to every comment on every platform. Engagement begets visibility.</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <strong>Don't batch-post all of these at 8 AM.</strong> Spreading the channels prevents one bad reception from being your whole launch day. If HN goes badly, you still have PH momentum and 3 Reddit posts coming. If HN goes great, you double down there before adding more channels.
+</div>
+</section>
+
+<section id="show-hn">
+<h2>Show HN post</h2>
+
+<div class="platform-card">
+  <h3>Show HN <span class="badge muted">~10 min to post</span></h3>
+  <table class="meta-table">
+    <tr><th>URL</th><td><code>https://news.ycombinator.com/submit</code></td></tr>
+    <tr><th>Account</th><td>Required. HN account needs to exist and have enough age/activity (older = more credible).</td></tr>
+    <tr><th>Karma requirement</th><td>None enforced, but accounts with karma have less aggressive shadow-banning.</td></tr>
+  </table>
+
+  <div class="field-label">Title</div>
+  <div class="copy-block compact">Show HN: ThoughtMic – Local voice layer for your Markdown vault</div>
+  <p style="font-size: 12.5px; color: var(--text-muted);">61 chars. HN title limit is 80; this leaves room. Use "–" (en-dash) here because that's HN's convention for Show HN titles (this is the one exception to the no-en-dash rule; it matches every other Show HN title format).</p>
+
+  <div class="field-label">URL field</div>
+  <div class="copy-block compact">https://thoughtmic.com/</div>
+
+  <div class="field-label">Text (optional — Show HN posts can have a body)</div>
+  <div class="copy-block compact">Hi HN — I built ThoughtMic because I think out loud with Claude all day and every chat closes with my best reasoning trapped inside someone else's database.
+
+Hold ⌥ Space anywhere on your Mac and speak. Your words appear where you're typing (IDE, Slack, email, browser) so you keep working at speed. At the same time, a structured Markdown note lands in your Obsidian vault: title generated from the thought, tags suggested from your existing library, wikilinks resolved against notes you already have.
+
+Your spoken thoughts become memory you can query from Claude, Cursor, or any MCP client. The graph grows itself.
+
+Voice transcription runs locally with Metal acceleration. The only optional cloud call is text-only rephrase through Zero-Data-Retention providers. Mac, summer 2026. Happy to answer any questions.</div>
+  <p style="font-size: 12.5px; color: var(--text-muted);">Source: opening paragraph adapted from <code>/for-ai-work/</code> H1 + founder voice. Middle paragraphs are <code>messaging-system.html#long</code> verbatim. Closing paragraph is privacy stance. Total ~700 chars, fits HN's body length comfortably.</p>
+</div>
+
+<div class="callout">
+  <strong>What to do once posted:</strong> reply to every comment within the first hour, even simple ones. HN's algorithm boosts posts with active discussion. Don't reply with "thanks!"; reply substantively. If a comment criticizes, engage thoughtfully and concede where they're right. Defensiveness kills HN traction.
+</div>
+</section>
+
+<section id="producthunt">
+<h2>ProductHunt launch day</h2>
+
+<div class="platform-card">
+  <h3>PH launch post <span class="badge muted">~30 min to prep</span></h3>
+  <p>You've already created the Coming Soon page in Tier 1. On launch day, PH auto-converts it into a live launch post if you scheduled it. Day-of, your work is:</p>
+
+  <ol>
+    <li><strong>Notify your subscribers</strong> from the Coming Soon page (PH does this automatically when the launch goes live; verify the email went out).</li>
+    <li><strong>Tweet about the PH launch</strong> from <code>@thoughtmic</code> with the PH URL. PH counts upvotes from social referrals.</li>
+    <li><strong>Ask 5-10 friendly people to upvote in the first 4 hours.</strong> PH's algorithm front-loads early traction; first 4 hours determines whether you make the daily top-5.</li>
+    <li><strong>Reply to every comment on the PH post.</strong> Same rule as HN.</li>
+    <li><strong>Cross-post to ProductHunt's Twitter ecosystem</strong>: tag <code>@ProductHunt</code> in your launch tweet so it appears in their feed.</li>
+  </ol>
+
+  <p>The actual PH post content was pre-filled when you created the Coming Soon page in Tier 1. No new copy needed for launch day.</p>
+</div>
+</section>
+
+<section id="reddit">
+<h2>Reddit (multi-subreddit)</h2>
+
+<p>Each subreddit has its own culture and rules. The post content varies per community. <strong>Read the subreddit rules before posting.</strong> Some forbid self-promotion entirely; others require a flair like "[Self-promotion]" or "[I made this]".</p>
+
+<div class="platform-card">
+  <h3>r/ObsidianMD <span class="badge">Most important</span></h3>
+  <p>Largest Obsidian-specific community. Voice notes for Obsidian is on-topic. Rules typically require: self-promotion flair, link in the body (not just title), and engagement in comments.</p>
+
+  <div class="field-label">Title</div>
+  <div class="copy-block compact">I built ThoughtMic: a local voice layer that writes structured notes into your Obsidian vault</div>
+
+  <div class="field-label">Body</div>
+  <div class="copy-block compact">Hi r/ObsidianMD — I've been working on ThoughtMic for the past several months. It's a Mac-only voice layer that talks to your Obsidian vault directly.
+
+The pitch: hold ⌥ Space, speak, and the recording goes two places. Your words appear at your cursor (Slack, IDE, email, browser — wherever you were typing). At the same time, a structured Markdown note lands in your vault with auto-generated title, suggested tags from your existing library, and wikilinks resolved against notes you already have.
+
+The vault becomes searchable memory you can query from Claude, Cursor, or any MCP client. The graph grows itself.
+
+Transcription runs locally with Metal acceleration. The only optional cloud call is text-only rephrase through Zero-Data-Retention providers; voice and vault never leave your Mac.
+
+Launching summer 2026, Mac. Free tier up to 2000 words/week. Happy to answer questions about how it integrates with vault structure, plugins, or any specific workflow.
+
+https://thoughtmic.com/</div>
+  <div class="source-attr">Body adapts: opening = founder context. Middle paragraph = long form verbatim. Privacy paragraph = pillar copy. Closing = pricing context + URL.</div>
+</div>
+
+<div class="platform-card">
+  <h3>r/PKMS</h3>
+  <p>Personal knowledge management. Smaller but engaged. Same body as r/ObsidianMD but the opening can mention "PKM" instead of "Obsidian." Many community members are Obsidian users anyway.</p>
+
+  <div class="field-label">Title</div>
+  <div class="copy-block compact">Built a voice layer for PKM: speak, get text at cursor + a structured Markdown note in your vault</div>
+</div>
+
+<div class="platform-card">
+  <h3>r/macapps</h3>
+  <p>Mac-app community. Less PKM-aware. Pitch should emphasize the Mac-specific story (Metal acceleration, local-first, system-wide hotkey).</p>
+
+  <div class="field-label">Title</div>
+  <div class="copy-block compact">ThoughtMic: local voice dictation for Mac that writes to your Markdown vault</div>
+
+  <div class="field-label">Body opening</div>
+  <div class="copy-block compact">Hi r/macapps. Built a Mac-only voice tool that combines dictation (text at your cursor anywhere) with PKM (structured note in your Obsidian/Logseq vault). System-wide hotkey is ⌥ Space.
+
+Transcription runs locally with Metal acceleration — your voice never touches the internet. Optional cloud rephrase is text-only via Zero-Data-Retention providers.
+
+[Then continue with the same middle/closing paragraphs as r/ObsidianMD body.]</div>
+</div>
+
+<div class="platform-card">
+  <h3>r/Mac</h3>
+  <p>Largest but most generic. Save for last in the launch day schedule. Be brief; r/Mac doesn't reward long posts. Title + URL with 2-3 sentences of body is enough.</p>
+
+  <div class="field-label">Title</div>
+  <div class="copy-block compact">[I made this] ThoughtMic: local voice layer for your Markdown vault</div>
+
+  <div class="field-label">Body</div>
+  <div class="copy-block compact">Mac-only voice tool. Hold ⌥ Space, speak, get text at your cursor + a structured Markdown note in your vault. 100% local transcription. Mac, summer 2026.
+
+https://thoughtmic.com/</div>
+</div>
+
+<div class="callout warn">
+  <strong>Reddit anti-spam etiquette:</strong> never post the same body verbatim across multiple subreddits in the same hour — Reddit's spam filter flags this. Wait 30+ minutes between posts AND vary the title/opening for each community. The body content above is intentionally different per subreddit.
+</div>
+</section>
+
+<section id="launch-tweet">
+<h2>Twitter / X launch</h2>
+
+<div class="platform-card">
+  <h3>Launch tweet (from @thoughtmic)</h3>
+  <div class="copy-block">ThoughtMic is live.
+
+Local voice layer for your Markdown vault. Hold ⌥ Space, speak, and your thought lands at your cursor and in your vault.
+
+100% on-device transcription. No cloud lock-in.
+
+https://thoughtmic.com/</div>
+  <p style="font-size: 12.5px; color: var(--text-muted);">240 chars. Pin to @thoughtmic profile for launch week. Reply with a 1-tweet thread expanding on the AI memory angle if you have engagement.</p>
+</div>
+
+<div class="platform-card">
+  <h3>Quote-tweet from personal account</h3>
+  <p>If you have a personal Twitter/X presence, quote-tweet the @thoughtmic launch announcement with a personal angle.</p>
+  <div class="copy-block">I've been building this for the past several months. ThoughtMic is what I wanted to exist: voice in, Markdown out, AI-queryable. Try it.</div>
+  <p style="font-size: 12.5px; color: var(--text-muted);">Founder voice. Not from the locked messaging system but doesn't introduce new positioning claims; just an authentic "I built this" beat.</p>
+</div>
+</section>
+
+<section id="indiehackers-ship">
+<h2>IndieHackers ship post</h2>
+
+<div class="platform-card">
+  <h3>IH ship milestone post</h3>
+  <p>From the product page you created in Tier 1, post a "Shipped" milestone. This appears in the IH feed AND on your product page.</p>
+
+  <div class="field-label">Title</div>
+  <div class="copy-block compact">ThoughtMic is live: local voice layer for your Markdown vault</div>
+
+  <div class="field-label">Body</div>
+  <div class="copy-block compact">After [N] months building, ThoughtMic is shipping today.
+
+What it does: hold ⌥ Space anywhere on your Mac and speak. Your words appear at your cursor (Slack, IDE, email, browser). At the same time, a structured Markdown note lands in your Obsidian vault — title generated, tags suggested, wikilinks resolved. The vault becomes searchable memory you can query from Claude, Cursor, or any MCP client.
+
+The wedge for me was AI-augmented work. I think out loud with Claude all day, and every chat closes with my best reasoning trapped inside someone else's database. ThoughtMic captures it into a vault I own.
+
+100% local transcription with Metal acceleration. Optional cloud rephrase is text-only via Zero-Data-Retention providers. Voice and vault never leave your Mac.
+
+Pricing: free up to 2000 words/week. Pro at $8/mo or $72/yr. Lifetime $99 (first 50 at $49).
+
+Happy to answer questions about the build, the tech stack, or the launch.
+
+https://thoughtmic.com/</div>
+  <div class="source-attr">Body sources: opening = founder/launch context. Mechanics paragraph = long form verbatim. Wedge paragraph = founder voice + <code>/for-ai-work/</code> H1 reference. Privacy paragraph = pillar copy. Pricing from <code>/#pricing</code>. Closing is community-appropriate IH voice.</div>
+</div>
+</section>
+
+<section id="newsletter-pitch">
+<h2>Newsletter pitches</h2>
+
+<p>Email a small number of newsletter editors with a personal pitch + a free Lifetime license offer. This is post-launch (first 30 days) work.</p>
+
+<h4>Target newsletters</h4>
+<ul>
+  <li><strong>Practical PKM</strong> (Ness Labs) — anneliese@nesslabs.com</li>
+  <li><strong>Curious Office</strong> — newsletter@curiousoffice.com (check current contact on their site)</li>
+  <li><strong>MacStories Weekly</strong> — pitch@macstories.net</li>
+  <li><strong>Hey, It's Cory</strong> (Cory Allen's PKM newsletter)</li>
+  <li><strong>Wakelet</strong> or other PKM-tool roundup newsletters</li>
+  <li><strong>The Sweet Setup</strong> — pitch@thesweetsetup.com (Mac-focused)</li>
+</ul>
+
+<div class="platform-card">
+  <h3>Pitch email template</h3>
+  <div class="field-label">Subject line</div>
+  <div class="copy-block compact">Catch what you say before you forget — local voice layer for Markdown vaults</div>
+  <p style="font-size: 12.5px; color: var(--text-muted);">Uses T-E (locked pain hook) verbatim as the email subject line. <code>messaging-system.html#supporting-taglines</code> rationale: "Lives in paid ad headlines, outreach DM openers, blog post titles, email subject lines."</p>
+
+  <div class="field-label">Body</div>
+  <div class="copy-block compact">Hi [Editor name],
+
+I'm the founder of ThoughtMic, a Mac-only voice layer for Markdown vaults that just launched. I think your [newsletter name] audience would find it relevant.
+
+The short version: hold ⌥ Space, speak, and your thought lands at your cursor (Slack, IDE, browser) and as a structured Markdown note in your Obsidian vault — auto-titled, tagged, and connected with [[wikilinks]]. Local transcription, queryable from Claude or any MCP client.
+
+If you'd like to try it before mentioning it, happy to send a free Lifetime license. No expectations of coverage — just want it in the hands of editors who actually care about PKM tooling.
+
+The website's at https://thoughtmic.com if you want context first. Privacy stance, comparison pages with the other voice tools, and the values commitments are all linked from the homepage.
+
+Thanks for what you do with [newsletter name].
+
+[Your name]
+https://x.com/thoughtmic</div>
+  <div class="source-attr">Body sources: opener = founder context. Mechanics paragraph = condensed long form + D1. Personalization (newsletter name, editor name) is the only field you need to fill per recipient.</div>
+</div>
+</section>
+
+<section id="podcast-pitch">
+<h2>Podcast pitches</h2>
+
+<h4>Target podcasts</h4>
+<ul>
+  <li><strong>Practical PKM Podcast</strong> (Curtis McHale)</li>
+  <li><strong>Effortless Output</strong> (PKM-focused)</li>
+  <li><strong>The Mac Developers Roundtable</strong></li>
+  <li><strong>App Stories</strong> (MacStories Federico Viticci)</li>
+  <li><strong>Connected</strong> (Relay FM, Mac-focused)</li>
+</ul>
+
+<div class="platform-card">
+  <h3>Pitch email template</h3>
+  <div class="field-label">Subject line</div>
+  <div class="copy-block compact">Podcast guest pitch: founder of ThoughtMic (local voice layer for Markdown vaults)</div>
+
+  <div class="field-label">Body</div>
+  <div class="copy-block compact">Hi [Host name],
+
+I'm the founder of ThoughtMic. Just launched a Mac-only voice tool that pairs system-wide dictation with structured writes into a Markdown vault. I think there's a [podcast name]-shaped conversation here, and I wanted to pitch myself as a guest.
+
+Topics I could talk about substantively:
+- Why local-first AI matters for PKM (and why I'd never trust my reasoning to OpenAI's chat history)
+- The technical tradeoffs of running Whisper locally on Apple Silicon vs cloud
+- The design tension between voice as "fast input" vs voice as "different medium that deserves its own UX"
+- Building in public as a solo Mac developer in the post-launch grind
+
+Happy to send context: https://thoughtmic.com/. My X is @thoughtmic and personal is [@personal].
+
+Open to a 20-30 minute pre-interview call before committing if it helps you scope.
+
+[Your name]</div>
+</div>
+</section>
+
+<section id="press-pitch">
+<h2>Press / blogger pitches</h2>
+
+<p>Direct outreach to specific bloggers, journalists, or tech writers who cover the PKM / Mac / voice-tools space.</p>
+
+<h4>Target bloggers</h4>
+<ul>
+  <li><strong>John Voorhees / Federico Viticci</strong> (MacStories)</li>
+  <li><strong>Tiago Forte</strong> (Building a Second Brain — even though you don't lead with "second brain", Tiago's audience overlaps heavily)</li>
+  <li><strong>Anne-Laure Le Cunff</strong> (Ness Labs)</li>
+  <li><strong>Cory Allen</strong> (Hey, It's Cory)</li>
+  <li><strong>Dan Allosso</strong> (Mac dev / PKM bridge)</li>
+  <li>Mac dev YouTubers (e.g., MattyB)</li>
+</ul>
+
+<div class="platform-card">
+  <h3>Pitch email template</h3>
+  <div class="field-label">Subject line</div>
+  <div class="copy-block compact">A voice layer for your Markdown vault — would love your take, [Their name]</div>
+
+  <div class="field-label">Body</div>
+  <div class="copy-block compact">Hi [Their name],
+
+Long-time reader. Your post on [specific recent post — must be real and specific] is what prompted me to write.
+
+I just launched ThoughtMic, a Mac-only voice layer for Markdown vaults. Hold ⌥ Space, speak, and your thought lands at your cursor AND as a structured Markdown note in your vault — auto-titled, tagged, [[wikilinked]] against your existing notes. Local transcription, queryable from Claude or any MCP client.
+
+I'm not pitching coverage. I'm pitching that this might be useful to you personally, and I'd value your honest reaction. Happy to send a Lifetime license, no strings.
+
+Website: https://thoughtmic.com/
+
+Thanks for the work you do — it genuinely informed how I think about [PKM / voice / something specific to their domain].
+
+[Your name]
+https://x.com/thoughtmic</div>
+  <p style="font-size: 12.5px; color: var(--text-muted);"><strong>Personalization is the differentiator.</strong> Mention a SPECIFIC recent post or essay of theirs. A generic "I admire your work" reads as spam. If you can't think of a specific reference, don't send.</p>
+</div>
+</section>
+
+<section id="dont-say">
+<h2>Things to NOT say (anywhere in launch outreach)</h2>
+<p>Same guardrails as <code>messaging-system.html#dont-say</code>. Reproduced because launch outreach is where founders most commonly slip:</p>
+
+<ul>
+  <li><strong>No em-dashes (—) or en-dashes (–).</strong> Exception: HN Show HN titles, which use "–" by convention.</li>
+  <li><strong>No "AI-powered" / "AI-driven".</strong></li>
+  <li><strong>No "revolutionary" / "game-changing" / "magical" / "delightful".</strong></li>
+  <li><strong>No naming competitors defensively.</strong> Wispr Flow, Superwhisper, Mem, Reflect. Listing them as "alternatives" on directories is fine; throwing shade in launch posts is not.</li>
+  <li><strong>No cloud provider names.</strong> Cerebras, Groq, Fireworks, OpenAI, Anthropic. Reference "Zero-Data-Retention providers" or "the cloud" generically.</li>
+  <li><strong>No unvalidated habit claims.</strong> Don't promise users will "establish a weekly review habit" or "transform their daily routine."</li>
+  <li><strong>No "simply" or "just".</strong> "Just press ⌥ Space" → "Press ⌥ Space."</li>
+  <li><strong>No "second brain" as the lead.</strong> Tiago owns that framing; reference in passing only.</li>
+  <li><strong>No "transform your workflow" / "10x your productivity".</strong> Productivity-marketing slop.</li>
+  <li><strong>No begging for upvotes.</strong> "Please upvote on PH" reads as desperate. Ask friends privately to upvote; don't publicly campaign.</li>
+  <li><strong>No spammy cross-posting.</strong> Vary copy across subreddits and platforms.</li>
+</ul>
+</section>
+
+<section id="cross-refs">
+<h2>Cross-references</h2>
+
+<h3>Source artifacts</h3>
+<ul>
+  <li><a href="../positioning/messaging-system.html">positioning/messaging-system.html</a> — locked copy source of truth for every text field</li>
+  <li><a href="../positioning-architecture.html">positioning-architecture.html</a> — strategic rationale behind the messaging</li>
+  <li><a href="x-prelaunch.html">x-prelaunch.html</a> — pre-launch X cadence (precedes this doc)</li>
+  <li><a href="../README.md">docs/README.md</a> — docs index</li>
+</ul>
+
+<h3>External platform shortcuts</h3>
+<ul>
+  <li>alternative.to: <code>https://alternativeto.net/add/</code></li>
+  <li>SaaSHub: <code>https://www.saashub.com/submit</code></li>
+  <li>IndieHackers: <code>https://www.indiehackers.com/products</code></li>
+  <li>ProductHunt: <code>https://www.producthunt.com/products/new</code></li>
+  <li>Hacker News submit: <code>https://news.ycombinator.com/submit</code></li>
+  <li>Slant: <code>https://www.slant.co</code></li>
+  <li>Crunchbase: <code>https://www.crunchbase.com/companies/get-listed</code></li>
+  <li>Wellfound: <code>https://wellfound.com</code></li>
+</ul>
+</section>
+
+<div class="footer-meta">
+  Authored 2026-05-23. Covers pre-launch directories, launch day playbook, post-launch outreach. Once the launch arc is complete (first 30 days after launch), a separate doc will capture the ongoing post-launch SEO + outreach rhythm. All copy traces to <code>positioning/messaging-system.html</code> with attribution shown inline.
+</div>
+
+</main>
+</div>
+</body>
+</html>
