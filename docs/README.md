@@ -26,6 +26,7 @@ Or open directly from the filesystem with `file://` if you don't need relative-a
 | Doc | What it is |
 |---|---|
 | [`marketing/x-prelaunch.html`](marketing/x-prelaunch.html) | X (Twitter) pre-launch cadence for `@thoughtmic`. The four staggered posts (verbatim from the messaging system), posting schedule, between-post engagement playbook, profile bio, and posting guardrails. Locked 2026-05-23. |
+| [`marketing/launch-playbook.html`](marketing/launch-playbook.html) | Backlink and launch outreach plan. Pre-launch directory listings (alternative.to, SaaSHub, IndieHackers, ProductHunt Coming Soon, etc.), launch-day schedule (Show HN, PH, Reddit, Twitter), post-launch newsletter + podcast + press pitches. Every form field pre-filled with copy traceable to messaging-system.html. Locked 2026-05-23. |
 
 ## Conventions
 
