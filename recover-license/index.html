@@ -3,21 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ThoughtMic: Activate</title>
-  <meta name="description" content="Activate your ThoughtMic Pro license on your Mac.">
+  <title>ThoughtMic: Recover license</title>
+  <meta name="description" content="Recover your ThoughtMic Pro license key by email.">
   <meta name="theme-color" content="#f6f3ec">
   <meta name="robots" content="noindex, nofollow">
-  <link rel="canonical" href="https://thoughtmic.com/activate">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thoughtmic.com/" },
-      { "@type": "ListItem", "position": 2, "name": "Activate", "item": "https://thoughtmic.com/activate" }
-    ]
-  }
-  </script>
+  <link rel="canonical" href="https://thoughtmic.com/recover-license/">
 
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
@@ -70,14 +60,16 @@
       transition: border-color var(--dur-micro) var(--ease);
     }
     .doc a:hover { border-bottom-color: var(--accent); }
-    .key-block {
+
+    .recover-form {
       margin-top: var(--space-4);
       background: var(--accent-soft);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: var(--space-4);
     }
-    .key-block__label {
+    .recover-form__label {
+      display: block;
       font-size: var(--fs-caption);
       font-weight: 600;
       letter-spacing: var(--tr-caption);
@@ -85,44 +77,38 @@
       color: var(--fg-muted);
       margin-bottom: var(--space-2);
     }
-    .key-block__value {
+    .recover-form__input {
       display: block;
-      font-family: var(--font-mono);
-      font-size: var(--fs-mono);
-      line-height: var(--lh-mono);
+      width: 100%;
+      box-sizing: border-box;
+      font-family: var(--font-body);
+      font-size: var(--fs-body-sm);
+      line-height: 1.4;
       color: var(--fg);
       background: var(--bg-elev);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      padding: var(--space-3);
-      word-break: break-all;
-      user-select: all;
+      padding: 12px 14px;
     }
-    .key-block__actions {
+    .recover-form__input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(69, 114, 97, 0.15);
+    }
+    .recover-form__actions {
       display: flex;
       gap: var(--space-3);
       margin-top: var(--space-3);
-      flex-wrap: wrap;
       align-items: center;
+      flex-wrap: wrap;
     }
-    .key-block__status {
+    .recover-form__status {
       font-size: var(--fs-caption);
-      color: var(--accent);
-      opacity: 0;
-      transition: opacity var(--dur-micro) var(--ease);
-    }
-    .key-block__status.is-visible { opacity: 1; }
-    .activate__steps {
-      margin-top: var(--space-4);
-      padding-left: var(--space-4);
-    }
-    .activate__steps li {
       color: var(--fg-muted);
-      font-size: var(--fs-body-sm);
-      line-height: var(--lh-body);
-      margin-bottom: 6px;
+      min-height: 1.2em;
     }
-    .activate__steps li strong { color: var(--fg); font-weight: 600; }
+    .recover-form__status.is-success { color: var(--accent); }
+    .recover-form__status.is-error { color: #b54545; }
     [hidden] { display: none !important; }
     @media (max-width: 640px) {
       .doc__title { font-size: 30px; }
@@ -172,34 +158,20 @@
 
   <main id="main" class="doc">
     <div class="doc__container">
-      <span class="doc__eyebrow">Activation</span>
-      <h1 class="doc__title">Thanks for buying ThoughtMic Pro.</h1>
+      <span class="doc__eyebrow">Recover license</span>
+      <h1 class="doc__title">Resend your license key.</h1>
+      <p class="doc__lede">Enter the email you used at checkout. If we find a ThoughtMic Pro license linked to it, we will email you the key and the activation link.</p>
 
-      <div id="state-no-key">
-        <p class="doc__lede">No license key was found in this URL. If you just bought ThoughtMic, you should have received a success email with your key; copy it from there and paste it in <strong>Preferences &gt; Account</strong> inside the Mac app.</p>
-        <p class="doc__lede" style="margin-top: var(--space-3);">Lost the email? <a href="/recover-license/">Recover your license</a> using the email address you bought with. We will resend the activation message.</p>
-      </div>
-
-      <div id="state-with-key" hidden>
-        <p class="doc__lede">We're opening ThoughtMic now to activate this license automatically. If the app doesn't open, copy the key below and paste it in <strong>Preferences &gt; Account</strong>.</p>
-
-        <div class="key-block">
-          <p class="key-block__label">Your license key</p>
-          <code class="key-block__value" id="key-value">PDL_...</code>
-          <div class="key-block__actions">
-            <button type="button" class="btn btn--primary" id="copy-btn">Copy key</button>
-            <a class="btn btn--ghost" href="thoughtmic://activate" id="reopen-link">Open ThoughtMic again</a>
-            <span class="key-block__status" id="copy-status" aria-live="polite">Copied</span>
-          </div>
+      <form class="recover-form" id="recover-form" novalidate>
+        <label class="recover-form__label" for="email-input">Email address</label>
+        <input class="recover-form__input" type="email" id="email-input" name="email" required autocomplete="email" placeholder="you@example.com" />
+        <div class="recover-form__actions">
+          <button type="submit" class="btn btn--primary" id="submit-btn">Resend my license</button>
+          <span class="recover-form__status" id="recover-status" aria-live="polite"></span>
         </div>
+      </form>
 
-        <ol class="activate__steps">
-          <li>Open <strong>ThoughtMic</strong> on your Mac.</li>
-          <li>Go to <strong>Preferences &gt; Account</strong>.</li>
-          <li>Paste your license key and click <strong>Activate</strong>.</li>
-        </ol>
-        <p class="doc__lede" style="margin-top: var(--space-4); font-size: var(--fs-caption);">A copy of this key was also emailed to you. If you ever lose both, <a href="/recover-license/">recover it here</a>.</p>
-      </div>
+      <p class="doc__lede" style="margin-top: var(--space-4); font-size: var(--fs-caption);">For privacy, we always confirm the same way regardless of whether the email matches. Check your inbox (and spam folder) for the activation message. Still stuck? Email <a href="mailto:sales@thoughtmic.com">sales@thoughtmic.com</a>.</p>
     </div>
   </main>
 
@@ -242,64 +214,46 @@
 
   <script>
     (function () {
-      var params = new URLSearchParams(window.location.search);
-      var key = (params.get("key") || "").trim();
+      var WORKER_BASE = "https://thoughtmic-worker.thoughtmic.workers.dev";
+      var form = document.getElementById("recover-form");
+      var input = document.getElementById("email-input");
+      var status = document.getElementById("recover-status");
+      var btn = document.getElementById("submit-btn");
 
-      if (!key) return;
+      function setStatus(text, kind) {
+        status.textContent = text;
+        status.classList.remove("is-success", "is-error");
+        if (kind) status.classList.add("is-" + kind);
+      }
 
-      var stateNoKey   = document.getElementById("state-no-key");
-      var stateWithKey = document.getElementById("state-with-key");
-      var keyValue     = document.getElementById("key-value");
-      var copyBtn      = document.getElementById("copy-btn");
-      var copyStatus   = document.getElementById("copy-status");
-      var reopenLink   = document.getElementById("reopen-link");
-
-      var deeplink = "thoughtmic://activate?key=" + encodeURIComponent(key);
-
-      keyValue.textContent = key;
-      reopenLink.setAttribute("href", deeplink);
-      stateNoKey.hidden = true;
-      stateWithKey.hidden = false;
-
-      copyBtn.addEventListener("click", function () {
-        var done = function () {
-          copyStatus.classList.add("is-visible");
-          setTimeout(function () { copyStatus.classList.remove("is-visible"); }, 1800);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(key).then(done, function () {
-            fallbackCopy(key); done();
-          });
-        } else {
-          fallbackCopy(key); done();
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var email = (input.value || "").trim();
+        if (!email || email.indexOf("@") < 0) {
+          setStatus("Please enter a valid email address.", "error");
+          return;
         }
+
+        btn.disabled = true;
+        setStatus("Sending...", null);
+
+        fetch(WORKER_BASE + "/api/recover-license", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email }),
+        }).then(function (response) {
+          return response.json().catch(function () { return {}; });
+        }).then(function (body) {
+          var message = (body && body.message) ||
+            "If a ThoughtMic license exists for that email, we just resent the activation message. Check your inbox.";
+          setStatus(message, "success");
+          input.value = "";
+        }).catch(function () {
+          setStatus("Could not reach the recovery service. Please email sales@thoughtmic.com.", "error");
+        }).finally(function () {
+          btn.disabled = false;
+        });
       });
-
-      function fallbackCopy(text) {
-        var ta = document.createElement("textarea");
-        ta.value = text;
-        ta.setAttribute("readonly", "");
-        ta.style.position = "absolute";
-        ta.style.left = "-9999px";
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand("copy"); } catch (e) {}
-        document.body.removeChild(ta);
-      }
-
-      // Trigger the deeplink. Use a hidden iframe so a failed scheme doesn't
-      // replace the page; we still want the fallback UI on screen.
-      try {
-        var iframe = document.createElement("iframe");
-        iframe.style.display = "none";
-        iframe.src = deeplink;
-        document.body.appendChild(iframe);
-        setTimeout(function () {
-          if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-        }, 2000);
-      } catch (e) {
-        window.location.href = deeplink;
-      }
     })();
   </script>
   <script defer src="/js/nav.js"></script>
