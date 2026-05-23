@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ThoughtMic: X Pre-Launch Cadence (locked 2026-05-23)</title>
+<style>
+  :root {
+    --bg: #f6f3ec;
+    --bg-elev: #ffffff;
+    --bg-page: #ebe5d5;
+    --text-primary: #1c1c1e;
+    --text-muted: #5a5a60;
+    --text-subtle: #8e8e93;
+    --accent: #2c5f3d;
+    --accent-soft: #c6dcc9;
+    --border: #d6cfbc;
+    --warn: #b8631c;
+    --danger: #a8323a;
+    --code-bg: #1c1c1e;
+    --code-text: #f6f3ec;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.55;
+    font-size: 15px;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    max-width: 1320px;
+    margin: 0 auto;
+  }
+  nav.sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    padding: 32px 20px;
+    border-right: 1px solid var(--border);
+    background: var(--bg-page);
+    overflow-y: auto;
+  }
+  nav.sidebar h3 {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-subtle);
+    margin: 24px 0 8px;
+  }
+  nav.sidebar h3:first-child { margin-top: 0; }
+  nav.sidebar a {
+    display: block;
+    padding: 6px 10px;
+    border-radius: 6px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  nav.sidebar a:hover { background: var(--accent-soft); }
+  main { padding: 40px 56px 96px; max-width: 940px; }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 36px;
+    margin: 0 0 8px;
+    letter-spacing: -0.02em;
+  }
+  h2 {
+    font-size: 24px;
+    margin: 56px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 { font-size: 17px; margin: 28px 0 12px; }
+  .subtitle { color: var(--text-muted); margin-bottom: 32px; font-size: 17px; }
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 99px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .badge.warn { background: rgba(184, 99, 28, 0.16); color: var(--warn); }
+  .badge.locked { background: var(--accent); color: white; }
+  .post-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+  }
+  .post-card h3 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .post-meta {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .post-text {
+    background: var(--bg-page);
+    border-radius: 6px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    white-space: pre-wrap;
+    font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+  .source-attr {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+  }
+  .source-attr code {
+    background: var(--bg-page);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 12px;
+  }
+  .cadence-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .cadence-table th, .cadence-table td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    background: var(--bg-elev);
+    vertical-align: top;
+  }
+  .cadence-table th { background: var(--bg-page); font-weight: 600; }
+  .cadence-table td.when { white-space: nowrap; font-weight: 600; color: var(--accent); }
+  .callout {
+    background: var(--bg-page);
+    border-left: 3px solid var(--accent);
+    padding: 14px 20px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+  }
+  .callout.warn { border-left-color: var(--warn); }
+  code:not(pre code) {
+    background: var(--bg-page);
+    color: var(--accent);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 13px;
+  }
+  ul, ol { padding-left: 22px; }
+  li { margin: 4px 0; }
+  .footer-meta {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-subtle);
+    font-size: 12.5px;
+  }
+  kbd {
+    font-family: "SF Mono", Menlo, monospace;
+    font-size: 12px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    padding: 1px 5px;
+    color: var(--text-primary);
+  }
+</style>
+</head>
+<body>
+<div class="layout">
+
+<nav class="sidebar">
+  <h3>Overview</h3>
+  <a href="#summary">Summary</a>
+  <a href="#principle">Source-of-truth principle</a>
+
+  <h3>The four posts</h3>
+  <a href="#post-1">Post 1 (pain hook)</a>
+  <a href="#post-2">Post 2 (mechanic)</a>
+  <a href="#post-3">Post 3 (AI memory)</a>
+  <a href="#post-4">Post 4 (depth)</a>
+
+  <h3>Cadence</h3>
+  <a href="#cadence">Posting schedule</a>
+  <a href="#timing">Time of day</a>
+  <a href="#engagement">Between-post engagement</a>
+
+  <h3>Bio</h3>
+  <a href="#bio">X profile bio</a>
+
+  <h3>Guardrails</h3>
+  <a href="#dont-post">Things we will NOT post</a>
+
+  <h3>Links</h3>
+  <a href="#cross-refs">Cross-references</a>
+</nav>
+
+<main>
+
+<h1>X Pre-Launch Cadence</h1>
+<div class="subtitle">
+  Locked 2026-05-23 · Source of truth for the ThoughtMic <code>@thoughtmic</code> account during pre-launch.
+</div>
+
+<div class="callout">
+  <strong>Why this doc exists.</strong> The <a href="../positioning/messaging-system.html">messaging system</a> locks the language. This doc locks the <em>schedule</em>: which post goes on which day, in which order, with what kind of engagement work in between. Once launch happens, this becomes the historical record of pre-launch cadence; a separate doc will cover post-launch posting.
+</div>
+
+<section id="summary">
+<h2>Summary</h2>
+<p>
+  Four pre-launch posts. Each is drawn verbatim from the locked messaging system. Posted on a staggered cadence (one every 4-7 days) so each gets its own attention window. The first post is pinned. Between scheduled posts, the founder engages with adjacent threads in the niche (Obsidian, MCP, AI tools, voice tools) but does not publish new positioning copy outside this set.
+</p>
+<ul>
+  <li><strong>Post 1</strong> · pain hook · pinned · day 0</li>
+  <li><strong>Post 2</strong> · product mechanic · day 5-7</li>
+  <li><strong>Post 3</strong> · AI memory wedge · day 10-14</li>
+  <li><strong>Post 4</strong> · depth / graph · day 15-21</li>
+</ul>
+<p>
+  All four posts are 100% verbatim from the locked messaging system, with only "Summer 2026" added as launch context. If the messaging system updates, these posts update first.
+</p>
+</section>
+
+<section id="principle">
+<h2>Source-of-truth principle</h2>
+<p>
+  Every line in every post traces to a locked anchor in <code>docs/positioning/messaging-system.html</code>. If you ever feel tempted to write something different on X, edit the messaging system first, then propagate. <strong>Never invent X copy in isolation.</strong>
+</p>
+<p>
+  This is the same discipline the homepage, <code>/for-ai-work/</code>, and <code>/values/</code> follow. X is just another surface. Consistency across surfaces is what makes a brand feel like one product instead of many.
+</p>
+</section>
+
+<section id="post-1">
+<h2>Post 1 · Pain hook <span class="badge locked">Pin this</span></h2>
+
+<div class="post-card">
+  <h3>Post 1 <span class="badge">168 chars</span> <span class="badge warn">Day 0 · pin to profile</span></h3>
+  <div class="post-meta">
+    <span>Pattern from surface map: <code>T-E headline + Sub-hero body</code> (Paid ads / X banner)</span>
+  </div>
+  <div class="post-text">Catch what you say before you forget.
+
+Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault.
+
+Summer 2026.</div>
+  <div class="source-attr">
+    <strong>Source attribution:</strong><br>
+    Line 1 → <code>messaging-system.html#supporting-taglines</code> (T-E, pain hook), verbatim<br>
+    Lines 2-3 → <code>messaging-system.html#sub-hero</code>, verbatim
+  </div>
+</div>
+
+<div class="callout">
+  <strong>Pin to profile immediately after posting.</strong> X profile visitors land on the pinned post first. This is the one most people will see, so it should be the strongest single-tweet introduction to who ThoughtMic is.
+</div>
+</section>
+
+<section id="post-2">
+<h2>Post 2 · Product mechanic</h2>
+
+<div class="post-card">
+  <h3>Post 2 <span class="badge">176 chars</span> <span class="badge warn">Day 5-7</span></h3>
+  <div class="post-meta">
+    <span>Sub-hero + the shortcut detail from long form</span>
+  </div>
+  <div class="post-text">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault.
+
+Hold ⌥ Space anywhere on your Mac and speak.
+
+Summer 2026.</div>
+  <div class="source-attr">
+    <strong>Source attribution:</strong><br>
+    Lines 1-2 → <code>messaging-system.html#sub-hero</code>, verbatim<br>
+    Line 3 → <code>messaging-system.html#long</code> sentence 2, verbatim
+  </div>
+</div>
+</section>
+
+<section id="post-3">
+<h2>Post 3 · AI memory wedge</h2>
+
+<div class="post-card">
+  <h3>Post 3 <span class="badge">220 chars</span> <span class="badge warn">Day 10-14</span></h3>
+  <div class="post-meta">
+    <span>Sub-hero + medium form's AI-memory bridge sentence</span>
+  </div>
+  <div class="post-text">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault.
+
+The vault becomes searchable memory you can query from Claude, Cursor, or any MCP client.
+
+Summer 2026.</div>
+  <div class="source-attr">
+    <strong>Source attribution:</strong><br>
+    Lines 1-2 → <code>messaging-system.html#sub-hero</code>, verbatim<br>
+    Line 3 → <code>messaging-system.html#medium</code> bridge sentence (the only one naming MCP clients), verbatim
+  </div>
+</div>
+</section>
+
+<section id="post-4">
+<h2>Post 4 · Depth / graph</h2>
+
+<div class="post-card">
+  <h3>Post 4 <span class="badge">198 chars</span> <span class="badge warn">Day 15-21</span></h3>
+  <div class="post-meta">
+    <span>D1 depth line + long form's category sentence</span>
+  </div>
+  <div class="post-text">Auto-titled, tagged, and connected to thoughts you've already saved with [[wikilinks]]. Your graph grows itself.
+
+ThoughtMic is a local voice layer for your Markdown vault.
+
+Summer 2026.</div>
+  <div class="source-attr">
+    <strong>Source attribution:</strong><br>
+    Lines 1-2 → <code>messaging-system.html#depth-line</code> (D1), verbatim<br>
+    Line 3 → <code>messaging-system.html#long</code> sentence 1, verbatim
+  </div>
+</div>
+</section>
+
+<section id="cadence">
+<h2>Posting schedule</h2>
+
+<table class="cadence-table">
+  <thead>
+    <tr>
+      <th style="width: 18%;">When</th>
+      <th style="width: 27%;">Post</th>
+      <th style="width: 55%;">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="when">Day 0</td>
+      <td>Post 1 · pain hook</td>
+      <td>Post and pin to profile. Set bio to the locked X bio (see <a href="#bio">below</a>).</td>
+    </tr>
+    <tr>
+      <td class="when">Day 5-7</td>
+      <td>Post 2 · mechanic</td>
+      <td>Post during 10am-2pm ET on Tue/Wed/Thu. Reply to any comments on Post 1 first.</td>
+    </tr>
+    <tr>
+      <td class="when">Day 10-14</td>
+      <td>Post 3 · AI memory</td>
+      <td>Post 3-5 days after Post 2. If Post 2 gained traction (5+ replies, 50+ impressions), wait the longer end of the window.</td>
+    </tr>
+    <tr>
+      <td class="when">Day 15-21</td>
+      <td>Post 4 · depth</td>
+      <td>Post when Post 3 has cooled. This one is the Obsidian/PKM hook; lands well after the AI-memory crowd has engaged.</td>
+    </tr>
+    <tr>
+      <td class="when">Day 22+</td>
+      <td>Replies + engagement only</td>
+      <td>Don't post a fifth positioning tweet. Engage with niche threads (Obsidian, MCP, voice tools) and post shipping screenshots if any. New positioning copy waits for the launch announcement.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <strong>Don't batch-schedule via Buffer / Hypefury.</strong> Founders posting from a scheduled queue read as inauthentic. Post each one manually. The 4-7 day gap matters — it gives each post its own attention window and lets you react to engagement on the previous one.
+</div>
+</section>
+
+<section id="timing">
+<h2>Time of day</h2>
+<ul>
+  <li><strong>Best window:</strong> 10am - 2pm ET (peaks at ~12pm). Catches both NA East and EU late-afternoon.</li>
+  <li><strong>Best days:</strong> Tuesday, Wednesday, Thursday. Avoid weekends (low tech-audience engagement).</li>
+  <li><strong>Worst:</strong> Friday after 3pm ET, Saturday morning, Sunday evening.</li>
+</ul>
+<p>
+  These windows matter less when the account has few followers because there's no algorithmic distribution. But once a tweet gains some early traction, the time of day affects how quickly X's algo decides whether to broadcast wider. Default to good timing even pre-launch.
+</p>
+</section>
+
+<section id="engagement">
+<h2>Between-post engagement</h2>
+<p>
+  The 4-7 day gap between scheduled posts is when most of the X work actually happens. Fill those days with:
+</p>
+<ul>
+  <li><strong>Replies in the niche.</strong> Search X for terms like <code>obsidian voice notes</code>, <code>MCP server</code>, <code>AI memory tools</code>, <code>local whisper</code>, <code>wispr flow</code>. Reply to threads where ThoughtMic is genuinely useful context. No pitching. Just be a knowledgeable presence.</li>
+  <li><strong>Shipping screenshots / progress.</strong> When you ship something visible (a new page, a feature, a comparison), post a screenshot with a one-line founder caption. These are <em>not</em> positioning copy and don't need to draw from the messaging system. Voice-y is fine here.</li>
+  <li><strong>Quote-retweets of relevant news.</strong> If Obsidian, MCP spec, or local-AI ecosystems ship something newsworthy, QRT with a one-line take. Adds context, signals you're paying attention.</li>
+  <li><strong>Reply to engagement on your own posts.</strong> If anyone replies, like, or QRTs the four scheduled posts, respond personally. Pre-launch engagement is rare and high-value.</li>
+</ul>
+
+<h3>Do NOT, between scheduled posts:</h3>
+<ul>
+  <li>Post additional positioning copy (saves it for launch announcement)</li>
+  <li>Quote-tweet competitors with critique (the messaging system bans defensive naming)</li>
+  <li>Tweet about unrelated topics (politics, hot takes, random philosophy). The pre-launch profile should read as one focused thing.</li>
+</ul>
+</section>
+
+<section id="bio">
+<h2>X profile bio <span class="badge locked">Locked</span></h2>
+
+<div class="post-card">
+  <h3>Bio <span class="badge">125 chars</span></h3>
+  <div class="post-meta">
+    <span>Surface map: <code>social bio</code> → Medium form (truncated to fit 160-char X limit, using sub-hero verbatim)</span>
+  </div>
+  <div class="post-text">Capture thoughts without typing. Your words land at your cursor, and a structured note lands in your vault. Mac. Summer 2026.</div>
+  <div class="source-attr">
+    <strong>Source attribution:</strong><br>
+    Lines 1-2 → <code>messaging-system.html#sub-hero</code> (which is also the first two sentences of <code>#medium</code>), verbatim<br>
+    "Mac. Summer 2026." → minimum launch context, not a positioning claim
+  </div>
+</div>
+
+<h3>Other profile fields</h3>
+<ul>
+  <li><strong>Website:</strong> <code>https://thoughtmic.com/</code></li>
+  <li><strong>Location:</strong> optional. If filled, keep it generic ("Building on the internet" or similar) rather than a city, since ThoughtMic is brand identity not personal.</li>
+  <li><strong>Display name:</strong> <code>ThoughtMic</code></li>
+  <li><strong>Handle:</strong> <code>@thoughtmic</code></li>
+  <li><strong>Profile photo:</strong> the locked brand logo (use <code>/brand/icon-512.png</code> from the repo)</li>
+  <li><strong>Banner:</strong> optional. If you make one, use the og-image.png aesthetic, NOT a different visual treatment.</li>
+</ul>
+</section>
+
+<section id="dont-post">
+<h2>Things we will NOT post</h2>
+<p>The same guardrails as <code>messaging-system.html#dont-say</code> apply here. Restating because X is a tempting place to slip:</p>
+<ul>
+  <li><strong>No em-dashes (—) or en-dashes (–).</strong> Use periods, commas, line breaks, or short sentences. X auto-converts straight quotes but does NOT auto-convert dashes; what you type is what posts.</li>
+  <li><strong>No "AI-powered" / "AI-driven".</strong></li>
+  <li><strong>No "revolutionary" / "game-changing" / "magical" / "delightful".</strong></li>
+  <li><strong>No naming competitors defensively.</strong> Wispr Flow, Superwhisper, Mem, Reflect. Comparison pages on the site name them once each; brand-level X posts do not.</li>
+  <li><strong>No cloud provider names.</strong> Cerebras, Groq, Fireworks, OpenAI, Anthropic. The product backend uses these but the X account doesn't read like a provider press release.</li>
+  <li><strong>No unvalidated habit claims.</strong> "Your daily routine", "every morning you...", "your weekly review habit" — all hypotheses until real users demonstrate them.</li>
+  <li><strong>No "simply" or "just".</strong> Patronizing.</li>
+  <li><strong>No "second brain" as a primary descriptor.</strong> Tiago Forte's framing; reference in passing is fine but don't lead with it.</li>
+  <li><strong>No "transform your workflow" / "10x your productivity".</strong> Productivity-marketing slop.</li>
+  <li><strong>No replying with the product pitch in unrelated threads.</strong> Be useful first, brand last.</li>
+</ul>
+</section>
+
+<section id="cross-refs">
+<h2>Cross-references</h2>
+
+<h3>Sources for every post line</h3>
+<ul>
+  <li><a href="../positioning/messaging-system.html#sub-hero">messaging-system.html#sub-hero</a> — used in bio, Posts 1, 2, 3</li>
+  <li><a href="../positioning/messaging-system.html#supporting-taglines">messaging-system.html#supporting-taglines</a> (T-E) — used in Post 1</li>
+  <li><a href="../positioning/messaging-system.html#depth-line">messaging-system.html#depth-line</a> (D1) — used in Post 4</li>
+  <li><a href="../positioning/messaging-system.html#medium">messaging-system.html#medium</a> — bridge sentence used in Post 3</li>
+  <li><a href="../positioning/messaging-system.html#long">messaging-system.html#long</a> — sentence 1 used in Post 4, sentence 2 used in Post 2</li>
+</ul>
+
+<h3>Related docs</h3>
+<ul>
+  <li><a href="../positioning/messaging-system.html">positioning/messaging-system.html</a> — locked copy source of truth</li>
+  <li><a href="../positioning-architecture.html">positioning-architecture.html</a> — strategic rationale behind the messaging</li>
+  <li><a href="../README.md">docs/README.md</a> — docs index</li>
+</ul>
+</section>
+
+<div class="footer-meta">
+  Authored 2026-05-23. X account: <code>@thoughtmic</code>. Branch <code>docs/x-prelaunch-marketing</code>. This doc covers pre-launch only. Post-launch and ongoing X cadence will live in a separate doc once we have real-user data.
+</div>
+
+</main>
+</div>
+</body>
+</html>
