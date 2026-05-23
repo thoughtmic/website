@@ -181,24 +181,25 @@
       </div>
 
       <div id="state-with-key" hidden>
-        <p class="doc__lede">We're opening ThoughtMic now to activate this license automatically. If the app doesn't open, copy the key below and paste it in <strong>Preferences &gt; Account</strong>.</p>
+        <p class="doc__lede">Click <strong>Open ThoughtMic</strong> below to activate your license. The app will receive the key automatically. (Your browser may ask you to confirm the first time.)</p>
 
         <div class="key-block">
           <p class="key-block__label">Your license key</p>
           <code class="key-block__value" id="key-value">PDL_...</code>
           <div class="key-block__actions">
-            <button type="button" class="btn btn--primary" id="copy-btn">Copy key</button>
-            <a class="btn btn--ghost" href="thoughtmic://activate" id="reopen-link">Open ThoughtMic again</a>
+            <a class="btn btn--primary" href="thoughtmic://activate" id="reopen-link">Open ThoughtMic</a>
+            <button type="button" class="btn btn--ghost" id="copy-btn">Copy key</button>
             <span class="key-block__status" id="copy-status" aria-live="polite">Copied</span>
           </div>
         </div>
 
+        <p class="doc__lede" style="margin-top: var(--space-4);"><strong>If clicking Open ThoughtMic doesn't launch the app,</strong> your browser may be blocking custom protocol handlers. Reset under the lock icon in the URL bar &rsaquo; Site settings &rsaquo; "External protocol handlers" &rsaquo; set to Ask. Or activate manually:</p>
         <ol class="activate__steps">
           <li>Open <strong>ThoughtMic</strong> on your Mac.</li>
           <li>Go to <strong>Preferences &gt; Account</strong>.</li>
           <li>Paste your license key and click <strong>Activate</strong>.</li>
         </ol>
-        <p class="doc__lede" style="margin-top: var(--space-4); font-size: var(--fs-caption);">A copy of this key was also emailed to you. If you ever lose both, <a href="/recover-license/">recover it here</a>.</p>
+        <p class="doc__lede" style="margin-top: var(--space-4); font-size: var(--fs-caption);">A copy of this key was also emailed to you. Bookmark <a href="/recover-license/">/recover-license/</a> to resend it any time using the email address you bought with.</p>
       </div>
     </div>
   </main>
