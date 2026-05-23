@@ -21,6 +21,12 @@ Or open directly from the filesystem with `file://` if you don't need relative-a
 | [`positioning/messaging-system.html`](positioning/messaging-system.html) | Source of truth for every locked string on the site — primary tagline (T-A), supporting taglines (T-B, T-E), sub-hero, depth line, medium/long forms, surface map, shortcut placement rules, and the "Things we will NOT say" guardrails. |
 | [`positioning/IMPL-KICKOFF.md`](positioning/IMPL-KICKOFF.md) | Historical artifact: the verbatim implementation prompt used to ship PR #11 (P1+P2+P3 bundle). Kept for traceability. |
 
+## Marketing
+
+| Doc | What it is |
+|---|---|
+| [`marketing/x-prelaunch.html`](marketing/x-prelaunch.html) | X (Twitter) pre-launch cadence for `@thoughtmic`. The four staggered posts (verbatim from the messaging system), posting schedule, between-post engagement playbook, profile bio, and posting guardrails. Locked 2026-05-23. |
+
 ## Conventions
 
 - HTML docs use inline `<style>` blocks (no shared CSS) so they render the same locally and on any cloned copy.
