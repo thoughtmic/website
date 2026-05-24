@@ -295,19 +295,14 @@
         document.body.removeChild(ta);
       }
 
-      // Trigger the deeplink. Use a hidden iframe so a failed scheme doesn't
-      // replace the page; we still want the fallback UI on screen.
-      try {
-        var iframe = document.createElement("iframe");
-        iframe.style.display = "none";
-        iframe.src = deeplink;
-        document.body.appendChild(iframe);
-        setTimeout(function () {
-          if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-        }, 2000);
-      } catch (e) {
-        window.location.href = deeplink;
-      }
+      // Note: we deliberately do NOT auto-fire the deeplink on page load.
+      // Modern browsers block silent custom-protocol launches without a
+      // user gesture, so auto-fire works inconsistently across browsers
+      // and creates a confusing "did the alert really appear before I
+      // clicked anything?" experience. The visible "Open ThoughtMic"
+      // button is the single explicit user action — predictable, matches
+      // the page copy, and matches the standard pattern for custom
+      // protocol launches on the web.
     })();
   </script>
   <script defer src="/js/nav.js"></script>
