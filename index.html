@@ -79,7 +79,7 @@
           "name": "Lifetime",
           "price": "99",
           "priceCurrency": "USD",
-          "description": "200-slot cap; first 50 at $49"
+          "description": "$99 one-time, lifetime access; limited to 200 supporters"
         }
       ]
     },
@@ -501,9 +501,6 @@ checkout flow involves moving…
           <p class="pricing__sub">
             Free forever up to 2,000 words a week. Or unlock everything with Pro.
           </p>
-          <p class="pricing__sub" style="margin-top: 12px; color: var(--accent); font-weight: 500;">
-            Pre-launch ladder: <strong>first 50 waitlist signups get $49 lifetime</strong> · next 150 get $99 lifetime · after slot 200, lifetime closes.
-          </p>
         </div>
 
         <div class="pricing__toggle-wrap">
@@ -512,21 +509,17 @@ checkout flow involves moving…
             role="radiogroup"
             aria-label="Billing period"
             data-pricing-toggle
-            data-active="annual"
-            data-lifetime-remaining="200">
+            data-active="annual">
             <button type="button" role="radio" data-period="monthly" aria-checked="false" tabindex="-1">
               Monthly
             </button>
             <button type="button" role="radio" data-period="annual" aria-checked="true" tabindex="0">
               Annual <span class="save">save 25%</span>
             </button>
-            <button type="button" role="radio" data-period="lifetime" aria-checked="false" tabindex="-1">
-              Lifetime <span class="save" data-lifetime-remaining-label>200 left</span>
-            </button>
           </div>
         </div>
 
-        <div class="pricing__grid">
+        <div class="pricing__grid" data-lifetime-remaining="200">
           <article class="plan" data-reveal>
             <div class="plan__name">Free</div>
             <div class="plan__price">$0<span class="plan__price-unit">/forever</span></div>
@@ -537,19 +530,16 @@ checkout flow involves moving…
               <li>Text injection into any app</li>
               <li>Basic vault writing</li>
             </ul>
-            <a class="btn btn--ghost" href="#waitlist" style="justify-content: flex-start; padding-inline: 0;">
-              Join the waitlist <span aria-hidden="true">→</span>
-            </a>
+            <a class="btn btn--primary" href="#waitlist">Join the waitlist</a>
           </article>
 
-          <article class="plan plan--featured" data-reveal>
-            <span class="plan__badge" data-period-text data-annual="Annual · save 25%" data-monthly="Monthly" data-lifetime="Founder's Deal · 50 left">Annual · save 25%</span>
+          <article class="plan" data-reveal>
             <div class="plan__name">Pro</div>
             <div class="plan__price">
-              <span data-period-text data-annual="$72" data-monthly="$8" data-lifetime="$99">$72</span><span class="plan__price-unit" data-period-text data-annual="/year" data-monthly="/month" data-lifetime="one-time">/year</span>
+              <span data-period-text data-annual="$72" data-monthly="$8">$72</span><span class="plan__price-unit" data-period-text data-annual="/year" data-monthly="/month">/year</span>
             </div>
             <p class="plan__tagline">
-              <span data-period-text data-annual="$6/mo · billed annually" data-monthly="billed monthly" data-lifetime="$49 for first 50 · $99 for slots 51-200">$6/mo · billed annually</span>
+              <span data-period-text data-annual="$6/mo · billed annually" data-monthly="billed monthly">$6/mo · billed annually</span>
             </p>
             <ul class="plan__list">
               <li>Everything in Free, unlimited</li>
@@ -558,7 +548,20 @@ checkout flow involves moving…
               <li>Smart titles, tags &amp; backlinks</li>
               <li>Priority support</li>
             </ul>
-            <a class="btn btn--primary" href="#waitlist" data-period-text data-annual="Join the waitlist" data-monthly="Join the waitlist" data-lifetime="Get Founder's Deal · $49 lifetime (first 50)">Join the waitlist</a>
+            <a class="btn btn--primary" href="#waitlist">Join the waitlist</a>
+          </article>
+
+          <article class="plan plan--deal" data-reveal data-lifetime-card>
+            <div class="plan__name">Founder's Deal</div>
+            <div class="plan__price">$99<span class="plan__price-unit">once</span></div>
+            <p class="plan__tagline">No subscription, ever.</p>
+            <p class="plan__scarcity">Limited to 200 supporters · <span data-lifetime-remaining-label>200</span> left</p>
+            <ul class="plan__list">
+              <li>Everything in Pro, forever</li>
+              <li>No renewals, ever</li>
+            </ul>
+            <p class="plan__footnote">You're funding the build. Back us early.</p>
+            <a class="btn btn--primary" href="#waitlist">Join the waitlist</a>
           </article>
         </div>
 
@@ -614,7 +617,7 @@ checkout flow involves moving…
       </svg>
         <h2 class="finalcta__title" data-reveal>Be first in line when ThoughtMic ships.</h2>
         <p class="finalcta__sub">
-          We'll email you the day the app is ready, with your download link and, for the first 50 signups, your Founder's Deal code.
+          We'll email you the day the app is ready, with your download link and your Founder's Deal: $99 lifetime, limited to 200 slots.
         </p>
 
         <form class="waitlist-form" action="https://app.kit.com/forms/9359921/subscriptions" method="post">

@@ -1108,6 +1108,19 @@
   color: var(--fg-muted);
 }
 
+.plan__scarcity {
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+}
+
+.plan__footnote {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--fg-subtle);
+}
+
 .plan {
   background: var(--bg-elev);
   border: 1px solid var(--border);
@@ -1122,6 +1135,13 @@
 
 .plan--featured {
   border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(107, 142, 127, 0.18),
+              var(--shadow-lift);
+}
+
+.plan--deal {
+  border-color: var(--accent);
+  background: rgba(69, 114, 97, 0.05);
   box-shadow: 0 0 0 1px rgba(107, 142, 127, 0.18),
               var(--shadow-lift);
 }
@@ -1183,6 +1203,10 @@
   margin: 0;
   display: grid;
   gap: 10px;
+  /* Absorb slack so each card's CTA bottom-aligns regardless of how many
+     features (or the deal card's footnote) sit above it. */
+  flex-grow: 1;
+  align-content: start;
 }
 
 .plan__list li {

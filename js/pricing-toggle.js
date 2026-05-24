@@ -2,15 +2,22 @@
   const toggle = document.querySelector("[data-pricing-toggle]");
   if (!toggle) return;
 
-  // Kill-switch: if data-lifetime-remaining is missing, zero, or negative,
-  // hide the Lifetime tab entirely. Keeps the launch promotion self-expiring.
-  const remaining = parseInt(toggle.dataset.lifetimeRemaining || "0", 10);
-  const lifetimeBtn = toggle.querySelector('button[data-period="lifetime"]');
-  if (lifetimeBtn && (!Number.isFinite(remaining) || remaining <= 0)) {
-    lifetimeBtn.remove();
+  // Lifetime kill-switch: when the Founder's Deal sells out (remaining
+  // missing, zero, or negative), drop the deal card and collapse the grid
+  // to two columns. Keeps the launch promotion self-expiring.
+  const grid = document.querySelector(".pricing__grid");
+  const remaining = parseInt((grid && grid.dataset.lifetimeRemaining) || "0", 10);
+  const dealCard = grid && grid.querySelector("[data-lifetime-card]");
+  if (dealCard && (!Number.isFinite(remaining) || remaining <= 0)) {
+    dealCard.remove();
+    grid.classList.add("is-2up");
+  } else if (dealCard) {
+    const label = dealCard.querySelector("[data-lifetime-remaining-label]");
+    if (label) label.textContent = String(remaining);
   }
 
-  let buttons = Array.from(toggle.querySelectorAll("button[data-period]"));
+  // Billing-period toggle: swaps the Pro card between monthly and annual.
+  const buttons = Array.from(toggle.querySelectorAll("button[data-period]"));
   const swapTargets = document.querySelectorAll("[data-period-text]");
 
   const apply = (period) => {
@@ -41,8 +48,6 @@
     });
   });
 
-  // If the stored default isn't available (e.g. lifetime tab was stripped),
-  // fall back to annual.
   const requested = toggle.dataset.active || "annual";
   const available = buttons.some((b) => b.dataset.period === requested);
   apply(available ? requested : "annual");
