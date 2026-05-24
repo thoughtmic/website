@@ -1108,6 +1108,14 @@
   color: var(--fg-muted);
 }
 
+.pricing__note {
+  max-width: 58ch;
+  margin: 0 auto var(--space-4);
+  color: var(--accent);
+  font-weight: 500;
+  line-height: var(--lh-body);
+}
+
 .plan {
   background: var(--bg-elev);
   border: 1px solid var(--border);
