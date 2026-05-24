@@ -41,10 +41,17 @@
 
 .pricing__grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--space-4);
-  max-width: 860px;
+  max-width: 1040px;
   margin-inline: auto;
+}
+
+/* Collapses to two columns when the Founder's Deal card sells out
+   (pricing-toggle.js adds .is-2up and removes the deal card). */
+.pricing__grid.is-2up {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-width: 760px;
 }
 
 .footer__row {
@@ -76,7 +83,8 @@
     grid-template-columns: 1fr;
   }
 
-  .pricing__grid {
+  .pricing__grid,
+  .pricing__grid.is-2up {
     grid-template-columns: 1fr;
   }
 }

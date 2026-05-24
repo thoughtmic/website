@@ -1108,12 +1108,17 @@
   color: var(--fg-muted);
 }
 
-.pricing__note {
-  max-width: 58ch;
-  margin: 0 auto var(--space-4);
-  color: var(--accent);
+.plan__scarcity {
+  font-size: 12.5px;
   font-weight: 500;
-  line-height: var(--lh-body);
+  letter-spacing: 0.01em;
+  color: var(--accent);
+}
+
+.plan__footnote {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--fg-subtle);
 }
 
 .plan {
@@ -1130,6 +1135,13 @@
 
 .plan--featured {
   border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(107, 142, 127, 0.18),
+              var(--shadow-lift);
+}
+
+.plan--deal {
+  border-color: var(--accent);
+  background: rgba(69, 114, 97, 0.05);
   box-shadow: 0 0 0 1px rgba(107, 142, 127, 0.18),
               var(--shadow-lift);
 }
