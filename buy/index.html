@@ -84,13 +84,13 @@
       margin-top: var(--space-4);
       flex-wrap: wrap;
     }
-    .doc a {
+    .doc a:not(.btn) {
       color: var(--accent);
       text-decoration: none;
       border-bottom: 1px solid rgba(69, 114, 97, 0.3);
       transition: border-color var(--dur-micro) var(--ease);
     }
-    .doc a:hover { border-bottom-color: var(--accent); }
+    .doc a:not(.btn):hover { border-bottom-color: var(--accent); }
     @media (max-width: 640px) {
       .doc__title { font-size: 30px; }
     }
