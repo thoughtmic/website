@@ -1203,6 +1203,10 @@
   margin: 0;
   display: grid;
   gap: 10px;
+  /* Absorb slack so each card's CTA bottom-aligns regardless of how many
+     features (or the deal card's footnote) sit above it. */
+  flex-grow: 1;
+  align-content: start;
 }
 
 .plan__list li {
