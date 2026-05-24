@@ -254,12 +254,15 @@
         });
       }
 
-      function preMintLicense() {
+      function preMintLicense(plan) {
         return fetch(WORKER_BASE + "/api/checkout-init", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: "{}"
+          body: JSON.stringify({ plan: plan })
         }).then(function (res) {
+          if (res.status === 409) {
+            throw new Error("Lifetime tier is sold out. Please choose monthly or annual.");
+          }
           if (!res.ok) throw new Error("checkout-init " + res.status);
           return res.json();
         }).then(function (data) {
@@ -274,7 +277,7 @@
         var priceId = PRICE_IDS[plan];
         showOnly(stateLoading);
 
-        return Promise.all([loadPaddleScript(), preMintLicense()])
+        return Promise.all([loadPaddleScript(), preMintLicense(plan)])
           .then(function (results) {
             var licenseKey = results[1];
             if (typeof Paddle === "undefined" || !Paddle.Initialize || !Paddle.Checkout) {

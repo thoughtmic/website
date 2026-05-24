@@ -70,6 +70,13 @@
       transition: border-color var(--dur-micro) var(--ease);
     }
     .doc a:hover { border-bottom-color: var(--accent); }
+    /* When an anchor is styled as a button (e.g. the "Open ThoughtMic"
+       deeplink CTA), the .doc a color/border rules above would paint the
+       link green-on-green and add an underline. Reset those for button
+       anchors so the text reads white-on-green like a real .btn--primary. */
+    .doc a.btn { border-bottom: none; }
+    .doc a.btn--primary { color: #ffffff; }
+    .doc a.btn--ghost { color: var(--accent); }
     .key-block {
       margin-top: var(--space-4);
       background: var(--accent-soft);
