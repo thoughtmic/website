@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ThoughtMic vs VoiceInk: Open-source dictation, or vault enrichment</title>
-  <meta name="description" content="VoiceInk is a great open-source local dictation app for Mac. ThoughtMic is a proprietary tool focused on writing structured Markdown into your Obsidian or Logseq vault, with auto-titles, auto-tags, backlinks, and an inbox review surface. Honest comparison, no FUD.">
+  <meta name="description" content="VoiceInk is an open-source local dictation app for Mac. ThoughtMic is a proprietary tool focused on writing structured Markdown into your Obsidian or Logseq vault, with auto-titles, auto-tags, backlinks, and an inbox review surface. Honest comparison, no FUD.">
   <meta name="theme-color" content="#f6f3ec">
   <link rel="canonical" href="https://thoughtmic.com/vs/voiceink">
   <script type="application/ld+json">
@@ -19,7 +19,7 @@
   </script>
 
   <meta property="og:title" content="ThoughtMic vs VoiceInk: Open-source dictation, or vault enrichment">
-  <meta property="og:description" content="VoiceInk is a great open-source local dictation app. ThoughtMic is a proprietary tool focused on writing structured Markdown into your Obsidian or Logseq vault.">
+  <meta property="og:description" content="VoiceInk is an open-source local dictation app. ThoughtMic is a proprietary tool focused on writing structured Markdown into your Obsidian or Logseq vault.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://thoughtmic.com/vs/voiceink">
   <meta property="og:image" content="/assets/og-image.png">
@@ -456,7 +456,7 @@
     "@type": "Article",
     "image": "https://thoughtmic.com/assets/og-image.png",
     "headline": "ThoughtMic vs VoiceInk: Open-source dictation, or vault enrichment",
-    "description": "VoiceInk is a great open-source local dictation app for Mac. ThoughtMic is a proprietary tool focused on writing structured Markdown into your Obsidian or Logseq vault, with auto-titles, auto-tags, backlinks, and an inbox review surface.",
+    "description": "VoiceInk is an open-source local dictation app for Mac. ThoughtMic is a proprietary tool focused on writing structured Markdown into your Obsidian or Logseq vault, with auto-titles, auto-tags, backlinks, and an inbox review surface.",
     "datePublished": "2026-05-06",
     "dateModified": "2026-05-06",
     "author": {
@@ -498,7 +498,7 @@
         "name": "Why pay for ThoughtMic if VoiceInk is free?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "VoiceInk transcribes voice to text at the cursor. ThoughtMic does that and writes a titled, auto-tagged, backlinked Markdown note into your vault, plus a weekly review surface and a local MCP server. If you don't keep a Markdown vault, ThoughtMic isn't worth paying for. If you live in Obsidian or Logseq, the time saved on titling, tagging, and linking is what you're paying for."
+          "text": "VoiceInk transcribes voice to text at the cursor. ThoughtMic does that and writes a titled, auto-tagged, backlinked Markdown note into your vault, plus a dedicated review surface and a local MCP server. If you don't keep a Markdown vault, ThoughtMic isn't worth paying for. If you live in Obsidian or Logseq, the time saved on titling, tagging, and linking is what you're paying for."
         }
       },
       {
@@ -519,10 +519,10 @@
       },
       {
         "@type": "Question",
-        "name": "What about whisper.cpp specifically: what does ThoughtMic use?",
+        "name": "What transcription engine does ThoughtMic use?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "ThoughtMic ships local speech-to-text with Metal acceleration. VoiceInk historically uses whisper.cpp and has added Parakeet V3 support. Transcription quality is in the same range; both are batch-style with end-to-end latency in the 700–1500ms range on M-series Macs. Neither is streaming-fast; that requires cloud."
+          "text": "ThoughtMic ships local speech-to-text with Metal acceleration. VoiceInk runs local open-source models, with an additional faster model option for short utterances. Transcription quality is in the same range; both are batch-style with end-to-end latency in the 700–1500ms range on M-series Macs. Neither is streaming-fast; that requires cloud."
         }
       },
       {
@@ -587,9 +587,9 @@
         <span class="vs-hero__eyebrow">Honest comparison · updated May 2026</span>
         <h1 class="vs-hero__title">ThoughtMic <em>vs</em> VoiceInk</h1>
         <p class="vs-hero__lede">
-          VoiceInk is a great open-source local dictation app. ThoughtMic is a different tool: a proprietary voice-to-vault pipeline that writes titled, tagged, linked Markdown into your Obsidian or Logseq vault. Two legitimate trades: open-source identity, or vault depth.
+          VoiceInk is an open-source local dictation app for Mac. ThoughtMic is a different tool: a proprietary local voice layer for your Markdown vault that writes titled, tagged, linked Markdown into your Obsidian or Logseq vault. Two legitimate trades: open-source identity, or vault depth.
         </p>
-        <p class="vs-hero__updated">No FUD. No marketing cherry-picks. We respect VoiceInk and what open source means.</p>
+        <p class="vs-hero__updated">No FUD. No marketing cherry-picks. Just an honest comparison.</p>
       </div>
     </section>
 
@@ -651,7 +651,7 @@
               </tr>
               <tr>
                 <th scope="row">Transcription engine</th>
-                <td>Whisper / Parakeet (local)</td>
+                <td>Local, on-device</td>
                 <td>Local speech-to-text, Metal-accelerated</td>
               </tr>
               <tr>
@@ -748,7 +748,7 @@
         </p>
 
         <p>
-          Both apps press a hotkey, run Whisper locally, and put text where you want it. That's where VoiceInk's job ends, and that's the job it was built to do well. ThoughtMic adds a second job: the same voice capture also writes a structured note into your knowledge vault, with a generated title, suggested tags pulled from your existing tag taxonomy, and backlinks resolved against notes you already have.
+          Both apps press a hotkey, transcribe locally, and put text where you want it. That's where VoiceInk's job ends, and that's the job it was built to do well. ThoughtMic adds a second job: the same voice capture also writes a structured note into your knowledge vault, with a generated title, suggested tags pulled from your existing tag taxonomy, and backlinks resolved against notes you already have.
         </p>
 
         <h3 class="deep__h3">The honest open-source concession</h3>
@@ -769,7 +769,7 @@
 
         <h3 class="deep__h3">Why review matters more than capture</h3>
         <p>
-          Capturing thoughts is the easy part. The reason most voice-note workflows fall apart is the <strong>Collector's Fallacy</strong>: you accumulate hundreds of <code>#inbox</code> entries you never re-read. ThoughtMic ships a dedicated weekly review surface: hit <code>⌥⇧ R</code>, walk through every captured note, hit one of four keys (Discard / Keep / Promote / Archive). Most weeks, five minutes clears the inbox. VoiceInk has no opinion on what happens to your text after it lands; ThoughtMic does.
+          Capturing thoughts is the easy part. The reason most voice-note workflows fall apart is the <strong>Collector's Fallacy</strong>: you accumulate hundreds of <code>#inbox</code> entries you never re-read. ThoughtMic ships a dedicated review surface: hit <code>⌥⇧ R</code>, walk through every captured note, hit one of four keys (Discard / Keep / Promote / Archive). Five minutes clears the inbox. VoiceInk has no opinion on what happens to your text after it lands; ThoughtMic does.
         </p>
 
         <h3 class="deep__h3">Why MCP matters</h3>
@@ -779,11 +779,11 @@
 
         <h3 class="deep__h3">A note on transcription speed and quality</h3>
         <p>
-          Both apps run local models. Transcription quality is in the same range; they share the same underlying Whisper architecture, and VoiceInk has added Parakeet V3 support which can be quicker for short utterances. End-to-end latency for both is in the 700–1500ms range on M-series Macs. If you want sub-300ms streaming, the only path right now is cloud-based dictation (Wispr Flow), and you'd be giving up the local-first guarantee both ThoughtMic and VoiceInk hold to.
+          Both apps run local models. Transcription quality is in the same range, and VoiceInk offers an additional faster model option that can be quicker for short utterances. End-to-end latency for both is in the 700–1500ms range on M-series Macs. If you want sub-300ms streaming, the only path right now is cloud-based dictation (Wispr Flow), and you'd be giving up the local-first guarantee both ThoughtMic and VoiceInk hold to.
         </p>
 
         <blockquote>
-          "VoiceInk is excellent for pure local dictation, especially if open-source identity is a hard requirement. ThoughtMic is a proprietary tool focused on a different layer: writing to your knowledge vault with enrichment. We're not trying to replace VoiceInk; we're solving a different problem."
+          "VoiceInk is a strong pick for pure local dictation, especially if open-source identity is a hard requirement. ThoughtMic is a proprietary tool focused on a different layer: writing to your knowledge vault with enrichment. We're not trying to replace VoiceInk; we're solving a different problem."
         </blockquote>
       </div>
     </section>
@@ -804,7 +804,7 @@
         <details>
           <summary>Why pay for ThoughtMic if VoiceInk is free?</summary>
           <div class="faq__answer">
-            <p>VoiceInk transcribes voice to text at the cursor. That's a complete product on its own and a great answer to the dictation problem. ThoughtMic does that <em>and</em> writes a titled, auto-tagged, backlinked Markdown note into your vault, plus a weekly review surface and a local MCP server. If you don't keep a Markdown vault, ThoughtMic isn't worth paying for; use VoiceInk.</p>
+            <p>VoiceInk transcribes voice to text at the cursor. That's a complete product on its own and a great answer to the dictation problem. ThoughtMic does that <em>and</em> writes a titled, auto-tagged, backlinked Markdown note into your vault, plus a dedicated review surface and a local MCP server. If you don't keep a Markdown vault, ThoughtMic isn't worth paying for; use VoiceInk.</p>
             <p>If you live in Obsidian or Logseq, the time saved on titling, tagging, linking, and reviewing is what you're paying for. The pricing is $8/mo, $72/yr, or $99 lifetime. Free up to 2,000 words/week to try it without commitment.</p>
           </div>
         </details>
@@ -827,9 +827,9 @@
         </details>
 
         <details>
-          <summary>What about whisper.cpp specifically: what does ThoughtMic use?</summary>
+          <summary>What transcription engine does ThoughtMic use?</summary>
           <div class="faq__answer">
-            <p>ThoughtMic ships local speech-to-text with Metal acceleration. VoiceInk historically uses whisper.cpp and has added Parakeet V3 support for quicker transcription on short utterances. Transcription quality is in the same range; both are batch-style (record-then-transcribe) with end-to-end latency in the 700–1500ms range on M-series Macs.</p>
+            <p>ThoughtMic ships local speech-to-text with Metal acceleration. VoiceInk runs local open-source models, with an additional faster model option for quicker transcription on short utterances. Transcription quality is in the same range; both are batch-style (record-then-transcribe) with end-to-end latency in the 700–1500ms range on M-series Macs.</p>
             <p>Neither is a streaming-fast experience; that requires sending audio to the cloud, which both apps avoid by design.</p>
           </div>
         </details>
@@ -864,7 +864,7 @@
         </g>
         <rect x="492" y="372" width="40" height="280" rx="20" ry="20" fill="#457261"/>
       </svg>
-        <h2 class="finalcta__title" data-reveal>Try the voice-to-vault tool when it ships.</h2>
+        <h2 class="finalcta__title" data-reveal>Try ThoughtMic when it ships.</h2>
         <p class="finalcta__sub">
           We'll email you the day ThoughtMic is ready, with your download link and the Founder's Deal: $99 lifetime, limited to 200 supporters.
         </p>
