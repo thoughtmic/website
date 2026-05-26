@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThoughtMic: Download for Mac</title>
+  <meta name="description" content="Download ThoughtMic for macOS. Press ⌥ Space anywhere, speak, and your thoughts land as structured Markdown in your vault.">
+  <meta name="theme-color" content="#f6f3ec">
+  <link rel="canonical" href="https://thoughtmic.com/download">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thoughtmic.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Download", "item": "https://thoughtmic.com/download" }
+    ]
+  }
+  </script>
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Fraunces[SOFT,WONK,opsz,wght].woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/Inter[wght].woff2" crossorigin>
+
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+
+  <style>
+    .doc { padding-block: var(--space-6) var(--space-7); }
+    .doc__container {
+      max-width: 640px;
+      margin: 0 auto;
+      padding-inline: var(--gutter-x);
+      text-align: center;
+    }
+    .doc__eyebrow {
+      display: inline-block;
+      font-size: var(--fs-caption);
+      font-weight: 500;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-3);
+    }
+    .doc__title {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 40px;
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      margin-bottom: var(--space-3);
+      font-variation-settings: "opsz" 40, "SOFT" -5, "wght" 500;
+    }
+    .doc__lede {
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body);
+      color: var(--fg-muted);
+      max-width: 52ch;
+      margin: 0 auto;
+    }
+
+    .download__cta {
+      margin-top: var(--space-5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .download__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .download__btn svg { width: 20px; height: 20px; }
+    .download__meta {
+      font-size: var(--fs-caption);
+      color: var(--fg-muted);
+    }
+
+    /* Install steps, laid out as a clean numbered card. */
+    .install {
+      margin-top: var(--space-6);
+      text-align: left;
+      background: var(--accent-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+    }
+    .install__label {
+      font-size: var(--fs-caption);
+      font-weight: 600;
+      letter-spacing: var(--tr-caption);
+      text-transform: uppercase;
+      color: var(--fg-muted);
+      margin-bottom: var(--space-3);
+    }
+    .install__steps {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      counter-reset: step;
+    }
+    .install__steps li {
+      position: relative;
+      padding-left: 40px;
+      margin-bottom: var(--space-3);
+      color: var(--fg-muted);
+      font-size: var(--fs-body-sm);
+      line-height: var(--lh-body);
+    }
+    .install__steps li:last-child { margin-bottom: 0; }
+    .install__steps li::before {
+      counter-increment: step;
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: -1px;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 50%;
+    }
+    .install__steps strong { color: var(--fg); font-weight: 600; }
+
+    .download__sysreq {
+      margin-top: var(--space-4);
+      font-size: var(--fs-caption);
+      color: var(--fg-muted);
+    }
+    .download__owned {
+      margin-top: var(--space-5);
+      font-size: var(--fs-body-sm);
+      color: var(--fg-muted);
+    }
+    .doc a:not(.btn) {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(69, 114, 97, 0.3);
+      transition: border-color var(--dur-micro) var(--ease);
+    }
+    .doc a:not(.btn):hover { border-bottom-color: var(--accent); }
+    .doc a.btn { border-bottom: none; }
+    .doc a.btn--primary { color: #ffffff; }
+
+    @media (max-width: 640px) {
+      .doc__title { font-size: 30px; }
+    }
+  </style>
+
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <header class="nav" role="banner">
+    <div class="container nav__row">
+      <a href="/" class="nav__wordmark" aria-label="ThoughtMic home">
+        <svg class="nav__mark" viewBox="224 224 576 576" width="76" height="76" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="224" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="224" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="224" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="748" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="652" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="652" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="312" y="482" width="40" height="60"  rx="20" ry="20"/>
+          <rect x="372" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="432" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="552" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="612" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="672" y="482" width="40" height="60"  rx="20" ry="20"/>
+        </g>
+        <rect x="492" y="372" width="40" height="280" rx="20" ry="20" fill="#457261"/>
+      </svg>
+        <span class="nav__wordmark-text">ThoughtMic</span>
+      </a>
+      <nav aria-label="Primary">
+        <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu"><span class="nav__toggle-bar" aria-hidden="true"></span><span class="nav__toggle-bar" aria-hidden="true"></span><span class="nav__toggle-bar" aria-hidden="true"></span></button>
+          <ul class="nav__links" id="primary-nav">
+          <li><a class="nav__link" href="/#features">Features</a></li>
+          <li><a class="nav__link" href="/privacy">Privacy</a></li>
+          <li><a class="nav__link" href="/for-ai-work">For AI work <span class="nav__link-ext" aria-hidden="true">↗</span></a></li>
+          <li><a class="nav__link" href="/values">Values <span class="nav__link-ext" aria-hidden="true">↗</span></a></li>
+          <li><a class="nav__link" href="/#pricing">Pricing</a></li>
+          <li><a class="nav__link nav__link--cta btn btn--primary" href="/#waitlist">Join waitlist</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="doc">
+    <div class="doc__container">
+      <span class="doc__eyebrow">Download</span>
+      <h1 class="doc__title">Get ThoughtMic for Mac.</h1>
+      <p class="doc__lede">
+        Free to try. Press <strong>⌥ Space</strong> anywhere on your Mac, speak, and your
+        words land at your cursor while a structured note lands in your vault.
+      </p>
+
+      <div class="download__cta">
+        <a class="btn btn--primary btn--lg download__btn" href="/download/ThoughtMic.dmg" download>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v12m0 0 4-4m-4 4-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Download for Mac
+        </a>
+        <span class="download__meta">Universal · Apple Silicon &amp; Intel</span>
+      </div>
+
+      <div class="install">
+        <p class="install__label">Installing takes 10 seconds</p>
+        <ol class="install__steps">
+          <li>Open the downloaded <strong>ThoughtMic.dmg</strong>.</li>
+          <li>Drag <strong>ThoughtMic</strong> into your <strong>Applications</strong> folder.</li>
+          <li>Launch <strong>ThoughtMic</strong> from Applications and follow the quick setup.</li>
+        </ol>
+      </div>
+
+      <p class="download__sysreq">
+        macOS 14 (Sonoma) or later. Signed and notarized by Apple, so it opens without warnings.
+      </p>
+
+      <p class="download__owned">
+        Already bought ThoughtMic Pro? Your license activates automatically from your
+        purchase email, or paste your key in <strong>Preferences &rsaquo; Account</strong>.
+        Lost it? <a href="/recover-license/">Recover your license</a>.
+      </p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__col footer__col--brand">
+        <a href="/" class="footer__brand" aria-label="ThoughtMic home">
+          <svg viewBox="224 224 576 576" aria-hidden="true">
+        <g fill="currentColor">
+          <rect x="224" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="224" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="224" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="748" y="296" width="52" height="432" rx="26" ry="26"/>
+          <rect x="652" y="296" width="148" height="52" rx="26" ry="26"/>
+          <rect x="652" y="676" width="148" height="52" rx="26" ry="26"/>
+          <rect x="312" y="482" width="40" height="60"  rx="20" ry="20"/>
+          <rect x="372" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="432" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="552" y="422" width="40" height="180" rx="20" ry="20"/>
+          <rect x="612" y="457" width="40" height="110" rx="20" ry="20"/>
+          <rect x="672" y="482" width="40" height="60"  rx="20" ry="20"/>
+        </g>
+        <rect x="492" y="372" width="40" height="280" rx="20" ry="20" fill="#457261"/>
+      </svg>
+          <span class="footer__brand-text">ThoughtMic</span>
+        </a>
+        <p class="footer__tagline">Built for people who think out loud.</p>
+        <ul class="footer__list">
+          <li><a href="/#features">Features</a></li>
+          <li><a href="/#privacy">Privacy</a></li>
+          <li><a href="/#pricing">Pricing</a></li>
+          <li><a href="/starter-vault">Starter vault</a></li>
+          <li><a href="/licenses">Licenses</a> · <a href="/terms">Terms</a> · <a href="/refund">Refund</a> · <a href="/recover-license/">Recover license</a></li>
+          <li><a href="mailto:hello@thoughtmic.com">hello@thoughtmic.com</a></li>
+        </ul>
+        <p class="footer__copy">© 2026 ThoughtMic</p>
+      </div>
+    </div>
+  </footer>
+
+  <script defer src="/js/nav.js"></script>
+</body>
+</html>

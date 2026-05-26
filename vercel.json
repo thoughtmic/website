@@ -4,7 +4,9 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/index-legacy.html", "destination": "/legacy/", "permanent": true },
-    { "source": "/index-v2.html", "destination": "/", "permanent": true }
+    { "source": "/index-v2.html", "destination": "/", "permanent": true },
+    { "source": "/download/ThoughtMic.dmg", "destination": "https://github.com/thoughtmic/releases/releases/latest/download/ThoughtMic.dmg", "permanent": false },
+    { "source": "/download/ThoughtMic.zip", "destination": "https://github.com/thoughtmic/releases/releases/latest/download/ThoughtMic.zip", "permanent": false }
   ],
   "rewrites": [
     { "source": "/favicon.ico", "destination": "/assets/favicon-32.png" }

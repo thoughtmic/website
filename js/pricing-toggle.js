@@ -33,6 +33,11 @@
       if (next != null) el.textContent = next;
     });
 
+    // Point the Pro "Buy" button at the selected billing period so checkout
+    // opens the right Paddle price (monthly vs annual).
+    const buyLink = document.querySelector("[data-buy-link]");
+    if (buyLink) buyLink.setAttribute("href", "/buy?plan=" + period);
+
     toggle.dataset.active = period;
   };
 
