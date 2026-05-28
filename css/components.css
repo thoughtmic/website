@@ -1087,6 +1087,13 @@
    ========================================================= */
 .pricing {
   text-align: center;
+  /* The section is tall; the global scroll-padding-top (136px) plus the
+     section's own padding (var(--section-y)) leaves enough lead-in space
+     above the title to push the plan cards' bottom edge below the fold
+     on common laptop heights. Pull the anchor up so the title lands flush
+     against the sticky header (no extra cream gap), reclaiming room for
+     the cards. */
+  scroll-margin-top: calc(-1 * (var(--section-y) + 48px));
 }
 
 .pricing__head {
