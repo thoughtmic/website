@@ -1087,6 +1087,10 @@
    ========================================================= */
 .pricing {
   text-align: center;
+  /* Offset the global scroll-padding-top (136px) by the section's own
+     top padding so anchor links land with the title just under the
+     sticky header, keeping the full cards inside the viewport. */
+  scroll-margin-top: calc(-1 * var(--section-y));
 }
 
 .pricing__head {
