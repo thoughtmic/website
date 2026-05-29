@@ -140,6 +140,18 @@
   transform: scaleX(1);
 }
 
+/* When a nav link is rendered as the CTA button, the underline animation
+   and dark hover color from .nav__link both fight the button styling.
+   Suppress them so the button reads as a button on hover too: no
+   underline, text stays light against the green fill. */
+.nav__link--cta::after {
+  content: none;
+}
+
+.nav__link--cta:hover {
+  color: var(--bg);
+}
+
 @media (max-width: 640px) {
   .nav__wordmark {
     gap: 8px;
