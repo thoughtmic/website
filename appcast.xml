@@ -8,25 +8,10 @@
         <description>Most recent ThoughtMic releases for the Mac auto-updater.</description>
         <language>en</language>
         <!--
-            No <item> entries yet. Sparkle treats an empty channel as
-            "you have the latest version", which is the correct behavior
-            until release-notarize.sh is extended to sign each zip with
-            sign_update and append a new <item> to this file per release.
-
-            Each future <item> will look like:
-
-                <item>
-                    <title>Version 1.0.0</title>
-                    <pubDate>Mon, 16 Jun 2026 13:00:00 -0500</pubDate>
-                    <sparkle:version>1.0.0</sparkle:version>
-                    <sparkle:shortVersionString>1.0.0</sparkle:shortVersionString>
-                    <sparkle:minimumSystemVersion>13.5</sparkle:minimumSystemVersion>
-                    <enclosure
-                        url="https://github.com/thoughtmic/releases/releases/download/v1.0.0/ThoughtMic.zip"
-                        length="26083793"
-                        type="application/octet-stream"
-                        sparkle:edSignature="..." />
-                </item>
+            No item entries yet. Sparkle treats an empty channel as
+            "you have the latest version", which is the correct
+            behavior until scripts/release-notarize.sh appends a real
+            item per stable release via append_appcast_item.py.
         -->
     </channel>
 </rss>
